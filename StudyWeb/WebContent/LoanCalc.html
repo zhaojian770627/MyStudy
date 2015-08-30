@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JavaScript Load Calculator</title>
+<link rel="stylesheet" href="styles/loancalc.css" media="screen" />
+</head>
+<body>
+	<table>
+		<tr>
+			<th>Enter Loan Data:</th>
+			<td></td>
+			<th>Loan Balance,Cumulative Equity,and Interest Payments</th>
+		</tr>
+		<tr>
+			<td>Amount of the load ($):</td>
+			<td><input id="amount"></td>
+			<td rowspan=8>
+				<canvas id="graph" width="400" height="250"></canvas></td>
+		</tr>
+		<tr>
+			<td>Annual interest(%):</td>
+			<td><input id="apr">
+			</td>
+		</tr>
+		<tr>
+			<td>Repayment period(years):</td>
+			<td><input id="years"></td>
+		</tr>
+		<tr>
+			<td>Zipcode (to find lenders):</td>
+			<td><input id="zipcode">
+			</td>
+		</tr>
+		<tr>
+			<td>Approximate Payment:</td>
+			<td><button id="btncal">Calculate</button></td>
+		</tr>
+		<tr>
+			<td>Monthly payment:</td>
+			<td>$<span class="output" id="payment"></span></td>
+		</tr>
+		<tr>
+			<td>Total payment</td>
+			<td>$<span class="output" id="total"></span>
+			</td>
+		</tr>
+		<tr>
+			<td>Total interest:</td>
+			<td>$<span class="output" id="totalinterest"></span>
+			</td>
+		</tr>
+		<tr>
+			<th>Sponsors:</th>
+			<td colspan="2">Apply for your loan with one of these fine
+				lenders:
+				<div id="lenders"></div></td>
+		</tr>
+	</table>
+<script src="js/addLoadEvent.js"></script>
+<script src="js/loancalc.js"></script>
+</body>
+</html>
