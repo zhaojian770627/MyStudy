@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Test Key Map</title>
+</head>
+<body>
+	Zipcode:
+	<input id="zip" type="text">
+	<script src="../js/17.08.Keymap.js"></script>
+	<script>
+		function f() {
+			alert("ok");
+		}
+		var binding = {};
+		binding['backspace'] = f;
+		binding['tab'] = f;
+
+		var k = new Keymap(binding);
+		k.install(document.getElementById("zip"));
+		//k.bind('backspace', f);
+	</script>
+</body>
+</html>
