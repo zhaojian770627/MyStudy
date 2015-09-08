@@ -11,7 +11,7 @@ public class TestXmlFactory {
 	public static void main(String[] args) throws IOException {
 		InputStream input=TestXmlFactory.class.getResourceAsStream("testbean.xml");
 		XmlBeanFactory xbf=new XmlBeanFactory(input);
-		Object o=xbf.getBean("Rod");
+		Object o=xbf.getBean("rod");
 		int i=0;
 		i++;
 	}

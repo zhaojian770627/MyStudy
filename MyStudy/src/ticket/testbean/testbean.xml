@@ -8,6 +8,5 @@
 	<bean name="kerry" class="ticket.testbean.TestBean">
 		<property name="name">Kerry</property>
 		<property name="age">34</property>
-		<property name="spouse" beanRef="true">rod</property>
 	</bean>
 </beans>
