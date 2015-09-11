@@ -4,15 +4,13 @@
 
 package ticket.java14.java.util.logging.log4j;
 
-import javax.swing.ComboBoxEditor;
-
 import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.PropertyConfigurator;
 
-import ticket.interface21.beans.factory.InitializingBean;
+import ticket.framework.interface21.beans.factory.InitializingBean;
 
 
 /**

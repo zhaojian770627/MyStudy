@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import ticket.interface21.jdbc.core.JdbcTemplate;
-import ticket.interface21.jdbc.core.PreparedStatementCreator;
-import ticket.interface21.jdbc.core.RowCallbackHandler;
+import ticket.framework.interface21.jdbc.core.JdbcTemplate;
+import ticket.framework.interface21.jdbc.core.PreparedStatementCreator;
+import ticket.framework.interface21.jdbc.core.RowCallbackHandler;
 
 public class TestJDBCTemplate {
 

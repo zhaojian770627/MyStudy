@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
 
-import ticket.interface21.jdbc.core.SmartDataSource;
+import ticket.framework.interface21.jdbc.core.SmartDataSource;
+
 
 
  

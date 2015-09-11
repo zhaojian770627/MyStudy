@@ -3,8 +3,8 @@ package ticket.java14.java.util.logging;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import ticket.interface21.beans.factory.ListableBeanFactoryImpl;
-import ticket.interface21.beans.factory.NoSuchBeanDefinitionException;
+import ticket.framework.interface21.beans.factory.ListableBeanFactoryImpl;
+import ticket.framework.interface21.beans.factory.NoSuchBeanDefinitionException;
 
 /**
  * Loads LoggerFactory from bean

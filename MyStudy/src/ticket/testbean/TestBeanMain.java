@@ -2,9 +2,9 @@ package ticket.testbean;
 
 import java.beans.PropertyVetoException;
 
-import ticket.interface21.beans.BeanWrapper;
-import ticket.interface21.beans.BeanWrapperImpl;
-import ticket.interface21.beans.BeansException;
+import ticket.framework.interface21.beans.BeanWrapper;
+import ticket.framework.interface21.beans.BeanWrapperImpl;
+import ticket.framework.interface21.beans.BeansException;
 
 public class TestBeanMain {
 

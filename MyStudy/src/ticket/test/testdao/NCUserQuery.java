@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import ticket.interface21.jdbc.object.ManualExtractionSqlQuery;
+import ticket.framework.interface21.jdbc.object.ManualExtractionSqlQuery;
 
 public class NCUserQuery extends ManualExtractionSqlQuery {
 

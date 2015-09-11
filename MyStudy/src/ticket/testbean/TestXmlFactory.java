@@ -4,7 +4,7 @@ package ticket.testbean;
 import java.io.IOException;
 import java.io.InputStream;
 
-import ticket.interface21.beans.factory.support.XmlBeanFactory;
+import ticket.framework.interface21.beans.factory.support.XmlBeanFactory;
 
 public class TestXmlFactory {
 
