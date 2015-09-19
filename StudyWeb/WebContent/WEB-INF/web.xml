@@ -8,6 +8,15 @@
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>mypack.DispatcherServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ticket</servlet-name>
+		<servlet-class>ticket.web.servlet.ControllerServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/dispatcher</url-pattern>
