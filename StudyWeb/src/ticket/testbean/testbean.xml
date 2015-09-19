@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean name="rod" singleton="true" class="ticket.testbean.TestBean">
+		<property name="name">Rod</property>
+		<property name="age">31</property>
+		<property name="spouse" beanRef="true">kerry</property>
+	</bean>
+	<bean name="kerry" class="ticket.testbean.TestBean">
+		<property name="name">Kerry</property>
+		<property name="age">34</property>
+	</bean>
+</beans>

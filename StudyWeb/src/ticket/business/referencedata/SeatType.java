@@ -1,0 +1,11 @@
+
+package ticket.business.referencedata;
+
+public interface SeatType extends ReferenceItem {
+
+	/** Actually the same as id */
+	int getSeatTypeId();
+	
+	/** Name is code */
+	String getDescription(); 
+}
