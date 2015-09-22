@@ -1,39 +1,37 @@
 package ticket.web;
 
+import java.net.BindException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java14.java.util.logging.Level;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.TextMessage;
-import javax.jms.TopicSession;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.interface21.beans.ClassLoaderAnalyzer;
-import com.interface21.context.ApplicationContextException;
-import com.interface21.jms.JmsTemplate;
-import com.interface21.validation.BindException;
-import com.interface21.validation.Validator;
-import com.interface21.web.bind.HttpServletRequestDataBinder;
-import com.interface21.web.bind.RequestUtils;
-import com.interface21.web.bind.WebRequestBindingException;
-import com.interface21.web.servlet.ModelAndView;
-import com.interface21.web.servlet.mvc.multiaction.MultiActionController;
-import com.wrox.expertj2ee.ticket.boxoffice.*;
-import com.wrox.expertj2ee.ticket.command.AvailabilityCheck;
-import com.wrox.expertj2ee.ticket.command.PerformanceWithAvailability;
-import com.wrox.expertj2ee.ticket.command.PriceBandWithAvailability;
-import com.wrox.expertj2ee.ticket.customer.RegisteredUser;
-import com.wrox.expertj2ee.ticket.exceptions.NoSuchPerformanceException;
-import com.wrox.expertj2ee.ticket.referencedata.Calendar;
-import com.wrox.expertj2ee.ticket.referencedata.Performance;
-import com.wrox.expertj2ee.ticket.referencedata.Show;
-import com.wrox.expertj2ee.ticket.web.model.BookingFormModel;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+
+import ticket.business.boxoffice.BoxOffice;
+import ticket.business.boxoffice.BoxOfficeInternalException;
+import ticket.business.boxoffice.CreditCardAuthorizationException;
+import ticket.business.boxoffice.ExpiredReservationTakenException;
+import ticket.business.boxoffice.InvalidSeatingRequestException;
+import ticket.business.boxoffice.NotEnoughSeatsException;
+import ticket.business.boxoffice.PurchaseRequest;
+import ticket.business.boxoffice.Reservation;
+import ticket.business.boxoffice.ReservationRequest;
+import ticket.business.customer.RegisteredUser;
+import ticket.business.exceptions.NoSuchPerformanceException;
+import ticket.business.referencedata.Calendar;
+import ticket.business.referencedata.Performance;
+import ticket.business.referencedata.Show;
+import ticket.framework.interface21.beans.ClassLoaderAnalyzer;
+import ticket.framework.interface21.context.ApplicationContextException;
+import ticket.framework.interface21.jms.JmsTemplate;
+import ticket.framework.interface21.validation.Validator;
+import ticket.java14.java.util.logging.Level;
+import ticket.web.servlet.ModelAndView;
 
 /**
  * This class contains all web tier controller code for the Ticketing Application.
