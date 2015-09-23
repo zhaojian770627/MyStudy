@@ -5,6 +5,17 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>MyWeb</display-name>
 	<servlet>
+		<servlet-name>config</servlet-name>
+		<servlet-class>ticket.web.context.ContextLoaderServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>
+			ticket.web.context.support.XmlWebApplicationContext
+		</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>mypack.DispatcherServlet</servlet-class>
 	</servlet>
