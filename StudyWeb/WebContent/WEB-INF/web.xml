@@ -14,8 +14,8 @@
 		<init-param>
 			<param-name>contextClass</param-name>
 			<param-value>
-			ticket.web.context.support.XmlWebApplicationContext
-		</param-value>
+				ticket.web.context.support.XmlWebApplicationContext
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean name="messageSource"
+		class="ticket.framework.interface21.context.support.ResourceBundleMessageSource">
+		<property name="basename">messages</property>
+	</bean>
+</beans>
