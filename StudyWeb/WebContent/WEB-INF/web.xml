@@ -4,6 +4,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>MyWeb</display-name>
+	<context-param>
+		<param-name>configUrl</param-name>
+		<param-value>/WEB-INF/MyWeb.xml</param-value>
+	</context-param>
 	<servlet>
 		<servlet-name>config</servlet-name>
 		<servlet-class>ticket.web.context.ContextLoaderServlet</servlet-class>
