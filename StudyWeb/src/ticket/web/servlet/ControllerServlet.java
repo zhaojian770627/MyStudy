@@ -68,16 +68,16 @@ public class ControllerServlet extends FrameworkServlet {
 	 * Otherwise only the global web app context is obtainable by tags etc.
 	 * Allows message resolution.
 	 */
-	public static final String SERVLET_WEB_APPLICATION_CONTEXT_ATTRIBUTE = "com.interface21.web.servlet.ControllerServlet.SERVLET_WEB_APPLICATION_CONTEXT";
+	public static final String SERVLET_WEB_APPLICATION_CONTEXT_ATTRIBUTE = "ticket.web.servlet.ControllerServlet.SERVLET_WEB_APPLICATION_CONTEXT";
 
 	/** Will be added to a request before processing begins if we're in debug mode */
-	public static final String HANDLER_REQUEST_ATTRIBUTE = "com.interface21.web.servlet.ControllerServlet.HANDLER";
+	public static final String HANDLER_REQUEST_ATTRIBUTE = "ticket.web.servlet.ControllerServlet.HANDLER";
 
 	/** Will be added to a request before processing begins if we're in debug mode */
-	public static final String HANDLER_ADAPTER_REQUEST_ATTRIBUTE = "com.interface21.web.servlet.ControllerServlet.HANDLER_ADAPTER";
+	public static final String HANDLER_ADAPTER_REQUEST_ATTRIBUTE = "ticket.web.servlet.ControllerServlet.HANDLER_ADAPTER";
 
 	/** Request attribute to hold viewName if we're running in debug mode */
-	public static final String VIEW_NAME_ATTRIBUTE = "com.interface21.web.servlet.ControllerServlet.VIEW_NAME";
+	public static final String VIEW_NAME_ATTRIBUTE = "ticket.web.servlet.ControllerServlet.VIEW_NAME";
 
 	/** Synthetic, bean name for the default HandlerMap, if no HandlerMap objects are
 	 * provided in the BeanFactory for this servlet's namespace.
