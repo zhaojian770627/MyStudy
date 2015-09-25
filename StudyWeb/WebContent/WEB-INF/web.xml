@@ -33,6 +33,10 @@
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet-mapping>
+		<servlet-name>ticket</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/dispatcher</url-pattern>
 	</servlet-mapping>
