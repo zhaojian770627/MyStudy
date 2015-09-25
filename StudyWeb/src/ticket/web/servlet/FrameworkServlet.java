@@ -41,7 +41,7 @@ public abstract class FrameworkServlet extends HttpServletBean {
 	 * Prefix for the Servlet attribute for the web application context.
 	 * The completion is the servlet name.
 	 */
-	public static final String SERVLET_CONTEXT_PREFIX = "com.interface21.web.servlet.FrameworkServlet.CONTEXT.";
+	public static final String SERVLET_CONTEXT_PREFIX = "ticket.web.servlet.FrameworkServlet.CONTEXT.";
 
 	/** Suffix for namespace bean factory names. If a servlet of this class is given the
 	 * name 'test' in a context, the namespace used by the servlet will
@@ -53,11 +53,11 @@ public abstract class FrameworkServlet extends HttpServletBean {
 	public static final boolean DEFAULT_DEBUG_SETTING = false;
 
 	/** Will be added to a request before processing begins if we're in debug mode */
-	public static final String DEBUG_REQUEST_ATTRIBUTE = "com.interface21.framework.web.servlet.FrameworkServlet.DEBUG";
+	public static final String DEBUG_REQUEST_ATTRIBUTE = "ticket.web.servlet.FrameworkServlet.DEBUG";
 	
 	/** Will be added to a request before processing begins: 
 	 * the name of the ControllerServlet that handled the request */
-	public static final String SERVLET_NAME_REQUEST_ATTRIBUTE = "com.interface21.framework.web.servlet.FrameworkServlet.SERVLET_NAME";
+	public static final String SERVLET_NAME_REQUEST_ATTRIBUTE = "ticket.web.servlet.FrameworkServlet.SERVLET_NAME";
 
 	/** Request parameter that will enable debug mode. This isn't a security hole:
 	 * it's only set when the debuggable property is true
