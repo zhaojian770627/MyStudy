@@ -49,7 +49,7 @@ public class BeanWrapperImpl implements BeanWrapper {
 		
 		PropertyEditorManager.setEditorSearchPath(new String[] {
 			"sun.beans.editors",
-			"com.interface21.beans.propertyeditors"
+			"ticket.framework.interface21.beans.propertyeditors"
 		});
 	}
 

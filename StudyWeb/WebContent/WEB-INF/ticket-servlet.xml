@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
+
+	<!-- =========================================================== -->
+	<!-- URL mappings for web framework. -->
+	<!-- =========================================================== -->
+	<!-- Simple HandlerMapping implementation that maps from request URL to 
+		handler bean name in this application context. Handlers can have any bean 
+		name, and are applied in alphabetical order by bean name ( hence "a.urlMap" 
+		will be applied before "b.urlMap"). This application uses only one handler 
+		map. -->
+	<bean name="a.urlMap" class="ticket.web.servlet.UrlHandlerMapping">
+		<property name="mappings">
+			/ticket.html=zjTestController
+		</property>
+	</bean>
+	
+	<bean name="zjTestController" class="ticket.web.ZJTestController">		
+	</bean>
 </beans>
