@@ -1,11 +1,11 @@
 package ticket.web;
 
-import java.net.BindException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.jms.TextMessage;
 import javax.jms.TopicSession;
 import javax.servlet.ServletException;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 
 import ticket.business.boxoffice.BoxOffice;
 import ticket.business.boxoffice.BoxOfficeInternalException;
@@ -29,13 +28,19 @@ import ticket.business.exceptions.NoSuchPerformanceException;
 import ticket.business.referencedata.Calendar;
 import ticket.business.referencedata.Performance;
 import ticket.business.referencedata.Show;
+import ticket.command.AvailabilityCheck;
+import ticket.command.PerformanceWithAvailability;
+import ticket.command.PriceBandWithAvailability;
 import ticket.framework.interface21.beans.ClassLoaderAnalyzer;
 import ticket.framework.interface21.context.ApplicationContextException;
 import ticket.framework.interface21.jms.JmsTemplate;
+import ticket.framework.interface21.validation.BindException;
 import ticket.framework.interface21.validation.Validator;
 import ticket.java14.java.util.logging.Level;
 import ticket.web.bind.HttpServletRequestDataBinder;
+import ticket.web.bind.RequestUtils;
 import ticket.web.bind.WebRequestBindingException;
+import ticket.web.model.BookingFormModel;
 import ticket.web.servlet.ModelAndView;
 import ticket.web.servlet.mvc.multiaction.MultiActionController;
 
