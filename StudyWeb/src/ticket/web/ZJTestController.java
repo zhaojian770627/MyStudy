@@ -14,7 +14,8 @@ public class ZJTestController implements Controller {
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		return null;
+		ZJView zv=new ZJView();
+		return new ModelAndView(zv);
 	}
 
 }
