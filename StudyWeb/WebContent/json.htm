@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="button" value="getValue" onclick="getvalue();">
+	<script src="js/18.14.getJSONP.js"></script>
+	<script type="text/javascript">
+		function getvalue() {
+			getJSONP("http://localhost:8080/StudyWeb/json", process);
+		}
+		function process(response) {
+			alert(response);
+		}
+	</script>
+</body>
+</html>
