@@ -15,6 +15,6 @@
 		</property>
 	</bean>
 	
-	<bean name="zjTestController" class="ticket.web.ZJTestController">		
+	<bean name="zjTestController" class="ticket.web.zjtest.ZJTestController">		
 	</bean>
 </beans>

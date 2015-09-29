@@ -1,4 +1,4 @@
-package ticket.web;
+package ticket.web.zjtest;
 
 import java.io.IOException;
 
