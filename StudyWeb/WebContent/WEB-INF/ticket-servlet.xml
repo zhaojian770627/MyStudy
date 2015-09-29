@@ -11,10 +11,18 @@
 		map. -->
 	<bean name="a.urlMap" class="ticket.web.servlet.UrlHandlerMapping">
 		<property name="mappings">
-			/ticket.html=zjTestController
+			/ticket.html=zjTestMuliActionController
 		</property>
 	</bean>
-	
-	<bean name="zjTestController" class="ticket.web.zjtest.ZJTestController">		
+	<bean name="zjTestMuliActionMethodNameResolver"
+		class="ticket.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			/ticket.html=doTicket
+		</property>
+	</bean>
+	<bean name="zjTestMuliActionController" class="ticket.web.zjtest.ZJTestMuliActionController">
+		<property name="methodNameResolver" beanRef="true">zjTestMuliActionMethodNameResolver</property>		
+	</bean>
+	<bean name="zjTestController" class="ticket.web.zjtest.ZJTestController">
 	</bean>
 </beans>
