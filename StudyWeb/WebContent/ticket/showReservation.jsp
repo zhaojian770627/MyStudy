@@ -9,17 +9,17 @@
 
 
 <jsp:useBean id="performance"
-		type="com.wrox.expertj2ee.ticket.referencedata.Performance"
+		type="ticket.business.referencedata.Performance"
 			scope="request"
 />
 
 <jsp:useBean id="priceband"
-		type="com.wrox.expertj2ee.ticket.referencedata.PriceBand"
+		type="ticket.business.referencedata.PriceBand"
 			scope="request"
 />
 
 <jsp:useBean id="reservation"
-		type="com.wrox.expertj2ee.ticket.boxoffice.Reservation"
+		type="ticket.business.boxoffice.Reservation"
 			scope="request"
 />
 
