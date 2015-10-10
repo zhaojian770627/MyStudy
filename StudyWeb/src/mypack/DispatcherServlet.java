@@ -10,7 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 public class DispatcherServlet extends GenericServlet {
-	private String target = "/hello.jsp";
+	private String target = "/helloresult.jsp";
 
 	@Override
 	public void service(ServletRequest request, ServletResponse response)
@@ -20,7 +20,12 @@ public class DispatcherServlet extends GenericServlet {
 
 		request.setAttribute("USER", username);
 		request.setAttribute("PASSWORD", password);
+		
+		HelloBean hb=new HelloBean();
+		hb.setId("zj");
+		hb.setName("zhaojian");
 
+		request.setAttribute("helloBean", hb);
 		ServletContext context = getServletContext();
 		RequestDispatcher dispatcher = context.getRequestDispatcher(target);
 		dispatcher.forward(request, response);
