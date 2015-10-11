@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="pushlish" name="JBossWeb">
+	<property name="projectdir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb" />
+	<property name="wardir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\war" />
+	<property name="srcDir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb\src" />
+	<property name="binDir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\ZJ\JBossWeb\bin" />
+	<property name="jbossdefaultdeploy" location="D:\jboss-4.2.3.GA\server\default\deploy" />
+	<path id="tomcat">
+		<fileset dir="D:\apache-tomcat-7.0.64\lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<target name="compile">
+		<delete dir="${binDir}">
+		</delete>
+		<mkdir dir="${binDir}" />
+		<javac srcdir="${srcDir}" destdir="${binDir}" includes="*/DispatcherServlet.java">
+			<classpath refid="tomcat" />
+		</javac>
+	</target>
+	<target name="jar" depends="compile">
+		<delete file="${wardir}/studyjbossweb.war">
+		</delete>
+		<war destfile="${wardir}/studyjbossweb.war" webxml="${projectdir}/WEB-INF/web.xml">
+			<classes dir="${binDir}" />
+			<fileset dir="${projectdir}">
+				<include name="*.jsp" />
+			</fileset>
+		</war>
+	</target>
+	<target name="pushlish" depends="jar">
+		<delete file="${jbossdefaultdeploy}/studyjbossweb.war">
+		</delete>
+		<copy todir="${jbossdefaultdeploy}">
+			<fileset dir="${wardir}">
+				<include name="**/*.war" />
+			</fileset>
+		</copy>
+	</target>
+</project>
