@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="pushlish" name="JBossWeb">
-	<property name="projectdir" location="E:\GitWorkspace\MyStudy\JBossWeb" />
-	<property name="wardir" location="E:\GitWorkspace\MyStudy\war" />
-	<property name="srcDir" location="E:\GitWorkspace\MyStudy\JBossWeb\src" />
-	<property name="binDir" location="E:\GitWorkspace\MyStudy\JBossWeb\bin" />
-	<property name="jbossdefaultdeploy" location="D:\jboss-4.2.3.GA\server\default\deploy" />
+	<!-- Modify -->
+	<property name="projectdir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb" />
+	<property name="jbossdir" location="D:\jboss-4.2.3.GA" />
+	<property name="tomcatdir" location="D:\apache-tomcat-7.0.64" />
+	
+	<property name="wardir" location="${projectdir}\war" />
+	<property name="srcDir" location="${projectdir}\src" />
+	<property name="binDir" location="${projectdir}\bin" />
+	<property name="jbossdefaultdeploy" location="${jbossdir}\server\default\deploy" />
+	
 	<path id="tomcat">
-		<fileset dir="D:\apache-tomcat-7.0.0\lib">
+		<fileset dir="${tomcatdir}\lib">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
