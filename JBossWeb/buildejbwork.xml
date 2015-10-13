@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." default="jar" name="JBossWeb">
+<project basedir="." default="pushlish" name="JBossWeb">
 	<!-- Modify -->
 	<property name="projectdir" location="E:\GitWorkspace\MyStudy\JBossWeb" />
 	<property name="jbossdir" location="D:\jboss-4.2.3.GA" />
