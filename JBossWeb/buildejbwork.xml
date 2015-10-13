@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="jar" name="JBossWeb">
 	<!-- Modify -->
-	<property name="projectdir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb" />
+	<property name="projectdir" location="E:\GitWorkspace\MyStudy\JBossWeb" />
 	<property name="jbossdir" location="D:\jboss-4.2.3.GA" />
 	
 	<property name="ejbdir" location="${projectdir}\ejb" />
@@ -34,15 +34,13 @@
 			</fileset>
 		</jar>
 	</target>
-	<!--
 	<target name="pushlish" depends="jar">
-		<delete file="${jbossdefaultdeploy}/studyjbossweb.war">
+		<delete file="${jbossdefaultdeploy}/HelloEJB.jar">
 		</delete>
 		<copy todir="${jbossdefaultdeploy}">
-			<fileset dir="${wardir}">
-				<include name="**/*.war" />
+			<fileset dir="${ejbdir}">
+				<include name="**/*.jar" />
 			</fileset>
 		</copy>
 	</target>
-	-->
 </project>
