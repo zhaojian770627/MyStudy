@@ -4,14 +4,19 @@
 	<property name="projectdir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb" />
 	<property name="jbossdir" location="D:\jboss-4.2.3.GA" />
 	<property name="tomcatdir" location="D:\apache-tomcat-7.0.64" />
-	
+
 	<property name="wardir" location="${projectdir}\war" />
 	<property name="srcDir" location="${projectdir}\src" />
 	<property name="binDir" location="${projectdir}\bin" />
 	<property name="jbossdefaultdeploy" location="${jbossdir}\server\default\deploy" />
-	
+
 	<path id="tomcat">
 		<fileset dir="${tomcatdir}\lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<path id="jboss">
+		<fileset dir="${jbossdir}\server\all\lib">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
@@ -20,6 +25,7 @@
 		</delete>
 		<mkdir dir="${binDir}" />
 		<javac srcdir="${srcDir}" destdir="${binDir}" includes="*/DispatcherServlet.java">
+			<classpath refid="jboss" />
 			<classpath refid="tomcat" />
 		</javac>
 	</target>

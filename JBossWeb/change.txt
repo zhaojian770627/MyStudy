@@ -1,0 +1,3 @@
+<property name="projectdir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb" />
+<property name="jbossdir" location="D:\jboss-4.2.3.GA" />
+<property name="tomcatdir" location="D:\apache-tomcat-7.0.64" />

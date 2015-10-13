@@ -20,4 +20,11 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	<ejb-local-ref>
+		<ejb-ref-name>ejb/HelloLocal</ejb-ref-name>
+		<ejb-ref-type>Session</ejb-ref-type>
+		<local-home>ejb.HelloLocalHome</local-home>
+		<local>ejb.HelloLocal</local>
+		<ejb-link>Hello</ejb-link>
+	</ejb-local-ref>
 </web-app>

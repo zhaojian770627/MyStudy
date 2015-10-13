@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+    <display-name>HelloEJB J2EE Application</display-name>
+    <module>
+       <web>
+           <web-uri>HelloEJB.war</web-uri>
+           <context-root>/HelloEJB</context-root>
+       </web>
+    </module>
+    <module>
+       <ejb>HelloEJB.jar</ejb>
+    </module>
+</application>
