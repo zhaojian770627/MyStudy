@@ -9,7 +9,8 @@
 	<property name="ejbdir" location="${projectdir}\ejb" />
 	<property name="eardir" location="${projectdir}\ear" />
 	<property name="srcDir" location="${projectdir}\src" />
-	<property name="binDir" location="${projectdir}\bin" />
+	<property name="binejbDir" location="${projectdir}\ejbbin" />
+	<property name="binwarDir" location="${projectdir}\warbin" />
 	<property name="jbossdefaultdeploy" location="${jbossdir}\server\default\deploy" />
 
 	<path id="tomcat">
@@ -22,36 +23,46 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
-	
+	<path id="ejbclass">
+		<fileset dir="${binejbDir}">
+			<include name="**/*.class" />
+		</fileset>
+	</path>
+
 	<target name="compileejb">
-		<delete dir="${binDir}">
+		<delete dir="${binejbDir}">
 		</delete>
-		<mkdir dir="${binDir}" />
-		<javac srcdir="${srcDir}" destdir="${binDir}" includes="**/*.java">
+		<mkdir dir="${binejbDir}" />
+		<javac srcdir="${srcDir}" destdir="${binejbDir}" includes="ejb/*.java">
 			<classpath refid="jboss" />
 			<classpath refid="tomcat" />
 		</javac>
 	</target>
 	<target name="compilewar">
-			<delete dir="${binDir}">
-			</delete>
-			<mkdir dir="${binDir}" />
-		</target>
+		<delete dir="${binwarDir}">
+		</delete>
+		<mkdir dir="${binwarDir}" />
+		<javac srcdir="${srcDir}" destdir="${binwarDir}" includes="mypack/*.java">
+			<classpath refid="jboss" />
+			<classpath refid="tomcat" />
+			<classpath refid="ejbclass" />
+		</javac>
+	</target>
 	<target name="jarwar" depends="compilewar">
 		<delete file="${wardir}/HelloEJB.war">
 		</delete>
 		<war destfile="${wardir}/HelloEJB.war" webxml="${projectdir}/WebContent/WEB-INF/web.xml">
-			<classes dir="${binDir}" />
+			<classes dir="${binwarDir}" />
 			<fileset dir="${projectdir}/WebContent">
 				<include name="*.jsp" />
 			</fileset>
 		</war>
 	</target>
 	<target name="jarejb" depends="compileejb">
-		<delete file="${ejbdir}/HelloEJB.jar">
+		<delete file="${binejbDir}/HelloEJB.jar">
 		</delete>
-		<jar destfile="${ejbdir}/HelloEJB.jar">
-			<fileset dir="${binDir}">
+		<jar destfile="${binejbDir}/HelloEJB.jar">
+			<fileset dir="${binejbDir}">
 				<include name="**/*.class" />
 			</fileset>
 			<fileset dir="${projectdir}/WebContent">
