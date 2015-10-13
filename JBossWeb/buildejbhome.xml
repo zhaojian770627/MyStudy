@@ -3,12 +3,12 @@
 	<!-- Modify -->
 	<property name="projectdir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb" />
 	<property name="jbossdir" location="D:\jboss-4.2.3.GA" />
-	
+
 	<property name="ejbdir" location="${projectdir}\ejb" />
 	<property name="srcDir" location="${projectdir}\src" />
 	<property name="binDir" location="${projectdir}\bin" />
 	<property name="jbossdefaultdeploy" location="${jbossdir}\server\default\deploy" />
-	
+
 	<path id="jboss">
 		<fileset dir="${jbossdir}\server\all\lib">
 			<include name="**/*.jar" />
@@ -25,24 +25,22 @@
 	<target name="jar" depends="compile">
 		<delete file="${ejbdir}/HelloEJB.jar">
 		</delete>
-		<jar destfile="${ejbdir}/HelloEJB.jar" >
+		<jar destfile="${ejbdir}/HelloEJB.jar">
 			<fileset dir="${binDir}">
-				<include name="**/*.class"/>
+				<include name="**/*.class" />
 			</fileset>
 			<fileset dir="${projectdir}/WebContent">
 				<include name="META-INF/*.xml" />
 			</fileset>
 		</jar>
 	</target>
-	<!--
 	<target name="pushlish" depends="jar">
-		<delete file="${jbossdefaultdeploy}/studyjbossweb.war">
+		<delete file="${jbossdefaultdeploy}/HelloEJB.jar">
 		</delete>
 		<copy todir="${jbossdefaultdeploy}">
-			<fileset dir="${wardir}">
-				<include name="**/*.war" />
+			<fileset dir="${ejbdir}">
+				<include name="**/*.jar" />
 			</fileset>
 		</copy>
 	</target>
-	-->
 </project>
