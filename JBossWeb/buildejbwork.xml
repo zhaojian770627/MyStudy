@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="jar" name="JBossWeb">
+	<!-- Modify -->
+	<property name="projectdir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb" />
+	<property name="jbossdir" location="D:\jboss-4.2.3.GA" />
+	
+	<property name="ejbdir" location="${projectdir}\ejb" />
+	<property name="srcDir" location="${projectdir}\src" />
+	<property name="binDir" location="${projectdir}\bin" />
+	<property name="jbossdefaultdeploy" location="${jbossdir}\server\default\deploy" />
+	
+	<path id="jboss">
+		<fileset dir="${jbossdir}\server\all\lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<target name="compile">
+		<delete dir="${binDir}">
+		</delete>
+		<mkdir dir="${binDir}" />
+		<javac srcdir="${srcDir}" destdir="${binDir}" includes="ejb/*.java">
+			<classpath refid="jboss" />
+		</javac>
+	</target>
+	<target name="jar" depends="compile">
+		<delete file="${ejbdir}/HelloEJB.jar">
+		</delete>
+		<jar destfile="${ejbdir}/HelloEJB.jar" >
+			<fileset dir="${binDir}">
+				<include name="**/*.class"/>
+			</fileset>
+			<fileset dir="${projectdir}/WebContent">
+				<include name="META-INF/*.xml" />
+			</fileset>
+		</jar>
+	</target>
+	<!--
+	<target name="pushlish" depends="jar">
+		<delete file="${jbossdefaultdeploy}/studyjbossweb.war">
+		</delete>
+		<copy todir="${jbossdefaultdeploy}">
+			<fileset dir="${wardir}">
+				<include name="**/*.war" />
+			</fileset>
+		</copy>
+	</target>
+	-->
+</project>
