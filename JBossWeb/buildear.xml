@@ -52,10 +52,12 @@
 		<delete file="${wardir}/HelloEJB.war">
 		</delete>
 		<war destfile="${wardir}/HelloEJB.war" webxml="${projectdir}/WebContent/WEB-INF/web.xml">
-			<classes dir="${binwarDir}" />
 			<fileset dir="${projectdir}/WebContent">
 				<include name="*.jsp" />
 			</fileset>
+			<zipfileset prefix="WEB-INF" dir="${binwarDir}">
+				<include name="mypack/*.class"/>
+			</zipfileset>
 		</war>
 	</target>
 	<target name="jarejb" depends="compileejb">
