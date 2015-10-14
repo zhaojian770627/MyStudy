@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="pushlish" name="JBossWeb">
+	<!-- Modify -->
+	<property name="projectdir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb" />
+	<property name="jbossdir" location="D:\jboss-4.2.3.GA" />
+	<property name="tomcatdir" location="D:\apache-tomcat-7.0.64" />
+
+	<property name="wardir" location="${projectdir}\war" />
+	<property name="ejbdir" location="${projectdir}\ejb" />
+	<property name="eardir" location="${projectdir}\ear" />
+	<property name="srcDir" location="${projectdir}\src" />
+	<property name="binejbDir" location="${projectdir}\ejbbin" />
+	<property name="binwarDir" location="${projectdir}\warbin" />
+	<property name="jbossdefaultdeploy" location="${jbossdir}\server\default\deploy" />
+
+	<path id="tomcat">
+		<fileset dir="${tomcatdir}\lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<path id="jboss">
+		<fileset dir="${jbossdir}\server\all\lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<path id="ejbclass">
+		<fileset dir="${binejbDir}">
+			<include name="**/*.class" />
+		</fileset>
+	</path>
+
+	<target name="compileejb">
+		<delete dir="${binejbDir}">
+		</delete>
+		<mkdir dir="${binejbDir}" />
+		<javac srcdir="${srcDir}" destdir="${binejbDir}" includes="ejb/*.java">
+			<classpath refid="jboss" />
+			<classpath refid="tomcat" />
+		</javac>
+	</target>
+	<target name="compilewar">
+		<delete dir="${binwarDir}">
+		</delete>
+		<mkdir dir="${binwarDir}" />
+		<javac srcdir="${srcDir}" destdir="${binwarDir}" includes="mypack/*.java">
+			<classpath refid="jboss" />
+			<classpath refid="tomcat" />
+			<classpath refid="ejbclass" />
+		</javac>
+	</target>
+	<target name="jarwar" depends="compilewar">
+		<delete file="${wardir}/HelloEJB.war">
+		</delete>
+		<war destfile="${wardir}/HelloEJB.war" webxml="${projectdir}/WebContent/WEB-INF/web.xml">
+			<fileset dir="${projectdir}/WebContent">
+				<include name="*.jsp" />
+			</fileset>
+			<zipfileset prefix="WEB-INF" dir="${binwarDir}">
+				<include name="mypack/*.class"/>
+			</zipfileset>
+		</war>
+	</target>
+	<target name="jarejb" depends="compileejb">
+		<delete file="${binejbDir}/HelloEJB.jar">
+		</delete>
+		<jar destfile="${binejbDir}/HelloEJB.jar">
+			<fileset dir="${binejbDir}">
+				<include name="**/*.class" />
+			</fileset>
+			<fileset dir="${projectdir}/WebContent">
+				<exclude name="META-INF/application.xml" />
+				<include name="META-INF/*.xml" />
+			</fileset>
+		</jar>
+	</target>
+	<target name="jarear" depends="jarwar,jarejb">
+		<delete file="${eardir}/HelloEJB.ear">
+		</delete>
+		<jar destfile="${eardir}/HelloEJB.ear">
+			<fileset dir="${ejbdir}">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${wardir}">
+				<include name="*.war" />
+			</fileset>
+			<fileset dir="${projectdir}/WebContent">
+				<include name="META-INF/application.xml" />
+			</fileset>
+		</jar>
+	</target>
+	<target name="pushlish" depends="jarear">
+		<delete file="${jbossdefaultdeploy}/HelloEJB.ear">
+		</delete>
+		<copy todir="${jbossdefaultdeploy}">
+			<fileset dir="${eardir}">
+				<include name="*.ear" />
+			</fileset>
+		</copy>
+	</target>
+</project>
