@@ -7,7 +7,7 @@ import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
 /**
- * 演示无状态会话Bean
+ * 婕旂ず鏃犵姸鎬佷細璇滲ean
  * @author zhaojian
  *
  */
@@ -40,7 +40,7 @@ public class HelloBean implements SessionBean {
 	}
 
 	/**
-	 * 业务方法
+	 * 涓氬姟鏂规硶
 	 * @return
 	 */
 	public String hello(){

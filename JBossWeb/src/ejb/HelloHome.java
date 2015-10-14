@@ -6,21 +6,21 @@ import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
 
 /**
- * Hello EJB×é¼şµÄHome½Ó¿Ú
- * ËüÓÉEJB·şÎñÆ÷Ìá¹©µÄ¹¤¾ßÊµÏÖ
- * Home½Ó¿ÚÊµÏÖ³ÆÖ®ÎªHome¶ÔÏó
- * Home¶ÔÏó³äµ±ÁË´´½¨EJB¶ÔÏóµÄ¹¤³§
+ * Hello EJBç»„ä»¶çš„Homeæ¥å£
+ * å®ƒç”±EJBæœåŠ¡å™¨æä¾›çš„å·¥å…·å®ç°
+ * Homeæ¥å£å®ç°ç§°ä¹‹ä¸ºHomeå¯¹è±¡
+ * Homeå¯¹è±¡å……å½“äº†åˆ›å»ºEJBå¯¹è±¡çš„å·¥å‚
  * 
- * ÔÚ¸ÃHome½Ó¿Ú×Ü£¬´æÔÚcreate()·½·¨
- * Ëü¶ÔÓ¦ÓÚHelloBeanÖĞµÄejbCreate()·½·¨
+ * åœ¨è¯¥Homeæ¥å£æ€»ï¼Œå­˜åœ¨create()æ–¹æ³•
+ * å®ƒå¯¹åº”äºHelloBeanä¸­çš„ejbCreate()æ–¹æ³•
  * @author zhaojian
  *
  */
 public interface HelloHome extends EJBHome {
 
 	/**
-	 * ´´½¨EJB¶ÔÏó
-	 * @return ĞÂ´´½¨µÄEJB¶ÔÏó
+	 * åˆ›å»ºEJBå¯¹è±¡
+	 * @return æ–°åˆ›å»ºçš„EJBå¯¹è±¡
 	 * 
 	 * @throws RemoteException
 	 * @throws CreateException
