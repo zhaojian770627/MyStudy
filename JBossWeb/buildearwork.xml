@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="pushlish" name="JBossWeb">
 	<!-- Modify -->
-	<property name="projectdir" location="D:\ZJ\GitJavaWorkSpace\MyStudy\MyStudy\JBossWeb" />
+	<property name="projectdir" location="E:\GitWorkspace\MyStudy\JBossWeb" />
 	<property name="jbossdir" location="D:\jboss-4.2.3.GA" />
-	<property name="tomcatdir" location="D:\apache-tomcat-7.0.64" />
+	<property name="tomcatdir" location="D:\apache-tomcat-7.0.0" />
 
 	<property name="wardir" location="${projectdir}\war" />
 	<property name="ejbdir" location="${projectdir}\ejb" />
