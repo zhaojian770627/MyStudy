@@ -33,7 +33,7 @@
 		<delete dir="${binejbDir}">
 		</delete>
 		<mkdir dir="${binejbDir}" />
-		<javac srcdir="${srcDir}" destdir="${binejbDir}" includes="ejb/*.java">
+		<javac srcdir="${srcDir}" destdir="${binejbDir}" includes="ejb/*.java" encoding="UTF-8">
 			<classpath refid="jboss" />
 			<classpath refid="tomcat" />
 		</javac>
@@ -42,10 +42,9 @@
 		<delete dir="${binwarDir}">
 		</delete>
 		<mkdir dir="${binwarDir}" />
-		<javac srcdir="${srcDir}" destdir="${binwarDir}" includes="mypack/*.java">
+		<javac srcdir="${srcDir}" destdir="${binwarDir}" includes="mypack/*.java" encoding="UTF-8">
 			<classpath refid="jboss" />
 			<classpath refid="tomcat" />
-			<classpath refid="ejbclass" />
 		</javac>
 	</target>
 	<target name="jarwar" depends="compilewar">
