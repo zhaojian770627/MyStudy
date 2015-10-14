@@ -55,7 +55,7 @@
 			<fileset dir="${projectdir}/WebContent">
 				<include name="*.jsp" />
 			</fileset>
-			<zipfileset prefix="WEB-INF" dir="${binwarDir}">
+			<zipfileset prefix="WEB-INF/classes" dir="${binwarDir}">
 				<include name="mypack/*.class"/>
 			</zipfileset>
 		</war>
