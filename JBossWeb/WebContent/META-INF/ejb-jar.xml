@@ -12,6 +12,12 @@
 			<ejb-class>ejb.HelloBean</ejb-class>
 			<session-type>Stateless</session-type>
 			<transaction-type>Container</transaction-type>
+			<resource-ref>
+				<description></description>
+				<res-ref-name>jdbc/OracleDS</res-ref-name>
+				<res-type>javax.sql.DataSource</res-type>
+				<res-auth>Container</res-auth>
+			</resource-ref>
 		</session>
 	</enterprise-beans>
 </ejb-jar>

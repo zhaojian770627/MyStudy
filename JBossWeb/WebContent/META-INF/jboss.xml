@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss>
-    <enterprise-beans>
-       <session>
-           <ejb-name>Hello</ejb-name>
-           <jndi-name>Hello</jndi-name>
-       </session>
-    </enterprise-beans>
+	<enterprise-beans>
+		<session>
+			<ejb-name>Hello</ejb-name>
+			<jndi-name>Hello</jndi-name>
+			<resource-ref>
+				<res-ref-name>jdbc/OracleDS</res-ref-name>
+				<jndi-name>java:/OracleDS</jndi-name>
+			</resource-ref>
+		</session>
+	</enterprise-beans>
 </jboss>

@@ -33,7 +33,7 @@
 		<delete dir="${binejbDir}">
 		</delete>
 		<mkdir dir="${binejbDir}" />
-		<javac srcdir="${srcDir}" destdir="${binejbDir}" includes="ejb/*.java" encoding="UTF-8">
+		<javac srcdir="${srcDir}" destdir="${binejbDir}" includes="ejb/*.java" encoding="UTF-8" debug="true">
 			<classpath refid="jboss" />
 			<classpath refid="tomcat" />
 		</javac>
@@ -60,11 +60,11 @@
 		</war>
 	</target>
 	<target name="jarejb" depends="compileejb">
-		<delete file="${binejbDir}/HelloEJB.jar">
+		<delete file="${ejbdir}/HelloEJB.jar">
 		</delete>
-		<jar destfile="${binejbDir}/HelloEJB.jar">
+		<jar destfile="${ejbdir}/HelloEJB.jar">
 			<fileset dir="${binejbDir}">
-				<include name="**/*.class" />
+				<include name="ejb/*.class" />
 			</fileset>
 			<fileset dir="${projectdir}/WebContent">
 				<exclude name="META-INF/application.xml" />
