@@ -59,9 +59,14 @@ public class HelloBean implements SessionBean {
 			DataSource datasource = (DataSource) ctx.lookup("java:comp/env/jdbc/OracleDS");
 			Connection con = datasource.getConnection();
 			Statement stat = con.createStatement();
+			String count = "0";
 			ResultSet rs = stat.executeQuery("select count(1) from sm_user");
 			if (rs.next())
-				return rs.getString(1);
+				count = rs.getString(1);
+			rs.close();
+			stat.close();
+			con.close();
+			return count;
 		} catch (NamingException e) {
 			return e.getMessage();
 		} catch (SQLException e) {
