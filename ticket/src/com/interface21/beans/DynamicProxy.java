@@ -133,8 +133,20 @@ public class DynamicProxy implements InvocationHandler {
 		if (logger.isLoggable(Level.FINE))
 			// Building this string is slow, so we don't do it unless we know it _will_ be logged
 			logger.fine("About to invoke: " + invocationText(method, args));
-
+		
 		if (beforeInvocation(proxy, method, args)) {
+			Method m;
+			Object o;
+			try {
+				m=wrappedObject.getClass().getMethod(method.getName(), method.getParameterTypes());
+				o=m.invoke(wrappedObject, args);
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Object obj = method.invoke(wrappedObject, args);
 			methodInvocationSucceeded(proxy, method, args);
 			return obj;
