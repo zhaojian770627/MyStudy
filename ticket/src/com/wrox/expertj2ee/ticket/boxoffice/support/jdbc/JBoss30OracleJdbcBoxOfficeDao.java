@@ -1,11 +1,13 @@
 
 package com.wrox.expertj2ee.ticket.boxoffice.support.jdbc;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import org.jboss.resource.adapter.jdbc.jdk5.WrappedConnectionJDK5;
 
 /**
  * Subclass of OracleJdbcSeatingPlanDao to get underlying connection
@@ -36,9 +38,11 @@ public class JBoss30OracleJdbcBoxOfficeDao extends OracleJdbcBoxOfficeDAO {
 	protected Connection getOracleConnection(Connection con) throws SQLException {
 		//org.jboss.resource.adapter.jdbc.local.ConnectionInPool cp = (org.jboss.resource.adapter.jdbc.local.ConnectionInPool) con;
 		//org.jboss.resource.adapter.jdbc.local.LocalConnection cp = (org.jboss.resource.adapter.jdbc.local.LocalConnection) con;
+		// 在JBOSS4.0需要进行如下修改
+		org.jboss.resource.adapter.jdbc.jdk5.WrappedConnectionJDK5 cp = (WrappedConnectionJDK5) con;
 		//logger.info("");
 		//System.out.println("GOT JBOSS CONNECTION " + cp);
-		//con = cp.getUnderlyingConnection();
+		con = cp.getUnderlyingConnection();
 		System.out.println("UNDERLYING JBOSS CONNECTION " + con);
 		return con;
 	}

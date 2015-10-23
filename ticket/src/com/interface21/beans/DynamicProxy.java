@@ -128,31 +128,14 @@ public class DynamicProxy implements InvocationHandler {
 	 * @param method method to invoke
 	 * @param args arguments to the method, or null if the method takes no arguments.
 	 * Primitives will be wrapped.
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
 	 */
-	private Object invokeInternal(Object proxy, Method method, Object[] args) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	private Object invokeInternal(Object proxy, Method method, Object[] args) throws IllegalAccessException, InvocationTargetException {
 		if (logger.isLoggable(Level.FINE))
 			// Building this string is slow, so we don't do it unless we know it _will_ be logged
 			logger.fine("About to invoke: " + invocationText(method, args));
-		
+
 		if (beforeInvocation(proxy, method, args)) {
-			if (!method.getDeclaringClass().getName().equals("java.lang.Object")) {
-				String s1 = ClassLoaderAnalyzer.showClassLoaderHierarchy(method.getDeclaringClass().getClassLoader(),
-						"Method", "/n", "-");
-				String s2 = ClassLoaderAnalyzer.showClassLoaderHierarchy(wrappedObject, "obj", "/n", "-");
-				int i=0;
-				i++;
-			}
-			
-			// 由于存在类加载问题采用如下方式解决，只用方法的签名
-			// Object obj = method.invoke(wrappedObject, args);
-			Method proxyMethod;
-			Object obj;
-	
-			proxyMethod=wrappedObject.getClass().getMethod(method.getName(), method.getParameterTypes());
-			obj=proxyMethod.invoke(wrappedObject, args);
-			
+			Object obj = method.invoke(wrappedObject, args);
 			methodInvocationSucceeded(proxy, method, args);
 			return obj;
 		}
