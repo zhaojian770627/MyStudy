@@ -5,10 +5,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Derby"/>
 	<classpathentry kind="lib" path="D:/Eclipse/eclipse-jee-mars-R-win32/eclipse/plugins/org.eclipse.swt.win32.win32.x86_3.104.0.v20150528-0211.jar"/>
 	<classpathentry kind="lib" path="D:/Eclipse/eclipse-jee-mars-R-win32/eclipse/plugins/org.eclipse.swt_3.104.0.v20150528-0211.jar"/>
-	<classpathentry kind="lib" path="D:/javareference/apache-log4j-1.2.17/log4j-1.2.17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JBoss4"/>
 	<classpathentry kind="lib" path="D:/javareference/ojdbc6.jar"/>
-	<classpathentry kind="lib" path="D:/javareference/jboss-local-jdbc/jboss-local-jdbc.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JBossClient"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
