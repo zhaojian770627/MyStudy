@@ -8,6 +8,7 @@
 		<param-name>configUrl</param-name>
 		<param-value>/WEB-INF/MyWeb.xml</param-value>
 	</context-param>
+	<!-- 
 	<servlet>
 		<servlet-name>config</servlet-name>
 		<servlet-class>ticket.web.context.ContextLoaderServlet</servlet-class>
@@ -19,6 +20,7 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	 -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>mypack.DispatcherServlet</servlet-class>
@@ -27,6 +29,7 @@
 		<servlet-name>jsonservlet</servlet-name>
 		<servlet-class>mypack.JSONPServlet</servlet-class>
 	</servlet>
+	<!-- 
 	<servlet>
 		<servlet-name>ticket</servlet-name>
 		<servlet-class>ticket.web.servlet.ControllerServlet</servlet-class>
@@ -40,6 +43,7 @@
 		<servlet-name>ticket</servlet-name>
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
+	-->
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/dispatcher</url-pattern>
