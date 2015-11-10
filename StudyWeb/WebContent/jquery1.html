@@ -4,27 +4,24 @@
 <meta charset="utf-8">
 <title>JQUERY</title>
 </head>
-<script type="text/javascript">
-function clickHandle()
-{
-	$("#log").append("<br/>"+"abcd");
-	$("h1").prepend("$");
-	$("h1").before("<hr/>");
-	$("h1").after("<hr/>");
-	$("hr").replaceWith("<br/>");
-	$("h2").each(function(){
-		var h2=$(this);
-		h2.replaceWith("<h1>"+h2.html()+"</h1>");		
-	});
-	
-}
-</script>
+
 <body>
 <h1>JQUERY</h1>
 <h1>1234</h1>
 <h2>5678</h2>
-<input type="button" id='btn1' value="Please Click" onclick="clickHandle();">
+<input type="button" id='btn1' value="Please Click">
 <p title="a gentle reminder" id="log">Don't forget to buy this stuff.</p>
+<div id="status">Content</div>
 <script src="js/jquery-1.11.1.js"></script>
+<script type="text/javascript">
+$(window).load(function(e){$("#btn1").click(clickHandle);});
+function clickHandle(e)
+{
+	$("h1").click(function(e){$(this).css("background-color","gray");alert(e.pageX);});
+	alert(e.pageX);
+	setInterval(function(){$('#status').load("ajaxcontent.html",function(a,b,c){});},10000);
+	jQuery.getScript("js/j.js");
+}
+</script>
 </body>
 </html>
