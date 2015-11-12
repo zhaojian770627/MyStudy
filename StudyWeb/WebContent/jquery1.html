@@ -13,7 +13,7 @@
 	<p title="a gentle reminder" id="log">Don't forget to buy this
 		stuff.</p>
 	<div id="status">Content</div>
-	<div id="loading_animation" style="display: none;">
+	<div id="loading_animation" style="display:none;">
 		<img alt="" src="images/logo.gif">
 	</div>
 	<script src="js/jquery-1.11.1.js"></script>
@@ -21,22 +21,25 @@
 		$(window).load(function(e) {
 			$("#btn1").click(clickHandle);
 		});
-		$("#loading_animation").bind(
-				{ajaxStart:function(){$(this).hide();alert("1234");},ajaxStop:function(){$(this).show();}});
 		function clickHandle(e) {
 			$("h1").click(function(e) {
 				$(this).css("background-color", "gray");
 				alert(e.pageX);
 			});
-			alert(e.pageX);
+
+			$(document).ajaxStart(function() {
+				$("#loading_animation").show();
+			});
+			
+			$(document).ajaxStop(function() {
+				$("#loading_animation").hide();
+			});
 			setInterval(function() {
-				$('#status').load("ajaxcontent.html", function(a, b, c) {
+				$.get("ajaxcontent.html", function(data) {
+					$("#status").html(data);
 				});
-			}, 10000);
-			jQuery.getScript("js/j.js");
-			$.get("ajaxcontent.html",function(data){alert(data);});
+			}, 5000);
 		}
-		
 	</script>
 </body>
 </html>
