@@ -8,3 +8,5 @@ var txt = '[' + '{ "firstName":"Bill" , "lastName":"Gates" },'
 
 var objs = eval("(" + txt + ")");
 alert(objs);
+var last=JSON.stringify(objs); //将JSON对象转化为JSON字符
+alert(last);
