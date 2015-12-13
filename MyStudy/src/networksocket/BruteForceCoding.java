@@ -73,6 +73,14 @@ public class BruteForceCoding {
 		out.flush();
 		byte[] msg=buf.toByteArray();
 		System.out.println("Encoded message by Java IO:" + byteArrayToDecimalString(msg));
+		
+		// Test getBytes
+		byte[] bts="Test!".getBytes();
+		System.out.println("Encoded message:" + byteArrayToDecimalString(bts));
+		bts="Test!".getBytes("UTF-16BE");
+		System.out.println("Encoded message:" + byteArrayToDecimalString(bts));
+		bts="Test!".getBytes("IBM037");
+		System.out.println("Encoded message:" + byteArrayToDecimalString(bts));
 	}
 
 }
