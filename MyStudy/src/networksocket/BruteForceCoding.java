@@ -1,5 +1,9 @@
 package networksocket;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class BruteForceCoding {
 	private static byte byteVal = 101; // one hundred and one
 	private static short shortVal = 10001; // ten thousand and one
@@ -38,7 +42,7 @@ public class BruteForceCoding {
 		return rtn;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		byte[] message = new byte[BSIZE + SSIZE + ISIZE + LSIZE];
 		// Encode the fields in the target byte array
 		int offset = encodeIntBigEndian(message, byteVal, 0, BSIZE);
@@ -46,6 +50,29 @@ public class BruteForceCoding {
 		offset = encodeIntBigEndian(message, intVal, offset, ISIZE);
 		encodeIntBigEndian(message, longVal, offset, LSIZE);
 		System.out.println("Encoded message:" + byteArrayToDecimalString(message));
+		
+		// Decode several fields
+		long value=decodeIntBigEndian(message, BSIZE, SSIZE);
+		System.out.println("Decoded short="+value);
+		value=decodeIntBigEndian(message, BSIZE+SSIZE+ISIZE,LSIZE);
+		System.out.println("Decoded long="+value);
+		
+		// Demonstrate dangers of conversion
+		offset=4;
+		value=decodeIntBigEndian(message, offset, BSIZE);
+		System.out.println("Decoded value(offset "+offset+",size "+BSIZE+")="+value);
+		byte bVal=(byte)decodeIntBigEndian(message, offset, BSIZE);
+		System.out.println("Same value as byte="+bVal);
+		
+		ByteArrayOutputStream buf=new ByteArrayOutputStream();
+		DataOutputStream out=new DataOutputStream(buf);
+		out.writeByte(byteVal);
+		out.writeShort(shortVal);
+		out.writeInt(intVal);
+		out.writeLong(longVal);
+		out.flush();
+		byte[] msg=buf.toByteArray();
+		System.out.println("Encoded message by Java IO:" + byteArrayToDecimalString(msg));
 	}
 
 }
