@@ -1,4 +1,4 @@
-package networksocket;
+package networksocket.three;
 
 public class VoteMsg {
 	private boolean isInquiry; // true if inquiry;false if vote

@@ -1,4 +1,4 @@
-package networksocket;
+package networksocket.three;
 
 import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
