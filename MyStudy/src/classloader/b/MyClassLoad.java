@@ -16,13 +16,16 @@ public class MyClassLoad extends URLClassLoader {
 	private static MyClassLoad newInstance() {
 		MyClassLoad ret = null;
 		File xFile = new File("e:/calimp.jar");
+		File xFile1 = new File("e:/calimpa1.jar");
 		URL xUrl = null;
+		URL xUrl1 = null;
 		try {
 			xUrl = xFile.toURL();
+			xUrl1 = xFile1.toURL();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		ret = new MyClassLoad(new URL[] { xUrl });
+		ret = new MyClassLoad(new URL[] { xUrl, xUrl1 });
 		return ret;
 	}
 
@@ -34,7 +37,5 @@ public class MyClassLoad extends URLClassLoader {
 	public MyClassLoad(URL[] urls) {
 		super(urls);
 	}
-	
-	
 
 }

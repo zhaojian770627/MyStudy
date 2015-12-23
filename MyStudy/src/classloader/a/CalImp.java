@@ -6,7 +6,11 @@
 //
 //	@Override
 //	public int add() {
-//		return 12;
+//		System.out.println("---------------CalImp------------------");
+//		System.out.println(getClass().getClassLoader().getClass().getName());
+//		System.out.println(Thread.currentThread().getContextClassLoader().getClass().getName());
+//		A1 a1 = new A1();
+//		return a1.add();
 //	}
 //
 //}
