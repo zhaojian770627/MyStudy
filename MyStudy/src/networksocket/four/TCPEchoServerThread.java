@@ -23,7 +23,7 @@ public class TCPEchoServerThread {
 		while (true) {
 			Socket clntSock = servSock.accept(); // Block waiting for connection
 
-			Thread thread = new Thread(new EcoProtocol(clntSock, logger));
+			Thread thread = new Thread(new EchoProtocol(clntSock, logger));
 			thread.start();
 			logger.info("Create and started Thread " + thread.getName());
 		}

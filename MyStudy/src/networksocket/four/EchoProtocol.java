@@ -7,13 +7,13 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EcoProtocol implements Runnable {
+public class EchoProtocol implements Runnable {
 
 	private static final int BUFSIZE = 32; // Size (in bytes) of I/O buffer
 	private Socket clntSock; // Socket connect ot client
 	private Logger logger; // Server logger
 
-	public EcoProtocol(Socket clntSock, Logger logger) {
+	public EchoProtocol(Socket clntSock, Logger logger) {
 		this.clntSock = clntSock;
 		this.logger = logger;
 	}
