@@ -18,7 +18,7 @@ public class CompressProtocol implements Runnable {
 		this.logger=logger;
 	}
 	
-	public void handleCompressClient(Socket clntSock,Logger looger){
+	public static void handleCompressClient(Socket clntSock,Logger logger){
 		try{
 			// Get the input and output streams from socket
 			InputStream in=clntSock.getInputStream();
