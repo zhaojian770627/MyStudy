@@ -17,7 +17,11 @@
 		<!-- <param-value> /WEB-INF/dataAccessContext-jta.xml /WEB-INF/applicationContext.xml 
 			</param-value> -->
 	</context-param>
-
+	<servlet>
+		<servlet-name>context</servlet-name>
+		<servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
