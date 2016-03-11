@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="taskConfigBean" class="spring.TaskConfigBean">
+		<property name="sysWebSvrIp">
+			<value>abc</value>
+		</property>
+		<property name="processMap">
+			<map>
+				<entry key="264X" value="nc.ssc.task.NCWorkFlowTaskAction" />
+				<entry key="263X" value="nc.ssc.task.NCWorkFlowTaskAction" />
+			</map>
+		</property>
+	</bean>
+</beans>
