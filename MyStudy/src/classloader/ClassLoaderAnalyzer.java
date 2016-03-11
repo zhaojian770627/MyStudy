@@ -1,9 +1,6 @@
 
 package classloader;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * Utility class for diagnostic purposes to analyze the
  * ClassLoader hierarchy for any object.

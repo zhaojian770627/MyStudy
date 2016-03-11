@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-import javax.ejb.EJBLocalHome;
-
 public class TestDynamicProxyMain {
 
 	public static void main(String[] args) throws IOException {
