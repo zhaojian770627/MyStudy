@@ -22,8 +22,6 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import com.sun.jdmk.comm.HtmlAdaptorServer;
-
 public class AVLTreeJMX implements AVLTreeJMXMBean {
 	class AVLNode {
 		int value;
