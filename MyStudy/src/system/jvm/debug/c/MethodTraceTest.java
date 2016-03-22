@@ -1,4 +1,4 @@
-package jvm;
+package system.jvm.debug.c;
 
 /**
  * 此类的目的是测试JVM调试

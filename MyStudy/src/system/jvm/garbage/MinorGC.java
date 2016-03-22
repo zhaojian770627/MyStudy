@@ -1,4 +1,4 @@
-package jvm.garbage;
+package system.jvm.garbage;
 
 public class MinorGC {
 	private static final int _1MB=1024*1024;

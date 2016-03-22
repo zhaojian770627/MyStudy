@@ -1,4 +1,4 @@
-package jvm;
+package system.jvm.debug.c;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

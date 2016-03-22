@@ -1,4 +1,4 @@
-package jvm.garbage;
+package system.jvm.garbage;
 
 public class testgarbage {
 

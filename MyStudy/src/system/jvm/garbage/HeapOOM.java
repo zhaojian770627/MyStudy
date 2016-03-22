@@ -1,4 +1,4 @@
-package jvm.garbage;
+package system.jvm.garbage;
 
 import java.util.ArrayList;
 import java.util.List;

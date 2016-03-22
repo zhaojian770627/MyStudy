@@ -1,4 +1,4 @@
-package jvm.garbage;
+package system.jvm.garbage;
 
 /**
  * 演示长期存活的对象将进入老年代
