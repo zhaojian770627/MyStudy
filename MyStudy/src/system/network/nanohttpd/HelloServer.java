@@ -1,4 +1,4 @@
-package nanohttpd;
+package system.network.nanohttpd;
 
 import java.io.*;
 import java.util.*;
