@@ -1,6 +1,4 @@
-package guiThread.backgroundTask;
-
-import guiThread.GuiExecutor;
+package system.thread.guiThread.backgroundTask;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CancellationException;

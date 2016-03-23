@@ -1,4 +1,4 @@
-package guiThread.cancel;
+package system.thread.guiThread.cancel;
 
 
 public class MyGUI {

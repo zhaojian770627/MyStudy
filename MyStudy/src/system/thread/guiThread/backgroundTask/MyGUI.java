@@ -1,4 +1,4 @@
-package guiThread.backgroundTask;
+package system.thread.guiThread.backgroundTask;
 
 
 public class MyGUI {

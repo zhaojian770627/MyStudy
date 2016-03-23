@@ -1,4 +1,4 @@
-package guiThread;
+package system.thread.guiThread;
 
 
 public class MyGUI {

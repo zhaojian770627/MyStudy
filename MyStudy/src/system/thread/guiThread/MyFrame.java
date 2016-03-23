@@ -1,4 +1,4 @@
-package guiThread.cancel;
+package system.thread.guiThread;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
@@ -8,22 +8,19 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * 演示取消耗时任务
+ * 演示提供用户反馈的耗时任务
  * @author zhaojianc
  *
  */
 public class MyFrame extends Frame {
 	ExecutorService backgroundExec = Executors.newCachedThreadPool();
-	Future<?> runningTask=null;	//线程限制的
-	long count=0;
-	
+
 	public MyFrame() {
 		setSize(400, 400);
 		setLayout(new BorderLayout());
@@ -81,70 +78,44 @@ public class MyFrame extends Frame {
 			}
 		});
 
-		final JButton btnSubmit = new JButton("提交任务");
-		btnSubmit.addActionListener(new ActionListener() {
+		final JButton btn = new JButton("Click");
+		btn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnSubmit.setEnabled(false);
+				btn.setEnabled(false);
 				lhit.setText("busy");
-				runningTask=backgroundExec.submit(new Runnable() {
+				backgroundExec.execute(new Runnable() {
 
 					@Override
 					public void run() {
 						try{
-							while(moreWork()){
-								if(Thread.interrupted()){
-									cleanUpPartialWork();
-									break;
-								}
-								doBigComputation();
-							}
-						
-						}
-						finally{
+						doBigComputation();
+						}finally{
 							GuiExecutor.instance().execute(new Runnable() {
 								
 								@Override
 								public void run() {
-									btnSubmit.setEnabled(true);
+									btn.setEnabled(true);
 									lhit.setText("idle");
 								}
 							});
 						}
 					}
+
 				});
 			}
 		});
-		
-		final JButton btnCancel=new JButton("取消任务");
-		btnCancel.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent paramActionEvent) {
-				if(runningTask!=null)
-					runningTask.cancel(true);
-			}
-		});
-		mPnl.add(btnSubmit);
-		mPnl.add(btnCancel);
+		mPnl.add(btn);
 	}
-	
-	/*
-	 * 清理工作
-	 */
-	private void cleanUpPartialWork() {
-		
-	}
-	
-	/*
-	 * 判断是否有更多的任务
-	 */
-	private boolean moreWork() {		
-		return true;
-	}
+
 	private void doBigComputation() {
-		count++;
-		System.out.println(count);		
+		try {
+			Thread.sleep(5000);
+			//System.out.println("Click");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

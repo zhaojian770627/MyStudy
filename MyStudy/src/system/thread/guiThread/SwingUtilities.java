@@ -1,4 +1,4 @@
-package guiThread.backgroundTask;
+package system.thread.guiThread;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ExecutionException;

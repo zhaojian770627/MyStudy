@@ -1,4 +1,4 @@
-package guiThread.backgroundTask;
+package system.thread.guiThread.backgroundTask;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;

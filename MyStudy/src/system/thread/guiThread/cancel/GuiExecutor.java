@@ -1,4 +1,4 @@
-package guiThread;
+package system.thread.guiThread.cancel;
 
 import java.util.List;
 import java.util.concurrent.AbstractExecutorService;

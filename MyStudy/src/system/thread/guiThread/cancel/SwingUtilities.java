@@ -1,4 +1,4 @@
-package guiThread;
+package system.thread.guiThread.cancel;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ExecutionException;
