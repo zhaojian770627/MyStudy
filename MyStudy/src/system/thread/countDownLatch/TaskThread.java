@@ -1,4 +1,4 @@
-package countDownLatch;
+package system.thread.countDownLatch;
 
 public class TaskThread implements Runnable {
 	@Override
