@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<bean id="knight" class="openframework.spring.springinaction.knights.BraveKnight">
 		<constructor-arg ref="quest" /> <!--<co id="co_inject_quest_bean"/> -->
@@ -10,5 +13,17 @@
 
 	<bean id="quest" class="openframework.spring.springinaction.knights.SlayDragonQuest" /><!--<co 
 		id="co_quest_bean"/> -->
+	<bean id="minstrel" class="openframework.spring.springinaction.knights.Minstrel"></bean>
 
+	<aop:config>
+    <aop:aspect ref="minstrel">
+      <aop:pointcut id="embark" 
+          expression="execution(* *.embarkOnQuest(..))" /> <!--<co id="co_define_pointcut"/>-->
+      <aop:before pointcut-ref="embark"
+                  method="singBeforeQuest"/>    <!--<co id="co_minstrel_before_advice"/>-->
+
+      <aop:after pointcut-ref="embark"
+                 method="singAfterQuest"/>     <!--<co id="co_minstrel_after_advice"/>-->
+    </aop:aspect>
+  </aop:config>  
 </beans>
