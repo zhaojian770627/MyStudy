@@ -1,4 +1,4 @@
-package ejb;
+package j2ee.ejb;
 
 import java.rmi.RemoteException;
 import java.util.Properties;

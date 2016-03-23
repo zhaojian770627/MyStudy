@@ -1,4 +1,4 @@
-package memcached.test;
+package openframework.memcached.test;
 
 public class RunThread extends Thread {
 	int num;

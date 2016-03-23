@@ -1,4 +1,4 @@
-package memcached;
+package openframework.memcached;
 
 import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;

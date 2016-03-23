@@ -1,4 +1,4 @@
-package derby;
+package openframework.derby;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package memcached;
+package openframework.memcached;
 import java.util.Collection;
 import java.util.SortedMap;
 import java.util.TreeMap;

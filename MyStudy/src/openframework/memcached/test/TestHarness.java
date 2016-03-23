@@ -1,4 +1,4 @@
-package memcached.test;
+package openframework.memcached.test;
 
 import java.util.concurrent.CountDownLatch;
 

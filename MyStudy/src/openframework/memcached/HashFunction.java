@@ -1,4 +1,4 @@
-package memcached;
+package openframework.memcached;
 
 public class HashFunction {
 
