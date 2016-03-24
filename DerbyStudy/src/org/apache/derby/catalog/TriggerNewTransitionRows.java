@@ -21,12 +21,16 @@
 
 package org.apache.derby.catalog;
 
+import org.apache.derby.iapi.db.Factory;
+import org.apache.derby.iapi.db.TriggerExecutionContext;
+
+import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
-import org.apache.derby.iapi.db.Factory;
-import org.apache.derby.iapi.db.TriggerExecutionContext;
+import java.sql.SQLWarning;
+import java.math.BigDecimal;
 
 /**
  * Provides information about about a a set of new rows created by a

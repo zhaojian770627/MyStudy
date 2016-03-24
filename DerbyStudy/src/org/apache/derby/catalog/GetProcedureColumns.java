@@ -22,16 +22,10 @@
 package org.apache.derby.catalog;
 
 import java.sql.Types;
-import java.io.InputStream;
-import java.io.Reader;
 import java.lang.reflect.*;
 import java.sql.ResultSetMetaData;
-import java.sql.RowId;
 import java.sql.SQLException;
-import java.sql.SQLXML;
 import java.sql.DatabaseMetaData;
-import java.sql.NClob;
-
 import org.apache.derby.catalog.TypeDescriptor;
 
 import org.apache.derby.iapi.types.DataTypeDescriptor;

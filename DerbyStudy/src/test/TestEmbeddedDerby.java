@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class TestEmbeddedDerby {
+import org.junit.Test;
+
+import junit.framework.TestCase;
+
+public class TestEmbeddedDerby extends TestCase {
 
 	public static void main(String[] args) throws SQLException {
 		String driver = "org.apache.derby.jdbc.EmbeddedDriver";
@@ -15,12 +19,13 @@ public class TestEmbeddedDerby {
 
 		try {
 			Class.forName(driver);
-			int i=DriverManager.getDriver(dbURL).getMajorVersion();
+			int i = DriverManager.getDriver(dbURL).getMajorVersion();
 			Connection conn = DriverManager.getConnection(dbURL); // 启动嵌入式数据库
 			Statement st = conn.createStatement();
 			// st.execute("create table foo (FOOID INT NOT NULL,FOONAME
 			// VARCHAR(30) NOT NULL)"); // 创建foo表
-			// st.executeUpdate("insert into foo(FOOID,FOONAME) values (1,'chinajash')"); // 插入一条数据
+			// st.executeUpdate("insert into foo(FOOID,FOONAME) values
+			// (1,'chinajash')"); // 插入一条数据
 			ResultSet rs = st.executeQuery("select * from foo"); // 读取刚插入的数据
 			while (rs.next()) {
 				int id = rs.getInt(1);
@@ -30,6 +35,29 @@ public class TestEmbeddedDerby {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void testReadData() throws ClassNotFoundException, SQLException {
+		String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+		String dbName = "EmbeddedDB";
+		String dbURL = "jdbc:derby:d:\\derby\\" + dbName + ";create=true";
+
+		Class.forName(driver);
+		int i = DriverManager.getDriver(dbURL).getMajorVersion();
+		Connection conn = DriverManager.getConnection(dbURL); // 启动嵌入式数据库
+		Statement st = conn.createStatement();
+		// st.execute("create table foo (FOOID INT NOT NULL,FOONAME
+		// VARCHAR(30) NOT NULL)"); // 创建foo表
+		// st.executeUpdate("insert into foo(FOOID,FOONAME) values
+		// (1,'chinajash')"); // 插入一条数据
+		ResultSet rs = st.executeQuery("select * from foo"); // 读取刚插入的数据
+		while (rs.next()) {
+			int id = rs.getInt(1);
+			String name = rs.getString(2);
+			System.out.println("id=" + id + ";name=" + name);
+		}
+
 	}
 
 }
