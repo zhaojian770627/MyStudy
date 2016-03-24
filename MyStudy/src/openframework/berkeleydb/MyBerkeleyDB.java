@@ -1,4 +1,4 @@
-package org.shirdrn.berkeleydb;
+package openframework.berkeleydb;
 
 import java.io.File;
 
