@@ -5,6 +5,21 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="frameworkjs/lib/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var availableMeals = [ {
+		mealName : 'Standard',
+		description : 'Dry crusts of bread',
+		extraCost : 0
+	}, {
+		mealName : 'Premium',
+		description : 'Fresh bread with cheese',
+		extraCost : 9.95
+	}, {
+		mealName : 'Deluxe',
+		description : 'Caviar and vintage Dr Pepper',
+		extraCost : 18.50
+	} ];
+</script>
 </head>
 <body>
 	<h3>Meal upgrades</h3>
@@ -13,25 +28,15 @@
 	Chosen meal:
 	<select
 		data-bind="options: availableMeals,
-                                optionsText: 'mealName'"></select>
-                                
-<script>
-	var viewModel = {
-		availableMeals : [ {
-			mealName : 'Standard',
-			description : 'Dry crusts of bread',
-			extraCost : 0
-		}, {
-			mealName : 'Premium',
-			description : 'Fresh bread with cheese',
-			extraCost : 9.95
-		}, {
-			mealName : 'Deluxe',
-			description : 'Caviar and vintage Dr Pepper',
-			extraCost : 18.50
-		} ]
-	};
-	ko.applyBindings(viewModel);
-</script>
+                                optionsText: 'mealName',value:chosenMeal"></select>
+	<b data-bind="text: chosenMeal().description"></b> (price:
+	<span data-bind='text: chosenMeal().extraCost'></span>)
+
+	<script>
+		var viewModel = {
+			chosenMeal : ko.observable(availableMeals[0])
+		};
+		ko.applyBindings(viewModel);
+	</script>
 </body>
 </html>

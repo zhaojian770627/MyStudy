@@ -8,13 +8,26 @@ requirejs.config({
 	// the paths config could be for a directory.
 	paths : {
 		"jquery" : "jquery-1.11.1",
+		"ko":"knockout-3.4.0",
+		"data":"data",
 		app : '../app'
 	}
 });
 
-requirejs([ 'jquery', 'math' ], function($, math) {
-	// jQuery, canvas and the app/sub module are all
-	// loaded and can be used here now.
-	alert(math.add(3, 4));
+requirejs([ 'jquery',"data","ko" ], function($,data,ko) {
 
+	$(document).ready(function() {
+		alert(data.data);
+		alert(availableMeals);
+		var d=data.data;
+		alert(d);
+		
+		$('#sel').attr("data-bind","options: availableMeals, optionsText: 'mealName'");
+		
+		var viewModel = {
+				/* we'll populate this in a moment */
+				};
+		ko.applyBindings(viewModel);
+	});
+	// alert(math.add(3, 4));
 });
