@@ -5,6 +5,16 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="frameworkjs/lib/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="frameworkjs/lib/knockout-3.4.0.js"></script>
+</head>
+<body>
+	<h3>Meal upgrades</h3>
+	<p>Make your flight more bearable by selecting a meal to match your
+		social and economic status.</p>
+	Chosen meal:
+	<select
+		data-bind="options: availableMeals,
+                                optionsText: 'mealName'"></select>
+                                
 <script>
 	var viewModel = {
 		availableMeals : [ {
@@ -23,14 +33,5 @@
 	};
 	ko.applyBindings(viewModel);
 </script>
-</head>
-<body>
-	<h3>Meal upgrades</h3>
-	<p>Make your flight more bearable by selecting a meal to match your
-		social and economic status.</p>
-	Chosen meal:
-	<select
-		data-bind="options: availableMeals,
-                                optionsText: 'mealName'"></select>
 </body>
 </html>
