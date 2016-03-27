@@ -6,7 +6,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AudieceMain {
 	public static void main(String[] args) throws PerformanceException {
 		ApplicationContext context = new ClassPathXmlApplicationContext("xmlaop.xml", AudieceMain.class); // <co
-		Performer performer=(Performer) context.getBean("eddie");
+		Performer performer1=(Performer) context.getBean("eddie");
+		performer1.perform();
+		System.out.println("-------------------------");
+		Performer performer=(Performer) context.getBean("perform");
 		performer.perform();
 	}
 }

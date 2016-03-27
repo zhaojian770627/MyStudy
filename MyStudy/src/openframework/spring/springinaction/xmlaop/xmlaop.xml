@@ -9,6 +9,11 @@
 		class="openframework.spring.springinaction.xmlaop.Instrumentalist">
 		<property name="instrument" ref="guitar"></property>
 	</bean>
+	
+	<bean id="perform"
+		class="openframework.spring.springinaction.xmlaop.Instrumentalist">
+		<property name="instrument" ref="guitar"></property>
+	</bean>
 
 	<bean id="guitar" class="openframework.spring.springinaction.xmlaop.Guitar">
 	</bean>
@@ -26,6 +31,10 @@
 				method="applaud" />
 			<aop:after-throwing pointcut-ref="performance"
 				method="demandRefund" />
+	
+	    	<aop:pointcut id="performance2"
+				expression="execution(* openframework.spring.springinaction.xmlaop.Performer.perform(..))" />
+			<aop:around pointcut-ref="performance2" method="watchPerfomance"/>
 		</aop:aspect>
 	</aop:config>
 </beans>
