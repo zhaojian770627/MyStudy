@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Value转换器</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		price : ko.observable(11)
+	};
+
+	viewModel.formattedPrice = ko.dependentObservable({
+		read : function() {
+			return "$" + this.price().toFixed(2);
+		},
+
+		write : function(value) {
+			// Strip out unwanted characters, parse as float, then write the raw data back to the underlying "price" observable
+			value = parseFloat(value.replace(/[^\.\d]/g, ""));
+			this.price(isNaN(value) ? 0 : value); // Write to underlying storage
+		},
+		owner : viewModel
+	});
+</script>
+</head>
+<body>
+	<p>
+		Enter bid price: <input data-bind="value: formattedPrice" />
+	</p>
+	<script type="text/javascript">
+		viewModel.price.subscribe(function(newValue) {
+			alert("The price is " + newValue);
+		});
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>

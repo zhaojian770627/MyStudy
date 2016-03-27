@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>分解用户的输入</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		firstName : ko.observable("Planet"),
+		lastName : ko.observable("Earth")
+	};
+
+	viewModel.fullName = ko.dependentObservable({
+
+		read : function() {
+			return this.firstName() + " " + this.lastName();
+		},
+
+		write : function(value) {
+			var lastSpacePos = value.lastIndexOf(" ");
+			if (lastSpacePos > 0) { // Ignore values with no space character
+				this.firstName(value.substring(0, lastSpacePos)); // Update "firstName"
+				this.lastName(value.substring(lastSpacePos + 1)); // Update "lastName"
+			}
+		},
+		owner : viewModel
+	});
+</script>
+</head>
+<body>
+
+
+	<p>
+		First name: <span data-bind="text: firstName"></span>
+	</p>
+	<p>
+		Last name: <span data-bind="text: lastName"></span>
+	</p>
+	<h2>
+		Hello, <input data-bind="value: fullName" />!
+	</h2>
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>

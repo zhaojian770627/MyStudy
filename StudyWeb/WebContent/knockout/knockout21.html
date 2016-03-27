@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>使用依赖监控属性</title>
+<script type="text/javascript" src="frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var myViewModel = {
+		firstName : ko.observable('zha'),
+		lastName: ko.observable('jian')
+	};
+	myViewModel.fullName = ko.dependentObservable(function () {
+	    return this.firstName() + " " + this.lastName();
+	}, myViewModel);
+</script>
+</head>
+<body>
+	The fist name is<span data-bind="text: firstName"></span>
+	The full name <span data-bind="text: fullName"></span>
+	<input type="button" id="change" value="change">
+	<script type="text/javascript">
+		$('#change').click(function() {
+			myViewModel.firstName('zhao');
+		});
+		myViewModel.firstName.subscribe(function(newValue) {
+			alert("The person's new name is " + newValue);
+		});
+		ko.applyBindings(myViewModel);
+	</script>
+</body>
+</html>
