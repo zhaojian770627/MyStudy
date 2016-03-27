@@ -5,11 +5,12 @@
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/aop 
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
 	<bean id="eddie"
 		class="openframework.spring.springinaction.xmlaop.Instrumentalist">
 		<property name="instrument" ref="guitar"></property>
 	</bean>
-	
+
 	<bean id="perform"
 		class="openframework.spring.springinaction.xmlaop.Instrumentalist">
 		<property name="instrument" ref="guitar"></property>
@@ -19,6 +20,10 @@
 	</bean>
 
 	<bean id="audience" class="openframework.spring.springinaction.xmlaop.Audience">
+	</bean>
+
+	<bean id="aroundAudience"
+		class="openframework.spring.springinaction.xmlaop.AroundAudience">
 	</bean>
 
 	<aop:config>
@@ -31,10 +36,11 @@
 				method="applaud" />
 			<aop:after-throwing pointcut-ref="performance"
 				method="demandRefund" />
-	
-	    	<aop:pointcut id="performance2"
+		</aop:aspect>
+		<aop:aspect ref="aroundAudience">
+			<aop:pointcut id="performance2"
 				expression="execution(* openframework.spring.springinaction.xmlaop.Performer.perform(..))" />
-			<aop:around pointcut-ref="performance2" method="watchPerfomance"/>
+			<aop:around pointcut-ref="performance2" method="watchPerformance" />
 		</aop:aspect>
 	</aop:config>
 </beans>
