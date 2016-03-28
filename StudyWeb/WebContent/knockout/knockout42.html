@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>click 绑定</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		numberOfClicks : ko.observable(0),
+		incrementClickCounter : function(event,p1) {
+			var previousCount = this.numberOfClicks();
+			this.numberOfClicks(previousCount + 1);
+			alert(p1);
+			if (event.shiftKey)
+				alert("Shift");
+			else
+				alert("No Shift");
+		}
+	};
+</script>
+</head>
+<body>
+	<div>
+		You've clicked <span data-bind="text: numberOfClicks"></span> times
+		<button
+			data-bind="click:  function(event) { viewModel.incrementClickCounter(event,'a') }">Click
+			me</button>
+	</div>
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>
