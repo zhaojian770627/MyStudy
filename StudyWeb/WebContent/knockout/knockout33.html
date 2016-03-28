@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>attr 绑定</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		url : ko.observable("year-end.html"),
+		details : ko.observable("Report including final year-end statistics")
+	};
+	// Causes the "profitWarning" class to be applied
+</script>
+</head>
+<body>
+	<a data-bind="attr: { href: url, title: details }"> Report </a>
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>
