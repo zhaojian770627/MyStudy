@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>visible 绑定,text 绑定,使用函数或者表达式来决定text值</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		shouldShowMessage : ko.observable(true), // Message initially visible
+		price : ko.observable(60),
+		myMessage : ko.observable()
+	// Initially blank
+	};
+	//viewModel.shouldShowMessage(false); // ... now it's hidden
+	viewModel.shouldShowMessage(true); // ... now it's visible again
+	viewModel.myMessage("Hello, world!"); // Text appears
+	viewModel.priceRating = ko.dependentObservable(function() {
+		return this.price() > 50 ? "expensive" : "affordable";
+	}, viewModel);
+</script>
+</head>
+<body>
+	<div data-bind="visible: shouldShowMessage">You will see this
+		message only when "shouldShowMessage" holds a true value.</div>
+	<br> Today's message is:
+	<span data-bind="text: myMessage"></span> today.
+	<br>The item is The item is
+	<span data-bind="text: priceRating"></span> today.
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>

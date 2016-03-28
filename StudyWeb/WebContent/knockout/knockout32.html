@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSS绑定,style 绑定</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		currentProfit : ko.observable(150000)
+	// Positive value, so initially we don't apply the "profitWarning" class
+	};
+
+	viewModel.currentProfit(-50);
+	// Causes the "profitWarning" class to be applied
+</script>
+</head>
+<body>
+	<div data-bind="css: { profitWarning: currentProfit() < 0 }">
+		Profit Information1</div>
+	<div
+		data-bind="style: { color: currentProfit() < 0 ? 'red' : 'black' }">
+		Profit Information2</div>
+
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>
