@@ -11,7 +11,7 @@ public class SimpleJdbcTemplateSpitterDao implements
         SpitterDao {
 
 
-  private static final String SQL_INSERT_SPITTER = "insert into spitter (username, password, fullname, email, update_by_email) values (?, ?, ?, ?, ?)";
+  private static final String SQL_INSERT_SPITTER = "insert into spitter (id,username, password, fullname, email, update_by_email) values (? , ?, ?, ?, ?, ?)";
 
   private static final String SQL_UPDATE_SPITTER = "update spitter set username = ?, password = ?, fullname = ?, set email=?"
           + "where id = ?";
@@ -51,13 +51,15 @@ public class SimpleJdbcTemplateSpitterDao implements
 
   //<start id="java_addSpitter" /> 
   public void addSpitter(Spitter spitter) {
-    jdbcTemplate.update(SQL_INSERT_SPITTER,//<co id="co_updateSpitter"/>
-            spitter.getUsername(), 
+	  spitter.setId(queryForIdentity());
+	  jdbcTemplate.update(SQL_INSERT_SPITTER,//<co id="co_updateSpitter"/>
+            spitter.getId(),
+			spitter.getUsername(), 
             spitter.getPassword(),
             spitter.getFullName(),
             spitter.getEmail(),
-            spitter.isUpdateByEmail());
-    spitter.setId(queryForIdentity());
+            spitter.isUpdateByEmail()==true?"Y":"N");
+    
   }
   //<end id="java_addSpitter" />
 
@@ -83,7 +85,7 @@ public class SimpleJdbcTemplateSpitterDao implements
 
   //<start id="java_queryForIdentity" /> 
   private long queryForIdentity() {
-    return jdbcTemplate.queryForLong("call identity()");
+    return jdbcTemplate.queryForLong("select SPITTER_SID.Nextval from dual");
   }
   //<end id="java_queryForIdentity" />
 
