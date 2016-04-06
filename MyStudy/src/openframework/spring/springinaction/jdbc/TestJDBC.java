@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import junit.framework.Assert;
+
 public class TestJDBC {
 
 	@Test
@@ -21,5 +23,14 @@ public class TestJDBC {
 		spitter.setUpdateByEmail(false);
 		dao.addSpitter(spitter);
 	}
-
+	
+	@Test
+	public void testGetData()
+	{
+		ApplicationContext context = new ClassPathXmlApplicationContext("dataAccessContext-local.xml",
+				TestJDBC.class); // <co
+		SpitterDao dao=(SpitterDao) context.getBean("spitterDao");
+		Spitter spitter=dao.getSpitterById(41);
+		Assert.assertTrue(spitter!=null);
+	}
 }

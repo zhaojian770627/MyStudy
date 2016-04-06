@@ -30,11 +30,8 @@
 			<value>1</value>
 		</property>
 	</bean>
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
-		<constructor-arg ref="dataSource"></constructor-arg>
-	</bean>
 	<bean id="spitterDao"
-		class="openframework.spring.springinaction.jdbc.SimpleJdbcTemplateSpitterDao">
-		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+		class="openframework.spring.springinaction.jdbcdaosupport.SimpleJdbcSupportSpitterDao">
+		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 </beans>
