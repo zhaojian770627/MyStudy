@@ -11,14 +11,6 @@
 		hasCellphone : ko.observable(false),
 		cellphoneNumber : ko.observable('')
 	};
-
-	viewModel.btnEnable = ko.dependentObservable({
-		read : function() {
-			return parseInt(this.cellphoneNumber) == 555;
-		},
-
-		owner : viewModel
-	});
 </script>
 </head>
 <body>
