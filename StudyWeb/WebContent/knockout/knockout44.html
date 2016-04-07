@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>防止事件冒泡</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		myDivHandler : function() {
+			alert("DIV");
+		},
+		myButtonHandler : function() {
+			alert("BUTTON");
+		}
+	};
+</script>
+</head>
+<body>
+	<div data-bind="click: myDivHandler">
+		<!-- 默认情况下，myButtonHandler会先执行，然后会冒泡执行myDivHandler。但一旦你设置了clickBubble为false的时候，冒泡事件会被禁止。 -->
+		<button data-bind="click: myButtonHandler, clickBubble: false">
+			Click me</button>
+	</div>
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>

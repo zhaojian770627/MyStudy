@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>enable 绑定</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		hasCellphone : ko.observable(false),
+		cellphoneNumber : ko.observable('')
+	};
+
+	viewModel.btnEnable = ko.dependentObservable({
+		read : function() {
+			return parseInt(this.cellphoneNumber) == 555;
+		},
+
+		owner : viewModel
+	});
+</script>
+</head>
+<body>
+	enable绑定使DOM元素只有在参数值为
+	true的时候才enabled。在form表单元素input，select，和textarea上非常有用。
+	<p>
+		<input type='checkbox' data-bind="checked: hasCellphone" /> I have a
+		cellphone
+	</p>
+
+	<p>
+		Your cellphone number: <input type='text'
+			data-bind="value: cellphoneNumber, enable: hasCellphone" />
+	</p>
+	<span data-bind="text: cellphoneNumber"></span>
+	<button data-bind="enable: cellphoneNumber()=='555'">Do something</button>
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>

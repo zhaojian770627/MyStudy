@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>submit 绑定</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+var viewModel = {
+        doSomething: function (formElement) {
+            // ... now do something
+            alert("submit");
+        }
+    };
+</script>
+</head>
+<body>
+	submit绑定在form表单上添加指定的事件句柄以便该form被提交的时候执行定义的JavaScript 函数。只能用在表单form元素上。
+	当你使用submit绑定的时候，
+	Knockout会阻止form表单默认的submit动作。换句话说，浏览器会执行你定义的绑定函数而不会提交这个form表单到服务器上。可以很好地解释这个，使用submit绑定就是为了处理view
+	model的自定义函数的，而不是再使用普通的HTML form表单。如果你要继续执行默认的HTML
+	form表单操作，你可以在你的submit句柄里返回true。
+	<form data-bind="submit: doSomething">
+		... form contents go here ...
+		<button type="submit">Submit</button>
+	</form>
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>
