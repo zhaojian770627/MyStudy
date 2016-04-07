@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>value 绑定</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		userName : ko.observable(""), // Initially blank
+		userPassword : ko.observable("abc"), // Prepopulate
+	};
+</script>
+</head>
+<body>
+	<p>
+		Login name: <input data-bind="value: userName" />
+	</p>
+	<p>
+		Password: <input type="password" data-bind="value: userPassword" />
+	</p>
+	姓名:<span data-bind="text: userName"></span>
+	密码:<span data-bind="text: userPassword"></span>
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>
