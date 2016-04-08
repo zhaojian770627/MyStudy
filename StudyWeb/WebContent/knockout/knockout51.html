@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>更新observable和non-observable属性值</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		firstValue : ko.observable("hello"), // Observable
+		secondValue : "hello, again"// Not observable
+	};
+</script>
+</head>
+<body>
+	<p>
+		如果你用value绑定将你的表单元素和你的observable属性关联起来，KO设置的2-way的双向绑定，任何一方改变都会更新另外一方的值。
+
+		但是，如果你的元素绑定的是一个non-observable属性（例如是一个原始的字符串或者JavaScript表达式） ,KO会这样执行：
+
+		如果你绑定的non-observable属性是简单对象，例如一个常见的属性值，KO会设置这个值为form表单元素的初始值，如果你改变form表单元素的值，KO会将值重新写回到view
+		mode的这个属性。但当这个属性自己改变的时候，元素却不会再变化了（因为不是observable的），所以它仅仅是1-way绑定。
+		如果你绑定的non-observable属性是复杂对象，例如复杂的JavaScript
+		表达式或者子属性，KO也会设置这个值为form表单元素的初始值，但是改变form表单元素的值的时候，KO不会再写会view
+		model属性，这种情况叫one-time-only value setter，不是真正的绑定。</p>
+	<p>
+		First value: <input data-bind="value: firstValue" />
+	</p>
+	<!-- two-way binding -->
+	<p>
+		Second value: <input data-bind="value: secondValue" />
+	</p>
+	<!-- one-way binding -->
+	<p>
+		Third value: <input data-bind="value: secondValue.length" />
+	</p>
+	<!-- no binding -->
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>

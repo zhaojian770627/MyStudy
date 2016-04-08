@@ -10,6 +10,7 @@
 	var viewModel = {
 		userName : ko.observable(""), // Initially blank
 		userPassword : ko.observable("abc"), // Prepopulate
+		someValue : ko.observable("edit me")
 	};
 </script>
 </head>
@@ -20,8 +21,25 @@
 	<p>
 		Password: <input type="password" data-bind="value: userPassword" />
 	</p>
-	姓名:<span data-bind="text: userName"></span>
-	密码:<span data-bind="text: userPassword"></span>
+	姓名:
+	<span data-bind="text: userName"></span> 密码:
+	<span data-bind="text: userPassword"></span> valueUpdate
+
+	如果你使用valueUpdate参数，那就是意味着KO将使用自定义的事件而不是默认的离开焦点事件。下面是一些最常用的选项：
+
+	“change”（默认值） - 当失去焦点的时候更新view model的值，或者是 select 元素被选择的时候。 “keyup” –
+	当用户敲完一个字符以后立即更新view model。 “keypress” – 当用户正在敲一个字符但没有释放键盘的时候就立即更新view
+	model。不像 keyup，这个更新和keydown是一样的。 “afterkeydown” – 当用户开始输入字符的时候就更新view
+	model。主要是捕获浏览器的keydown事件或异步handle事件。 上述这些选项，如果你想让你的view
+	model进行实时更新，使用“afterkeydown”是最好的选择。
+	<p>
+		Your value: <input
+			data-bind="value: someValue, valueUpdate: 'afterkeydown'" />
+	</p>
+	<p>
+		You have typed: <span data-bind="text: someValue"></span>
+	</p>
+	
 	<script type="text/javascript">
 		ko.applyBindings(viewModel);
 	</script>
