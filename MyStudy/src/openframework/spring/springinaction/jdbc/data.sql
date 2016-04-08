@@ -6,7 +6,7 @@ values
    'password',
    'Craig Walls',
    'craig@habuma.com',
-   'F');
+   '0');
 
 insert into spitter
   (id, username, password, fullname, email, update_by_email)
@@ -16,7 +16,7 @@ values
    'password',
    'Art Names',
    'artnames@habuma.com',
-   'Y');
+   '1');
 
 insert into spittle
   (id, spitter_id, spittleText, postedTime)
