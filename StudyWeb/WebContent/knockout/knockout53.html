@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Checkbox关联到数组</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		wantsSpam : ko.observable(true),
+		spamFlavors : ko.observableArray([ "cherry", "almond" ])
+	// Initially checks the Cherry and Almond checkboxes
+	};
+
+	// ... then later ...
+	function changeValue() {
+		viewModel.spamFlavors.push("msg"); // Now additionally checks the Monosodium Glutamate checkbox
+	}
+</script>
+</head>
+<body>
+	<p>
+		Send me spam: <input type="checkbox" data-bind="checked: wantsSpam" />
+	</p>
+	<div data-bind="visible: wantsSpam">
+		Preferred flavors of spam:
+		<div>
+			<input type="checkbox" value="cherry"
+				data-bind="checked: spamFlavors" /> Cherry
+		</div>
+		<div>
+			<input type="checkbox" value="almond"
+				data-bind="checked: spamFlavors" /> Almond
+		</div>
+		<div>
+			<input type="checkbox" value="msg" data-bind="checked: spamFlavors" />
+			Monosodium Glutamate
+		</div>
+		<input type="button" value="Change" onclick="changeValue();">
+	</div>
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>
