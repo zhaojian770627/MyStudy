@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Drop-down list展示的任意JavaScript对象，不仅仅是字符串</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	//Constructor for an object with two properties
+	var country = function(name, population) {
+		this.countryName = name;
+		this.countryPopulation = population;
+	};
+
+	var viewModel = {
+		availableCountries : ko
+				.observableArray([ new country("UK", 65000000),
+						new country("USA", 320000000),
+						new country("Sweden", 29000000) ]),
+		selectedCountry : ko.observable()
+	// Nothing selected by default
+	};
+</script>
+</head>
+<body>
+	<p>
+		Your country: <select
+			data-bind="options: availableCountries, 
+　　　　　　　　　　　　　　optionsText: 'countryName', value: selectedCountry, optionsCaption: 'Choose...'"></select>
+	</p>
+
+	<div data-bind="visible: selectedCountry">
+		<!-- Appears when you select something -->
+		You have chosen a country with population <span
+			data-bind="text: selectedCountry() ? selectedCountry().countryPopulation : 'unknown'"></span>.
+	</div>
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>

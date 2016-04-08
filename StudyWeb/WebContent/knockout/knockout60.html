@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>selectedOptions 绑定</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		availableCountries : ko
+				.observableArray([ 'France', 'Germany', 'Spain' ]),
+		chosenCountries : ko.observableArray([ 'Germany' ])
+	// Initially, only Germany is selected
+	};
+
+	// ... then later ...
+	function changeValue() {
+		viewModel.chosenCountries.push('France'); // Now France is selected too
+	}
+</script>
+</head>
+<body>
+	<p>selectedOptions绑定用于控制multi-select列表已经被选择的元素，用在使用options绑定的
+		select 元素上。 当用户在multi-select列表选择或反选一个项的时候，会将view
+		model的数组进行相应的添加或者删除。同样，如果view
+		model上的这个数组是observable数组的话，你添加或者删除任何item（通过push或者splice）的时候，相应的UI界面里的option项也会被选择上或者反选。这种方式是2-way绑定。
+		注：控制single-select下拉菜单选择项，你可以使用value绑定。</p>
+	<p>
+		Choose some countries you'd like to visit: <select
+			data-bind="options: availableCountries, selectedOptions: chosenCountries"
+			size="5" multiple="true"></select>
+	</p>
+	<input type="button" value="Change" onclick="changeValue();">
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>

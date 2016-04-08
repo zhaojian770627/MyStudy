@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> options绑定  Drop-down list</title>
+<script type="text/javascript" src="../frameworkjs/lib/jquery-1.11.1.js"></script>
+<script type="text/javascript"
+	src="../frameworkjs/lib/knockout-3.4.0.js"></script>
+<script type="text/javascript">
+	var viewModel = {
+		availableCountries : ko
+				.observableArray([ 'France', 'Germany', 'Spain' ])
+	// These are the initial options
+	};
+
+	// ... then later ...
+	function changeValue() {
+		viewModel.availableCountries.push('China'); // Adds another option
+	}
+</script>
+</head>
+<body>
+	<p>
+		Destination country: <select data-bind="options: availableCountries"></select>
+	</p>
+	<input type="button" value="Change" onclick="changeValue();">
+	<script type="text/javascript">
+		ko.applyBindings(viewModel);
+	</script>
+</body>
+</html>
