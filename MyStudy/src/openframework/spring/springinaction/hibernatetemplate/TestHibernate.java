@@ -31,7 +31,7 @@ public class TestHibernate {
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "persistence-context.xml",
 				"test-dataSource-context.xml", "test-transaction-context.xml" }, TestHibernate.class); // <co
 		SpitterDao dao = (SpitterDao) context.getBean("hibernateSpitterDao");
-		Spitter spitter = dao.getSpitterById(41);
+		Spitter spitter = dao.getSpitterById(42);
 		Assert.assertTrue(spitter != null);
 	}
 }

@@ -12,6 +12,6 @@
 		<property column="password" name="password" type="java.lang.String" />
 		<property column="fullname" name="fullName" type="java.lang.String" />
 		<property column="email" name="email" type="java.lang.String" />
-		<property column="update_by_email" name="updateByEmail" type="java.lang.String" />
+		<property column="update_by_email" name="updateByEmail" type="java.lang.Boolean" />
 	</class>
 </hibernate-mapping>
