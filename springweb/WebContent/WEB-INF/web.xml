@@ -9,9 +9,9 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		classpath:transaction-context.xml
-		classpath:persistence-context.xml
-		classpath:dataSource-context.xml
+		/WEB-INF/transaction-context.xml
+		/WEB-INF/persistence-context.xml
+		/WEB-INF/dataSource-context.xml
 		</param-value>
 	</context-param>
 	<servlet>
