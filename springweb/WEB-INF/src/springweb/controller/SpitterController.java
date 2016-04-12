@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import springweb.model.Spitter;
 import springweb.service.SpitterService;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Controller
 @RequestMapping("/spitter")	// ¸úURLÂ·¾¶
@@ -21,6 +22,7 @@ public class SpitterController {
 		this.spitterService=spitterService;
 	}
 	
+	@RequestMapping(value="/spittles",method=GET)
 	public String listSpittlesForSpitter(@RequestParam("spitter") String username,Model model){
 		Spitter spitter=spitterService.getSpitter(username);
 		model.addAttribute(spitter);
