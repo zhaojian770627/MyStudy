@@ -9,8 +9,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		/WEB-INF/spitter-security.xml
-		classpath:service-context.xml
+		classpath:transaction-context.xml
 		classpath:persistence-context.xml
 		classpath:dataSource-context.xml
 		</param-value>
