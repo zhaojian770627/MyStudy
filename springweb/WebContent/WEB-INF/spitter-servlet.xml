@@ -13,7 +13,7 @@
 
 	<mvc:annotation-driven />
 	<context:component-scan base-package="springweb" />
-	
+	<!--
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="suffix">
@@ -21,7 +21,7 @@
 		</property>
 		<property name="order" value="0" />
 	</bean>
-
+	-->
 	<bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver"></bean>
 	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<property name="definitions">

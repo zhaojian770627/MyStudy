@@ -18,7 +18,7 @@ import springweb.model.Spitter;
 import springweb.service.SpitterService;
 
 @Controller
-@RequestMapping("/spitter")	// ¸úURLÂ·¾¶
+@RequestMapping("/spitters")	// ¸úURLÂ·¾¶
 public class SpitterController {
 	
 	private final SpitterService spitterService;
@@ -35,7 +35,7 @@ public class SpitterController {
 		model.addAttribute(spitterService.getSpittlesForSpitter(username));
 		return "spittles/list";
 	}
-	
+	  
 	@RequestMapping(method=RequestMethod.GET,params="new")
 	public String createSpitterProfile(Model model){
 		model.addAttribute(new Spitter());
