@@ -9,6 +9,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<mvc:resources location="/resources/*" mapping="/resources/**" />
 	<mvc:annotation-driven />
+	<context:component-scan base-package="springweb" />
 	<bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver"></bean>
 	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<property name="definitions">
