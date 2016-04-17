@@ -1,6 +1,7 @@
 package openframework.rabbitmq;
 
 import java.io.IOException;
+import java.util.Date;
 
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
@@ -16,17 +17,24 @@ public class TestMQConsumer extends DefaultConsumer {
 			throws IOException {
 		String message = new String(body, "UTF-8");
 
-		System.out.println(" [x] Received '" + message + "'");
+		//System.out.println(" [x] Received '" + message + "'");
 		try {
 			doWork(message);
 		} finally {
-			System.out.println(" [x] Done");
+			//System.out.println(" [x] Done");
 			channel.basicAck(envelope.getDeliveryTag(), false);
 		}
 	}
 
 	private void doWork(String message) {
-		System.out.println(this.cousumerName + "[x] Message: " + message);
+		Date dt = new Date();
+		System.out.println(this.cousumerName + " " + dt.getTime() + "[x] Message: " + message);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
      <!-- MQ配置信息 -->
-	<bean id="mqConfig" class="ssc.util.mq.MQConfigVO">
+	<bean id="mqConfig" class="openframework.rabbitmq.MQConfigVO">
 		<property name="host" value="20.12.22.124"/>
 		<property name="port" value="5672"/>
 		<property name="user" value="sscmq"/>
@@ -15,18 +15,13 @@
 		<property name="timeout" value="30000"/>
 	</bean>
 	 <!-- MQ生成，消费 -->
-	<bean id="mqAdmin" class="ssc.util.mq.MQAdmin" init-method="init" >
+	<bean id="mqAdmin" class="openframework.rabbitmq.MQConsumer" init-method="init" >
 		<property name="config" ref="mqConfig"/>
 		<property name="exchangename" value="ssc"/>  
 		<property name="recvwait" value="2000"/>
-		<property name="recvhandler" ref="recvHandler"/> 
 		<!-- 本地接受任务的队列  -->
 		<property name="revQueue" value="ssc2ncq"/> 
 		<!-- 共享服务的任务的队列，即本地发送队列 -->
 		<property name="sndQueue" value="zjtest"/> 
 	</bean>
-
-	<!-- MQ消费处理类 -->  
-	<bean id="recvHandler" class="ssc.util.mq.RecvHandlerImpl">
-    </bean>
 </beans>
