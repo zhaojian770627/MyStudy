@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- MQ配置信息 -->
+	<bean id="mqConfig" class="ssc.util.mq.MQConfigVO">
+		<property name="host" value="20.12.22.124" />
+		<property name="port" value="5672" />
+		<property name="user" value="sscmq" />
+		<property name="pwd" value="sscmq" />
+		<property name="timeout" value="30000" />
+	</bean>
+	<!-- MQ生成，消费 -->
+	<bean id="mqAdmin" class="ssc.util.mq.MQAdmin" init-method="init">
+		<property name="config" ref="mqConfig" />
+		<property name="exchangename" value="ssc" />
+		<property name="recvwait" value="2000" />
+		<property name="recvhandler" ref="recvHandler" />
+		<!-- -->
+		<property name="revQueue" value="zjtest" />
+		<property name="sndQueue" value="" />
+	</bean>
+
+	<!-- MQ消费处理类 -->
+	<bean id="recvHandler" class="ssc.util.mq.RecvHandlerImpl">
+	</bean>
+</beans>
