@@ -36,7 +36,7 @@
 <!--<end id="authentication_manager"/>-->
 
   <!-- ...or spitter-security-ldap.xml, or spitter-security-inmemory.xml -->
-  <beans:import resource="spitter-security-ldap.xml"/>
+  <beans:import resource="spitter-security-inmemory.xml"/>
 
 <!--<start id="globalMethodSecurity_securedAnnotations"/>--> 
   <global-method-security secured-annotations="enabled" /> 
