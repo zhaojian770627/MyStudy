@@ -111,9 +111,15 @@ public class MQConsumer {
 	 */
 	public void startRecv() throws IOException {
 		Channel revchannel = connection.createChannel();
-		revchannel.basicQos(1);
-		revchannel.basicConsume(this.revQueue, false, new TestMQConsumer("C1", revchannel));
-		revchannel.basicConsume(this.revQueue, false, new TestMQConsumer("C2", revchannel));
+		revchannel.basicQos(0);
+		// 启动事务
+		revchannel.txSelect();
+
+		TestMQConsumer consumer = new TestMQConsumer("C1", revchannel,this.revQueue);
+        Thread consumerThread = new Thread(consumer);
+        consumerThread.start();
+		// 启动线程
+		//revchannel.basicConsume(this.revQueue, false, new TestMQConsumer("C1", revchannel));
 	}
 
 	@PreDestroy
@@ -141,7 +147,6 @@ public class MQConsumer {
 		this.exchangename = exchangename;
 	}
 
-	
 	public long getRecvwait() {
 		return recvwait;
 	}
