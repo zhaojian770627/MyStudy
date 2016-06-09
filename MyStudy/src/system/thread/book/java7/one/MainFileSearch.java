@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  *  on the Windows root folder and its subfolders during ten seconds
  *  and then, interrupts the Thread
  */
-public class Main4 {
+public class MainFileSearch {
 
 	/**
 	 * Main method of the core. Search for the autoexect.bat file

@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
  *  Main class of the sample. Launch the PrimeGenerator, waits 
  *  five seconds and interrupts the Thread
  */
-public class Main3 {
+public class MainPrimeGenerator {
 
 	/**
 	 * Main method of the sample. Launch the PrimeGenerator, waits

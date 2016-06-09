@@ -9,7 +9,7 @@ import java.lang.Thread.State;
 /**
  *  Main class of the example
  */
-public class Main1 {
+public class MainCalStatus {
 
 	/**
 	 * Main method of the example
