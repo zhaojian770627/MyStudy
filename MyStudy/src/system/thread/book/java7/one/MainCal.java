@@ -1,6 +1,6 @@
 package system.thread.book.java7.one;
 
-public class Main {
+public class MainCal {
 
 	public static void main(String[] args) {
 		for (int i = 1; i <= 10; i++) {
