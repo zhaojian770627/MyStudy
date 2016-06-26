@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
      <!-- MQ配置信息 -->
 	<bean id="mqConfig" class="openframework.rabbitmq.MQConfigVO">
-		<property name="host" value="20.12.22.124"/>
+		<property name="host" value="10.10.165.92"/>
 		<property name="port" value="5672"/>
 		<property name="user" value="sscmq"/>
 		<property name="pwd" value="sscmq"/>
@@ -20,8 +20,8 @@
 		<property name="exchangename" value="ssc"/>  
 		<property name="recvwait" value="2000"/>
 		<!-- 本地接受任务的队列  -->
-		<property name="revQueue" value="ssc2ncq"/> 
+		<property name="revQueue" value="nc2nc"/> 
 		<!-- 共享服务的任务的队列，即本地发送队列 -->
-		<property name="sndQueue" value="zjtest"/> 
+		<property name="sndQueue" value="nc2nc"/> 
 	</bean>
 </beans>

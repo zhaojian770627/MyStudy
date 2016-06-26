@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- MQ配置信息 -->
 	<bean id="mqConfig" class="openframework.rabbitmq.MQConfigVO">
-		<property name="host" value="20.12.22.124" />
+		<property name="host" value="10.10.165.91" />
 		<property name="port" value="5672" />
 		<property name="user" value="sscmq" />
 		<property name="pwd" value="sscmq" />
@@ -20,8 +20,8 @@
 		<property name="exchangename" value="ssc" />
 		<property name="recvwait" value="2000" />
 		<!-- -->
-		<property name="revQueue" value="zjtest" />
-		<property name="sndQueue" value="" />
+		<property name="revQueue" value="nc2nc" />
+		<property name="sndQueue" value="nc2nc" />
 	</bean>
 
 	<!-- MQ消费处理类 -->
