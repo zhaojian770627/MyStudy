@@ -1,4 +1,4 @@
-package system.thread.book.java7.three;
+package system.thread.book.java7.three.s1;
 
 /**
  * Main class of the example.

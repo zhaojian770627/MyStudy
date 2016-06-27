@@ -1,4 +1,4 @@
-package system.thread.book.java7.three;
+package system.thread.book.java7.three.s1;
 
 /**
  * This class simulates a job that send a document to print.

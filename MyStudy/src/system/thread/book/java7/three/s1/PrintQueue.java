@@ -1,4 +1,4 @@
-package system.thread.book.java7.three;
+package system.thread.book.java7.three.s1;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
