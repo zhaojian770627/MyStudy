@@ -12,7 +12,8 @@
 		/WEB-INF/dataSource-context.xml
 		/WEB-INF/remote-service-context_rmi.xml
 		/WEB-INF/remote-service-context_hb.xml
-		/WEB-INF/remote-service-context.httpinvoker.xml
+		/WEB-INF/remote-service-context_httpinvoker.xml
+		/WEB-INF/remote-service-context_ws.xml
 		</param-value>
 	</context-param>
 	<listener>
