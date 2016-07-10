@@ -9,7 +9,15 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<mvc:resources location="/resources/*" mapping="/resources/**" />
-
+	
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+				/spitter.service=httpInvokerSpitterService
+			</value>
+		</property>
+	</bean>
+	
 	<mvc:annotation-driven />
 	<context:component-scan base-package="springweb" />
 	<!--

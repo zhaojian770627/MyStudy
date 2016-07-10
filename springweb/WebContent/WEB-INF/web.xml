@@ -10,7 +10,9 @@
 		/WEB-INF/service-context.xml
 		/WEB-INF/persistence-context.xml
 		/WEB-INF/dataSource-context.xml
-		/WEB-INF/remote-service-context.xml
+		/WEB-INF/remote-service-context_rmi.xml
+		/WEB-INF/remote-service-context_hb.xml
+		/WEB-INF/remote-service-context.httpinvoker.xml
 		</param-value>
 	</context-param>
 	<listener>
@@ -36,6 +38,10 @@
 	<servlet-mapping>
 		<servlet-name>spitter</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>spitter</servlet-name>
+		<url-pattern>*.service</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
