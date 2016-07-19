@@ -6,9 +6,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.packtpub.java7.concurrency.chapter4.recipe11.task.ReportProcessor;
-import com.packtpub.java7.concurrency.chapter4.recipe11.task.ReportRequest;
-
 /**
  * Main class of the example creates all the necessary objects and throws the tasks
  *
