@@ -123,5 +123,10 @@
 			<artifactId>amqp-client</artifactId>
 			<version>3.6.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.multithreadedtc</groupId>
+			<artifactId>multithreadedtc</artifactId>
+			<version>1.01</version>
+		</dependency>
 	</dependencies>
 </project>
