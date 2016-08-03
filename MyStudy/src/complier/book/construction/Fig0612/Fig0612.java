@@ -11,7 +11,7 @@ public class Fig0612 {
 
 	public static void main(String[] args) {
 		// 创建单词符号管理器
-		ArgsTokenMgr tm=new ArgsTokenMgr(args);
+		ArgsTokenMgr tm=new ArgsTokenMgr(new String[]{"bcbdcd"});
 		// 创建语法分析器，传递给它单词符号管理器
 		Fig0612Parser parser=new Fig0612Parser(tm);
 		// 进行语法分析
