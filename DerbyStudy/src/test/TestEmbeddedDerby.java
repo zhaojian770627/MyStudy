@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.derby.iapi.error.StandardException;
+import org.apache.derby.iapi.sql.dictionary.DataDictionary;
+import org.apache.derby.iapi.sql.dictionary.SchemaDescriptor;
+import org.apache.derby.impl.jdbc.EmbedConnection30;
 import org.junit.Test;
 
 import junit.framework.TestCase;
@@ -57,7 +61,30 @@ public class TestEmbeddedDerby extends TestCase {
 			String name = rs.getString(2);
 			System.out.println("id=" + id + ";name=" + name);
 		}
+		rs.close();
+		st.close();
+		conn.close();
+	}
 
+	@Test
+	public void testGetDictionary() throws ClassNotFoundException, SQLException, StandardException {
+		String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+		String dbName = "EmbeddedDB";
+		String dbURL = "jdbc:derby:d:\\derby\\" + dbName + ";create=true";
+
+		Class.forName(driver);
+		int i = DriverManager.getDriver(dbURL).getMajorVersion();
+		Connection conn = DriverManager.getConnection(dbURL); // 启动嵌入式数据库
+		if (conn instanceof EmbedConnection30) {
+			EmbedConnection30 conn30 = (EmbedConnection30) conn;
+			DataDictionary dict = conn30.getLanguageConnection().getDataDictionary();
+			SchemaDescriptor sdCatalog = dict.getSchemaDescriptor("APP",
+					conn30.getLanguageConnection().getTransactionCompile(), true);
+			SchemaDescriptor sd = dict.getSystemSchemaDescriptor();
+			System.out.println(sd.getUUID());
+			i = 0;
+		}
+		conn.close();
 	}
 
 }
