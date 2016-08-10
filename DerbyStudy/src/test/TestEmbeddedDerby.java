@@ -82,7 +82,7 @@ public class TestEmbeddedDerby extends TestCase {
 			SchemaDescriptor sdCatalog = dict.getSchemaDescriptor("APP",
 					conn30.getLanguageConnection().getTransactionCompile(), true);
 			SchemaDescriptor sd = dict.getSystemSchemaDescriptor();
-			TableDescriptor td = dict.getTableDescriptor("FOO", sd,conn30.getLanguageConnection().getTransactionCompile());
+			TableDescriptor td = dict.getTableDescriptor("FOO", sdCatalog,conn30.getLanguageConnection().getTransactionCompile());
 			System.out.println(sd.getUUID());
 			i = 0;
 		}
