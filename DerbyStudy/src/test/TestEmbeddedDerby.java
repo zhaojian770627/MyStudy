@@ -9,6 +9,7 @@ import java.sql.Statement;
 import org.apache.derby.iapi.error.StandardException;
 import org.apache.derby.iapi.sql.dictionary.DataDictionary;
 import org.apache.derby.iapi.sql.dictionary.SchemaDescriptor;
+import org.apache.derby.iapi.sql.dictionary.TableDescriptor;
 import org.apache.derby.impl.jdbc.EmbedConnection30;
 import org.junit.Test;
 
@@ -81,6 +82,7 @@ public class TestEmbeddedDerby extends TestCase {
 			SchemaDescriptor sdCatalog = dict.getSchemaDescriptor("APP",
 					conn30.getLanguageConnection().getTransactionCompile(), true);
 			SchemaDescriptor sd = dict.getSystemSchemaDescriptor();
+			TableDescriptor td = dict.getTableDescriptor("FOO", sd,conn30.getLanguageConnection().getTransactionCompile());
 			System.out.println(sd.getUUID());
 			i = 0;
 		}
