@@ -86,10 +86,10 @@ class Fig0804Parser implements DataPart {
 			} else
 				// 栈顶的项是否匹配当前单词符号
 				if (currentToken == stk.peek()) {
-				stk.pop(); // 放弃栈顶的项
-				advance(); // 放弃匹配当前单词符号
-			} else
-				break;
+					stk.pop(); // 放弃栈顶的项
+					advance(); // 放弃匹配当前单词符号
+				} else
+					break;
 		}
 		
 		// 测试是否为接受状态
