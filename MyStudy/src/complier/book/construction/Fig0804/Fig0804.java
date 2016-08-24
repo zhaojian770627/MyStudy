@@ -5,8 +5,15 @@ import java.util.Stack;
 import complier.book.construction.Fig0612.ArgsTokenMgr;
 
 /**
- * 针对以下文法的自上而下表驱动栈式语法分析器 Selection set 0) S->fBC {f} 1) B->bb {b} 2) B->CD
- * {c,d,e} 3) C->cC {c} 4) C->lambda {d,e,#} 5) D->dD {d} 6) D->e {e}
+ * 针对以下文法的自上而下表驱动栈式语法分析器 
+ * 				Selection set 
+ * 0) S->fBC 	{f} 
+ * 1) B->bb 	{b} 
+ * 2) B->CD     {c,d,e} 
+ * 3) C->cC 	{c}
+ * 4) C->lambda {d,e,#} 
+ * 5) D->dD 	{d} 
+ * 6) D->e 		{e}
  * 
  * @author zhaojianc
  *
@@ -64,7 +71,7 @@ class Fig0804Parser implements DataPart {
 			// 转换栈顶符号到下标
 			// 如果栈顶是终结符，则得到-1
 			nonTermIndex = nonTerms.indexOf(stk.peek());
-			if (nonTermIndex >= 0) // stk栈顶是否为非项
+			if (nonTermIndex >= 0) // stk栈顶是否为非终结符项
 			{
 				// 得到产生式编号
 				pNumber = parseTable[nonTermIndex][tokenIndex];
