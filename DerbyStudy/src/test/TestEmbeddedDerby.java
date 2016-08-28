@@ -85,5 +85,10 @@ public class TestEmbeddedDerby extends TestCase {
 		}
 		conn.close();
 	}
+	
+	@Test
+	public void testOthers()  {
+		System.out.println(Long.SIZE / Byte.SIZE);
+	}
 
 }
