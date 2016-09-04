@@ -25,6 +25,7 @@ public class Fig0901 {
 			System.err.println("reject");
 			System.exit(1);
 		}
+		System.out.println("accept");
 	}
 
 }
