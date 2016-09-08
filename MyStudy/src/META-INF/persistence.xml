@@ -9,10 +9,11 @@
 			system.jpa.Employee
 		</class>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="" />
-			<property name="javax.persistence.jdbc.url" value="" />
-			<property name="javax.persistence.jdbc.user" value="" />
-			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@20.10.81.30:1521:ORCL" />
+			<property name="javax.persistence.jdbc.user" value="zj" />
+			<property name="javax.persistence.jdbc.password" value="1" />
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
 		</properties>
 	</persistence-unit>
 </persistence>
