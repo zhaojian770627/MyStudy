@@ -18,9 +18,11 @@ public class TestJPA {
 		Employee emp = service.createEmployee(158, "John Doe", 45000);
 		em.getTransaction().commit();
 		System.out.println("Persisted " + emp);
+		int pk = emp.getId();
+		System.out.println("PK " + pk);
 
 		// find a specitic employee
-		emp = service.findEmployee(158);
+		emp = service.findEmployee(pk);
 		System.out.println("Found " + emp);
 
 		// find all employees
@@ -30,15 +32,15 @@ public class TestJPA {
 
 		// update the employee
 		em.getTransaction().begin();
-		emp = service.raiseEmployeeSalary(158, 1000);
+		emp = service.raiseEmployeeSalary(pk, 1000);
 		em.getTransaction().commit();
 		System.out.println("Updated " + emp);
-
+		
 		// remove an employee
-		em.getTransaction().begin();
-		service.removeEmployee(158);
-		em.getTransaction().commit();
-		System.out.println("Removed Employee 158");
+//		em.getTransaction().begin();
+//		service.removeEmployee(pk);
+//		em.getTransaction().commit();
+//		System.out.println("Removed Employee " + pk);
 
 		// close the EM and EMF when done
 		em.close();
