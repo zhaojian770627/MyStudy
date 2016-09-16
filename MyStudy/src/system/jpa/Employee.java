@@ -4,10 +4,13 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -29,6 +32,46 @@ public class Employee {
 	@Column(name = "pic")
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] picture;
+
+	@ManyToOne
+	@JoinColumn(name = "departid")
+	private Department depart;
+	
+	@OneToOne
+	@JoinColumn(name="pspaceid")
+	private ParkingSpace parkingSpace;
+
+	public ParkingSpace getParkingSpace() {
+		return parkingSpace;
+	}
+
+	public void setParkingSpace(ParkingSpace parkingSpace) {
+		this.parkingSpace = parkingSpace;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+
+	public Department getDepart() {
+		return depart;
+	}
+
+	public void setDepart(Department depart) {
+		this.depart = depart;
+	}
 
 	public Employee() {
 

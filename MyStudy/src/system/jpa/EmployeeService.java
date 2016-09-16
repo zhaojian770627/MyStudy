@@ -41,4 +41,26 @@ public class EmployeeService {
 		TypedQuery<Employee> query = em.createQuery("select e from Employee e", Employee.class);
 		return query.getResultList();
 	}
+
+	public Department crateDepartment(int id, String name) {
+		Department depart = new Department(id, name);
+		em.persist(depart);
+		return depart;
+	}
+
+	public Employee createEmployee(int id, String name, long salary, Department depart, ParkingSpace ps) {
+		Employee emp = new Employee(id);
+		emp.setName(name);
+		emp.setSalary(salary);
+		emp.setDepart(depart);
+		emp.setParkingSpace(ps);
+		em.persist(emp);
+		return emp;
+	}
+
+	public ParkingSpace createParkingSpace(int id, String location) {
+		ParkingSpace ps=new ParkingSpace(id,location);
+		em.persist(ps);
+		return ps;
+	}
 }
