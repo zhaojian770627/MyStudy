@@ -80,14 +80,14 @@ public class Fig1010TokenMgr implements Fig1010Constants {
 			
 			token.image=Character.toString(currentChar);
 		
-			token.beginLine=currentLineNumber;
+			token.endLine=currentLineNumber;
 			token.endColumn=currentColumnNumber;
 			
 			getNextChar();
 		}
 		
 		// 单词符号的踪迹作为注释出现在输出文件
-		System.out.printf("kd=%3d bL=%3d eL=%3d eC=%3d im=%s%n",
+		System.out.printf("kd=%3d bL=%3d bC=%3d eL=%3d eC=%3d im=%s%n",
 				token.kind,token.beginLine,token.beginColumn,
 				token.endLine,token.endColumn,token.image);
 		
