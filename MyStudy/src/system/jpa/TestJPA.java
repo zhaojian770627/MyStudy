@@ -60,8 +60,8 @@ public class TestJPA {
 		
 		Employee emp = service.findEmployee(1);
 		System.out.println(emp.getParkingSpace().getLocation());
+		System.out.println(emp.getDepart().getEmployees().iterator().next().toString());
 		em.close();
 		emf.close();
 	}
-
 }

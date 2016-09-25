@@ -1,13 +1,21 @@
 package system.jpa;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Department {
 	@Id
 	private int id;
 	private String name;
+	
+	@OneToMany(mappedBy="depart",targetEntity=Employee.class)
+	private Collection employees;
+	
 	public Department()
 	{
 		
@@ -32,5 +40,13 @@ public class Department {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Collection getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Collection employees) {
+		this.employees = employees;
 	}
 }
