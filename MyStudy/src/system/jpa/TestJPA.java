@@ -17,9 +17,10 @@ public class TestJPA {
 
 		// Create and persist an employee
 		em.getTransaction().begin();
-		Department depart=service.crateDepartment(1,"compute");
-		ParkingSpace ps=service.createParkingSpace(1,"W");
-		Employee emp = service.createEmployee(158, "John Doe", 45000,depart,ps);
+		Department depart = service.crateDepartment(1, "compute");
+		ParkingSpace ps = service.createParkingSpace(1, "W");
+		Project pj = service.createProject(1, "project1");
+		Employee emp = service.createEmployee(158, "John Doe", 45000, depart, ps, pj);
 		em.getTransaction().commit();
 		System.out.println("Persisted " + emp);
 		int pk = emp.getId();
@@ -39,10 +40,10 @@ public class TestJPA {
 		emp = service.raiseEmployeeSalary(pk, 1000);
 		em.getTransaction().commit();
 		System.out.println("Updated " + emp);
-		
+
 		// remove an employee
 		em.getTransaction().begin();
-		//service.removeEmployee(pk);
+		// service.removeEmployee(pk);
 		em.getTransaction().commit();
 		System.out.println("Removed Employee " + pk);
 
@@ -50,14 +51,13 @@ public class TestJPA {
 		em.close();
 		emf.close();
 	}
-	
+
 	@Test
-	public void testGetEmp()
-	{
+	public void testGetEmp() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("EmployeeService");
 		EntityManager em = emf.createEntityManager();
 		EmployeeService service = new EmployeeService(em);
-		
+
 		Employee emp = service.findEmployee(1);
 		System.out.println(emp.getParkingSpace().getLocation());
 		System.out.println(emp.getDepart().getEmployees().iterator().next().toString());

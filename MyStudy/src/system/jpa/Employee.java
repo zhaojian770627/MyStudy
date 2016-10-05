@@ -1,5 +1,8 @@
 package system.jpa;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,10 +41,22 @@ public class Employee {
 	@ManyToOne
 	@JoinColumn(name = "departid")
 	private Department depart;
-	
+
 	@OneToOne
-	@JoinColumn(name="pspaceid")
+	@JoinColumn(name = "pspaceid")
 	private ParkingSpace parkingSpace;
+
+	@ManyToMany
+	@JoinTable(name = "emp_proj", joinColumns = @JoinColumn(name = "empid") , inverseJoinColumns = @JoinColumn(name = "projid") )
+	private Collection<Project> projects = new ArrayList<Project>();
+
+	public Collection<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(Collection<Project> projects) {
+		this.projects = projects;
+	}
 
 	public ParkingSpace getParkingSpace() {
 		return parkingSpace;
