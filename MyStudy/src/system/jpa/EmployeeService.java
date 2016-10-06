@@ -55,6 +55,11 @@ public class EmployeeService {
 		emp.setDepart(depart);
 		emp.setParkingSpace(ps);
 		emp.getProjects().add(pj);
+		Address ad=new Address();
+		ad.setCity("feicheng");
+		ad.setState("shandong");
+		ad.setStreet("ab");
+		emp.setAddress(ad);
 		em.persist(emp);
 		return emp;
 	}

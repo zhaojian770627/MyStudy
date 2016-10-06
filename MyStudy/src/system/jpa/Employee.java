@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -49,6 +50,17 @@ public class Employee {
 	@ManyToMany
 	@JoinTable(name = "emp_proj", joinColumns = @JoinColumn(name = "empid") , inverseJoinColumns = @JoinColumn(name = "projid") )
 	private Collection<Project> projects = new ArrayList<Project>();
+
+	@Embedded
+	private Address address;
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	public Collection<Project> getProjects() {
 		return projects;
