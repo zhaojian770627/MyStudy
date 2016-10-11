@@ -1,0 +1,35 @@
+package complier.book.construction.s12;
+
+import java.io.PrintWriter;
+
+public class S1CodeGen {
+	private PrintWriter outFile;
+	private S1SymTab st;
+
+	public S1CodeGen(PrintWriter outFile, S1SymTab st) {
+		this.outFile = outFile;
+		this.st = st;
+	}
+
+	public void emitInstruction(String op) {
+		outFile.printf("		%-4s%n", op);
+	}
+
+	public void emitInstruction(String op, String opnd) {
+		outFile.printf("		%-4s%		%s%n", op, opnd);
+	}
+
+	private void emitdw(String label, String value) {
+		outFile.printf("%-9s dw		%s%n", label + ":", value);
+	}
+
+	public void endCode() {
+		outFile.println();
+		emitInstruction("halt");
+
+		int size = st.getSize();
+		// 发布dw为符号表中的每个符号
+		for (int i = 0; i < size; i++)
+			emitdw(st.getSymbol(i), "0");
+	}
+}

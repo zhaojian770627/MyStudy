@@ -32,7 +32,7 @@ public class S1 {
 		// 构造组成编译器的对象
 		S1SymTab st = new S1SymTab();
 		S1TokenMgr tm = new S1TokenMgr(inFile, outFile, debug);
-		S1CodeGen cg = S1CodeGen(outFile, st);
+		S1CodeGen cg =new S1CodeGen(outFile, st);
 		S1Parser parser = new S1Parser(st, tm, cg);
 		
 		// 语法分析和翻译
