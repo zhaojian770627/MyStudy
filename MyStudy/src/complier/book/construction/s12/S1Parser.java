@@ -51,16 +51,70 @@ public class S1Parser implements S1Constants {
 			return previousToken;
 
 		Token t = currentToken;
-		for (int j = 1; j < i; j++) {	// loop to ith token
+		for (int j = 1; j < i; j++) { // loop to ith token
+			// 如果下一个单词在单词符号表中，移动t到该单词符号
 			if (t.next != null)
 				t = t.next;
-			else
+			else // 否则，从单词符号管理器获取，并放到单词符号表中
 				t = t.next = tm.getNextToken();
 		}
 		return t;
 	}
 
+	// 如果当前单词符号的种类匹配期望的种类，
+	// 那么，消耗并前移到下一个单词符号,否则，抛出例外
+	private void consume(int expected) {
+		if (currentToken.kind == expected)
+			advance();
+		else
+			throw genEx("Expecting " + tokenImage[expected]);
+	}
+
 	public void parse() {
+		program(); // program is start symbol for grammar
+	}
+
+	private void program() {
+		statementList();
+		cg.endCode();
+		if (currentToken.kind != EOF)
+			throw genEx("Expecting <EOF>"); // garbage at end?
+	}
+
+	private void statementList() {
+		switch (currentToken.kind) {
+		case ID:
+		case PRINTLN:
+			statement();
+			statementList();
+			break;
+		case EOF:
+			;
+			break;
+		default:
+			throw genEx("Expecting statement or <EOF>");
+		}
+	}
+
+	private void statement() {
+		switch (currentToken.kind) {
+		case ID:
+			assignmentStatement();
+			break;
+		case PRINTLN:
+			printlnStatement();
+			break;
+		default:
+			throw genEx("Expecting statement");
+		}
+	}
+
+	private void printlnStatement() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void assignmentStatement() {
 		// TODO Auto-generated method stub
 
 	}
