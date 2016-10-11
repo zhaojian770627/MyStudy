@@ -18,8 +18,14 @@ public class Fig1010Parser implements Fig1010Constants {
 			throw genEx("Expecting <EOF>");
 	}
 
-	
-
+	/**
+	 * 构造和返回包含的例外信息
+	 * 由当前单词符号的映像
+	 * 位置和期望单词符号组成
+	 * 
+	 * @param errorMessage
+	 * @return
+	 */
 	private RuntimeException genEx(String errorMessage) {
 		return new RuntimeException("Encountered \"" + currentToken.image + "\" on line" + currentToken.beginLine
 				+ " column " + currentToken.beginColumn + System.getProperty("line.separator") + errorMessage);
