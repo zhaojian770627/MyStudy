@@ -178,19 +178,38 @@ public class S1Parser implements S1Constants {
 	}
 
 	private void factor() {
+		Token t;
 		switch (currentToken.kind) {
 		case UNSIGNED:
+			t = currentToken;
+			consume(UNSIGNED);
+			cg.emitInstruction("pwc", t.image);
 			break;
 		case PLUS:
+			consume(PLUS);
+			t = currentToken;
+			consume(UNSIGNED);
+			cg.emitInstruction("pwc", t.image);
 			break;
 		case MINUS:
+			consume(MINUS);
+			t = currentToken;
+			consume(UNSIGNED);
+			cg.emitInstruction("pwc", "-" + t.image);
 			break;
 		case ID:
+			t = currentToken;
+			consume(ID);
+			st.enter(t.image);
+			cg.emitInstruction("p", t.image);
 			break;
 		case LEFTPAREN:
+			consume(LEFTPAREN);
+			expr();
+			consume(RIGHTPAREN);
 			break;
 		default:
-
+			throw genEx("Expecting factor");
 		}
 	}
 }
