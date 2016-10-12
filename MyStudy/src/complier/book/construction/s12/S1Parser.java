@@ -144,17 +144,53 @@ public class S1Parser implements S1Constants {
 	}
 
 	private void termList() {
-		// TODO Auto-generated method stub
-
+		switch (currentToken.kind) {
+		case PLUS:
+			consume(PLUS);
+			term();
+			cg.emitInstruction("add");
+			termList();
+			break;
+		case RIGHTPAREN:
+		case SEMICOLON:
+			;
+			break;
+		default:
+			throw genEx("Expecting \"+\",\")\", or \";\"");
+		}
 	}
 
 	private void factorList() {
-		// TODO Auto-generated method stub
-
+		switch (currentToken.kind) {
+		case TIMES:
+			consume(TIMES);
+			factor();
+			cg.emitInstruction("mult");
+			factorList();
+		case RIGHTPAREN:
+		case SEMICOLON:
+		case PLUS:
+			;
+			break;
+		default:
+			throw genEx("Expecting op ,\")\", or \";\"");
+		}
 	}
 
 	private void factor() {
-		// TODO Auto-generated method stub
+		switch (currentToken.kind) {
+		case UNSIGNED:
+			break;
+		case PLUS:
+			break;
+		case MINUS:
+			break;
+		case ID:
+			break;
+		case LEFTPAREN:
+			break;
+		default:
 
+		}
 	}
 }
