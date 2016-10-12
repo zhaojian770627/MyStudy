@@ -110,13 +110,51 @@ public class S1Parser implements S1Constants {
 	}
 
 	private void printlnStatement() {
-		// TODO Auto-generated method stub
-
+		consume(PRINTLN);
+		consume(LEFTPAREN);
+		expr();
+		cg.emitInstruction("dout");
+		cg.emitInstruction("pc", "'\\n'");
+		cg.emitInstruction("aout");
+		consume(RIGHTPAREN);
+		consume(SEMICOLON);
 	}
 
 	private void assignmentStatement() {
+		Token t;
+
+		t = currentToken;
+		consume(ID);
+		st.enter(t.image);
+		cg.emitInstruction("pc", t.image);
+		consume(ASSIGN);
+		expr();
+		cg.emitInstruction("stav");
+		consume(SEMICOLON);
+	}
+
+	private void expr() {
+		term();
+		termList();
+	}
+
+	private void term() {
+		factor();
+		factorList();
+	}
+
+	private void termList() {
 		// TODO Auto-generated method stub
 
 	}
 
+	private void factorList() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void factor() {
+		// TODO Auto-generated method stub
+
+	}
 }
