@@ -12,15 +12,15 @@ public class S1CodeGen {
 	}
 
 	public void emitInstruction(String op) {
-		outFile.printf("		%-4s%n", op);
+		outFile.printf("\t%-4s%n", op);
 	}
 
 	public void emitInstruction(String op, String opnd) {
-		outFile.printf("		%-4s%		%s%n", op, opnd);
+		outFile.printf("\t%-4s\t%s\n", op, opnd);
 	}
 
 	private void emitdw(String label, String value) {
-		outFile.printf("%-9s dw		%s%n", label + ":", value);
+		outFile.printf("%-9s dw\t%s%n", label + ":", value);
 	}
 
 	public void endCode() {

@@ -88,12 +88,16 @@ public class S1TokenMgr implements S1Constants {
 			switch (currentChar) {
 			case '=':
 				token.kind=ASSIGN;
+				break;
 			case ';':
 				token.kind=SEMICOLON;
+				break;
 			case '(':
 				token.kind=LEFTPAREN;
+				break;
 			case ')':
 				token.kind=RIGHTPAREN;
+				break;
 			case '+':
 				token.kind = PLUS;
 				break;

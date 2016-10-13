@@ -40,6 +40,7 @@ public class S1 {
 			parser.parse();
 		}
 		catch(RuntimeException e){
+			e.printStackTrace();
 			System.err.println(e.getMessage());
 			outFile.println(e.getMessage());
 			outFile.close();
