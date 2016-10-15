@@ -1,0 +1,298 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = false;
+  COMMON_TOKEN_ACTION = false;
+  TOKEN_MANAGER_USES_PARSER = true; // (default false)}
+
+PARSER_BEGIN(slj)
+package complier.book.construction.s13;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+public class slj
+{
+  PrintWriter outFile;
+  S1SymTab st;
+  S1CodeGen cg;
+
+  public static void main(String args []) throws IOException
+  {
+    System.out.println("S1 comiler written by ...");
+    if (args.length != 1)
+    {
+      System.err.println("Wrong number cmd line args");
+      System.exit(1);
+    }
+    // 构造输入和输出文件名
+    String inFileName = args [0] + ".s";
+    String outFileName = args [0] + ".a";
+    // 构造文件对象
+    FileInputStream inFile = new FileInputStream(inFileName);
+    PrintWriter outFile = new PrintWriter(outFileName);
+    outFile.println("; from S1 compiler written by ...");
+    S1SymTab st = new S1SymTab();
+    S1CodeGen cg = new S1CodeGen(outFile, st);
+    slj parser = new slj(inFile);
+    parser.outFile = outFile;
+    parser.st = st;
+    parser.cg = cg;
+    try
+    {
+      parser.program();
+    }
+    catch (ParseException e)
+    {
+      System.err.println(e.getMessage());
+      outFile.println(e.getMessage());
+      outFile.close();
+      System.exit(1);
+    }
+    outFile.close();
+  }
+
+  public void makeComment(Token t)
+  {
+    outFile.printf(";kd=%3d bL=%3d bC=%3d eL=%3d eC=%3d im=%s%n", t.kind, t.beginLine, t.beginColumn, 
+    t.endLine, t.endColumn, t.image);
+  }
+}
+
+class S1SymTab
+{
+  private ArrayList < String > symbol;
+
+  public S1SymTab()
+  {
+    symbol = new ArrayList < String > ();
+  }
+
+  public void enter(String s)
+  {
+    int index = symbol.indexOf(s);
+    if (index < 0) 
+    symbol.add(s);
+  }
+
+  public String getSymbol(int index)
+  {
+    return symbol.get(index);
+  }
+
+  public int getSize()
+  {
+    return symbol.size();
+  }
+}
+
+class S1CodeGen
+{
+  private PrintWriter outFile;
+
+  private S1SymTab st;
+
+  public S1CodeGen(PrintWriter outFile, S1SymTab st)
+  {
+    this.outFile = outFile;
+    this.st = st;
+  }
+
+  public void emitInstruction(String op)
+  {
+    outFile.printf("\t%-4s%n", op);
+  }
+
+  public void emitInstruction(String op, String opnd)
+  {
+    outFile.printf("\t%-4s\t%s\n", op, opnd);
+  }
+
+  private void emitdw(String label, String value)
+  {
+    outFile.printf("%-9s dw\t%s%n", label + ":", value);
+  }
+
+  public void endCode()
+  {
+    outFile.println();
+    emitInstruction("halt");
+    int size = st.getSize();
+    // 发布dw为符号表中的每个符号
+    for (int i = 0; i < size; i++) 
+    emitdw(st.getSymbol(i), "0");
+  }
+}
+
+PARSER_END(slj)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
+
+TOKEN : /* OPERATORS */
+{
+  < PRINTLN : "println" >
+| < UNSIGNED : ([ "0"-"9" ])+ >
+| < ID : [ "A"-"Z", "a"-"z" ] ([ "A"-"Z", "a"-"z", "0"-"9" ])* >
+| < ASSIGN : "=" >
+| < SEMICOLON : ";" >
+| < LEFTPAREN : "(" >
+| < RIGHTPAREN : ")" >
+| < PLUS : "+" >
+| < MINUS : "-" >
+| < TIMES : "*" >
+| < ERROR : ~[ ] >
+}
+
+void program() :
+{}
+{
+  statementList()
+  {
+    cg.endCode();
+  }
+  < EOF >
+}
+
+void statementList() :
+{}
+{
+  statement() 
+  statementList()
+|
+  {
+  }
+}
+
+void statement() :
+{}
+{
+  assignmentStatement()
+| 
+  printlnStatement()
+}
+
+void assignmentStatement() :
+{
+  Token t;
+}
+{
+  t = < ID >
+  {
+    st.enter(t.image);
+  }
+  {
+    cg.emitInstruction("pc", t.image);
+  }
+  "=" 
+  expr()
+  {
+    cg.emitInstruction("stav");
+  }
+  ";"
+}
+
+void printlnStatement() :
+{}
+{
+  "println" 
+  "(" 
+  expr()
+  {
+    cg.emitInstruction("dout");
+  }
+  {
+    cg.emitInstruction("pc", "'\\n'");
+  }
+  {
+    cg.emitInstruction("aout");
+  }
+  ")"
+  {
+	t=getToken(1);
+  }
+  ";"
+}
+
+void expr() :
+{}
+{
+  term() 
+  termList()
+}
+
+void termList() :
+{}
+{
+  "+" 
+  term()
+  {
+    cg.emitInstruction("add");
+  }
+  termList()
+|
+  {}
+}
+
+void term() :
+{}
+{
+  factor() 
+  factorList()
+}
+
+void factorList() :
+{}
+{
+  "*" 
+  factor()
+  {
+    cg.emitInstruction("mult");
+  }
+  factorList()
+|
+  {}
+}
+
+void factor() :
+{
+  Token t;
+}
+{
+  t = < UNSIGNED >
+  {
+    cg.emitInstruction("pwc", t.image);
+  }
+| 
+  "+" 
+  t = < UNSIGNED >
+  {
+    cg.emitInstruction("pwc", t.image);
+  }
+| 
+  "-" 
+  t = < UNSIGNED >
+  {
+    cg.emitInstruction("pwc", "-" + t.image);
+  }
+| 
+  t = < ID >
+  {
+    st.enter(t.image);
+  }
+  {
+    cg.emitInstruction("pwc", t.image);
+  }
+| 
+  "(" 
+  expr() 
+  ")"
+}
