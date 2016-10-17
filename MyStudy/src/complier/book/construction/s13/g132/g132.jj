@@ -1,0 +1,16 @@
+PARSER_BEGIN(g132)
+package complier.book.construction.s13.g132;
+
+public class g132
+{
+}
+
+PARSER_END(g132)
+
+void S() :
+{}
+{
+  "b" "c" "d"
+| 
+  "d" "e" "f"
+}

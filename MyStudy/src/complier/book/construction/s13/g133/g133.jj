@@ -1,0 +1,25 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = true;
+}
+
+PARSER_BEGIN(g133)
+package complier.book.construction.s13.g133;
+
+public class g133
+{
+}
+
+PARSER_END(g133)
+
+void S() :
+{}
+{
+  LOOKAHEAD(2)
+  "b" "c" "d"
+| 
+  "b" "e" "f"
+}

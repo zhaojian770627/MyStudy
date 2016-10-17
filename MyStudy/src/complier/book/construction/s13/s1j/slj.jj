@@ -8,7 +8,7 @@ options
   TOKEN_MANAGER_USES_PARSER = true; // (default false)}
 
 PARSER_BEGIN(slj)
-package complier.book.construction.s13;
+package complier.book.construction.s13.s1j;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,10 +28,10 @@ public class slj
       System.err.println("Wrong number cmd line args");
       System.exit(1);
     }
-    // ¹¹ÔìÊäÈëºÍÊä³öÎÄ¼þÃû
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
     String inFileName = args [0] + ".s";
     String outFileName = args [0] + ".a";
-    // ¹¹ÔìÎÄ¼þ¶ÔÏó
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
     FileInputStream inFile = new FileInputStream(inFileName);
     PrintWriter outFile = new PrintWriter(outFileName);
     outFile.println("; from S1 compiler written by ...");
@@ -121,7 +121,7 @@ class S1CodeGen
     outFile.println();
     emitInstruction("halt");
     int size = st.getSize();
-    // ·¢²¼dwÎª·ûºÅ±íÖÐµÄÃ¿¸ö·ûºÅ
+    // ï¿½ï¿½ï¿½ï¿½dwÎªï¿½ï¿½Å±ï¿½ï¿½Ðµï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½
     for (int i = 0; i < size; i++) 
     emitdw(st.getSymbol(i), "0");
   }
