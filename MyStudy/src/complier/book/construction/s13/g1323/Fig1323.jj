@@ -1,0 +1,47 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = false;
+}
+
+PARSER_BEGIN(Fig1323)
+package complier.book.construction.s13.g1323;
+import java.io.*;
+
+public class Fig1323
+{
+  public static void main(String args []) throws ParseException, FileNotFoundException
+  {
+    Token t;
+    FileInputStream inFile = new FileInputStream(args [0]);
+    Fig1323TokenManager tm = new Fig1323TokenManager(new SimpleCharStream(inFile));
+    // 显示每个单词符号的映像
+    t = tm.getNextToken();
+    while (t.kind != EOF)
+    {
+      System.out.println(tokenImage [t.kind] + " " + t.image);
+      t = tm.getNextToken();
+    }
+  }
+}
+
+PARSER_END(Fig1323)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
+
+TOKEN : /* OPERATORS */
+{
+  "println"
+| 
+  < ID : [ "A"-"Z", "a"-"z" ] ([ "A"-"Z", "a"-"z", "0"-"9" ])* >
+| < UNSIGNED : ([ "0"-"9" ])+ >
+| < ERROR : ~[ ] >
+}

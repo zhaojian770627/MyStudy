@@ -216,9 +216,6 @@ void printlnStatement() :
     cg.emitInstruction("aout");
   }
   ")"
-  {
-	t=getToken(1);
-  }
   ";"
 }
 
