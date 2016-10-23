@@ -1,6 +1,7 @@
-package system.lock;
+package system.lock.object;
 
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 public class Product implements Runnable {
 	LinkedList<String> queue;
@@ -21,12 +22,11 @@ public class Product implements Runnable {
 						System.out.println(curThreadId + " wait " + queue.size());
 						queue.wait();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
-				queue.add(curThreadId + "-" + (i++));
 
+				queue.add(curThreadId + "-" + (i++));
 				queue.notifyAll();
 			}
 		}

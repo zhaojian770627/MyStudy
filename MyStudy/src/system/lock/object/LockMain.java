@@ -1,4 +1,4 @@
-package system.lock;
+package system.lock.object;
 
 import java.util.LinkedList;
 
