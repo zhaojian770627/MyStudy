@@ -64,39 +64,40 @@ public class S1TokenMgr implements S1Constants {
 			token.kind = UNSIGNED;
 		} else if (Character.isLetter(currentChar)) // 检测标识符
 		{
-			buffer.setLength(0);	// clear buffer
-			do
-			{
+			buffer.setLength(0); // clear buffer
+			do {
 				buffer.append(currentChar);
-				token.endLine=currentLineNumber;
-				token.endColumn=currentColumnNumber;
+				token.endLine = currentLineNumber;
+				token.endColumn = currentColumnNumber;
 				getNextChar();
-			}while(Character.isLetterOrDigit(currentChar));
+			} while (Character.isLetterOrDigit(currentChar));
 
 			// 保存buffer作为字符串到token.image
-			token.image=buffer.toString();
-			
+			token.image = buffer.toString();
+
 			// 检测是否关键字
-			if(token.image.equals("println"))
-				token.kind=PRINTLN;
-			else					// 不是关键字，因此种类是ID
-				token.kind=ID;
+			if (token.image.equals("println"))
+				token.kind = PRINTLN;
+			else if (token.image.endsWith("readint"))
+				token.kind = READINT;
+			else // 不是关键字，因此种类是ID
+				token.kind = ID;
 		} else
 
 		// 处理单字符单词符号
 		{
 			switch (currentChar) {
 			case '=':
-				token.kind=ASSIGN;
+				token.kind = ASSIGN;
 				break;
 			case ';':
-				token.kind=SEMICOLON;
+				token.kind = SEMICOLON;
 				break;
 			case '(':
-				token.kind=LEFTPAREN;
+				token.kind = LEFTPAREN;
 				break;
 			case ')':
-				token.kind=RIGHTPAREN;
+				token.kind = RIGHTPAREN;
 				break;
 			case '+':
 				token.kind = PLUS;
@@ -106,6 +107,9 @@ public class S1TokenMgr implements S1Constants {
 				break;
 			case '*':
 				token.kind = TIMES;
+				break;
+			case '/':
+				token.kind = DIVIDE;
 				break;
 			default:
 				token.kind = ERROR;
@@ -121,9 +125,9 @@ public class S1TokenMgr implements S1Constants {
 		}
 
 		// 单词符号的踪迹作为注释出现在输出文件
-		if(debug)
-			outFile.printf(";kd=%3d bL=%3d bC=%3d eL=%3d eC=%3d im=%s%n", token.kind, token.beginLine, token.beginColumn,
-				token.endLine, token.endColumn, token.image);
+		if (debug)
+			outFile.printf(";kd=%3d bL=%3d bC=%3d eL=%3d eC=%3d im=%s%n", token.kind, token.beginLine,
+					token.beginColumn, token.endLine, token.endColumn, token.image);
 
 		return token;
 	}
@@ -134,9 +138,9 @@ public class S1TokenMgr implements S1Constants {
 
 		if (currentChar == '\n') {
 			if (inFile.hasNextLine()) {
-				inputLine = inFile.nextLine();	// 获取下一行
+				inputLine = inFile.nextLine(); // 获取下一行
 				// 输出原行作为注释
-				outFile.println("; "+inputLine);
+				outFile.println("; " + inputLine);
 				inputLine = inputLine + "\n";
 				currentColumnNumber = 0;
 				currentLineNumber++;
