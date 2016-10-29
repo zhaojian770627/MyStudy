@@ -16,7 +16,7 @@ public class S2 {
 		}
 
 		// 要调试单词符号管理器，设置为true
-		boolean debug = true;
+		boolean debug = false;
 
 		// 构造输入和输出文件名
 		String inFileName = args[0] + ".s";

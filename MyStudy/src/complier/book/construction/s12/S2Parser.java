@@ -140,7 +140,7 @@ public class S2Parser implements S1Constants {
 		consume(RIGHTPAREN);
 		consume(SEMICOLON);
 	}
-	
+
 	private void printlnStatement() {
 		consume(PRINTLN);
 		consume(LEFTPAREN);
@@ -188,6 +188,7 @@ public class S2Parser implements S1Constants {
 			term();
 			cg.emitInstruction("sub");
 			termList();
+			break;
 		case RIGHTPAREN:
 		case SEMICOLON:
 			;
@@ -214,6 +215,7 @@ public class S2Parser implements S1Constants {
 		case RIGHTPAREN:
 		case SEMICOLON:
 		case PLUS:
+		case MINUS:
 			;
 			break;
 		default:
