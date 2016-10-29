@@ -1,0 +1,10 @@
+Program -> statementList <EOF> {<ID>,"println","print","{",<EOF>}
+statementList->statement statementList {<ID>,"println"}
+statementList->			       {<EOF>,"}"}
+
+statement->assignmentStatement	{<ID>}
+statement->printlnstatement	{"println"}
+statement->printstatement	{"print"}
+statement->compoundStatement	{"{"}
+
+compoundStatement->"{"statementList"}"
