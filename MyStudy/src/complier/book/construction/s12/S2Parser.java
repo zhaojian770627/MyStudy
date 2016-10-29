@@ -84,6 +84,7 @@ public class S2Parser implements S1Constants {
 	private void statementList() {
 		switch (currentToken.kind) {
 		case ID:
+		case PRINT:
 		case PRINTLN:
 			statement();
 			statementList();
@@ -101,21 +102,42 @@ public class S2Parser implements S1Constants {
 		case ID:
 			assignmentStatement();
 			break;
+		case PRINT:
+			printStatement();
+			break;
 		case PRINTLN:
 			printlnStatement();
 			break;
 		case SEMICOLON:
 			nullStatement();
 			break;
+		case LEFTPAREN:
+			compoundStatement();
+			break;
 		default:
 			throw genEx("Expecting statement");
 		}
+	}
+
+	private void compoundStatement() {
+		consume(LEFTPAREN);
+		statementList();
+		consume(RIGHTPAREN);
 	}
 
 	private void nullStatement() {
 		consume(SEMICOLON);
 	}
 
+	private void printStatement() {
+		consume(PRINT);
+		consume(LEFTPAREN);
+		expr();
+		cg.emitInstruction("dout");
+		consume(RIGHTPAREN);
+		consume(SEMICOLON);
+	}
+	
 	private void printlnStatement() {
 		consume(PRINTLN);
 		consume(LEFTPAREN);

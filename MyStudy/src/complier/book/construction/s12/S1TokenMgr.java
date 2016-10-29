@@ -76,7 +76,9 @@ public class S1TokenMgr implements S1Constants {
 			token.image = buffer.toString();
 
 			// ¼ì²âÊÇ·ñ¹Ø¼ü×Ö
-			if (token.image.equals("println"))
+			if (token.image.equals("print"))
+				token.kind = PRINT;
+			else if (token.image.equals("println"))
 				token.kind = PRINTLN;
 			else if (token.image.endsWith("readint"))
 				token.kind = READINT;
@@ -99,6 +101,11 @@ public class S1TokenMgr implements S1Constants {
 			case ')':
 				token.kind = RIGHTPAREN;
 				break;
+			case '{':
+				token.kind=LEFTBRACE;
+				break;
+			case '}':
+				token.kind= RIGHTBRACE;
 			case '+':
 				token.kind = PLUS;
 				break;
@@ -151,5 +158,8 @@ public class S1TokenMgr implements S1Constants {
 		}
 
 		currentChar = inputLine.charAt(currentColumnNumber++);
+		
+		if(currentChar=='/' && inputLine.charAt(currentColumnNumber)=='/')
+			currentChar='\n';
 	}
 }
