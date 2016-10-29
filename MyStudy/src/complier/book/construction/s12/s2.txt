@@ -1,10 +1,29 @@
-Program -> statementList <EOF> {<ID>,"println","print","{",<EOF>}
-statementList->statement statementList {<ID>,"println"}
-statementList->			       {<EOF>,"}"}
+Program 		-> 	statementList <EOF> 			{<ID>,"println","print","{",<EOF>}
+statementList	->	statement statementList 		{<ID>,"println"}
+statementList	->			       					{<EOF>,"}"}
 
-statement->assignmentStatement	{<ID>}
-statement->printlnstatement	{"println"}
-statement->printstatement	{"print"}
-statement->compoundStatement	{"{"}
+statement		->	assignmentStatement				{<ID>}
+statement		->	printlnstatement				{"println"}
+statement		->	printstatement					{"print"}
+statement		->	compoundStatement				{"{"}
 
-compoundStatement->"{"statementList"}"
+assignmentStatement	->	<ID> "" expr ";"				{<ID>}
+compoundStatement	->	"{"statementList"}"			{"{"}
+printlnStatement	->	"println" "(" expr ")" ";"	{"println"}
+
+expr		->	term termList						{"(","+","-",<UNSIGNED>,<ID>}
+
+termList	->	"+" term termList 					{"+"}
+termList	->  "-" term termList					{"-"}
+termList	->										{")",";"}
+
+term		->	factor factorList					{"(","+","-",<UNSIGNED>,<ID>)
+
+factorList	->	"*" factor factorList 				{"*"}
+factorList	->										{"}",";","+","-"}
+
+factor	->	<UNSIGNED>								{<UNSIGNED>}
+factor	->	"+" <UNSIGNED>							{"+"}
+factor	->	"-" <UNSIGNED>							{"-"}
+factor	->	<ID>									{<ID>}
+factor	->	"(" expr ")"							{"(")
