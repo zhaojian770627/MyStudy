@@ -106,6 +106,7 @@ public class S1TokenMgr implements S1Constants {
 				break;
 			case '}':
 				token.kind= RIGHTBRACE;
+				break;
 			case '+':
 				token.kind = PLUS;
 				break;

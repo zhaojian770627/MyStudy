@@ -86,9 +86,12 @@ public class S2Parser implements S1Constants {
 		case ID:
 		case PRINT:
 		case PRINTLN:
+		case SEMICOLON:
+		case LEFTBRACE:
 			statement();
 			statementList();
 			break;
+		case RIGHTBRACE:
 		case EOF:
 			;
 			break;
@@ -111,7 +114,7 @@ public class S2Parser implements S1Constants {
 		case SEMICOLON:
 			nullStatement();
 			break;
-		case LEFTPAREN:
+		case LEFTBRACE:
 			compoundStatement();
 			break;
 		default:
@@ -120,9 +123,9 @@ public class S2Parser implements S1Constants {
 	}
 
 	private void compoundStatement() {
-		consume(LEFTPAREN);
+		consume(LEFTBRACE);
 		statementList();
-		consume(RIGHTPAREN);
+		consume(RIGHTBRACE);
 	}
 
 	private void nullStatement() {
