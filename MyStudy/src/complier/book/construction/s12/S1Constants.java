@@ -18,7 +18,8 @@ public interface S1Constants {
 	int MINUS = 13;
 	int TIMES = 14;
 	int DIVIDE = 15;
-	int ERROR = 16;
+	int STRING = 16;
+	int ERROR = 17;
 
 	// tokenImage 为每个单词符号提供字符串
 	String[] tokenImage = { 
@@ -38,6 +39,7 @@ public interface S1Constants {
 			"\"-\"",
 			"\"*\"",
 			"\"/\"",
+			"<STRING>",
 			"<ERROR>"
 			};
 }

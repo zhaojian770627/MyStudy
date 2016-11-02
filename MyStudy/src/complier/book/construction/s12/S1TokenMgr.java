@@ -84,8 +84,32 @@ public class S1TokenMgr implements S1Constants {
 				token.kind = READINT;
 			else // 不是关键字，因此种类是ID
 				token.kind = ID;
-		} else
+		} else if(currentChar=='"')	// 处理字符串
+		{
+			buffer.setLength(0); // clear buffer
+			do {
+				buffer.append(currentChar);
+				getNextChar();
+				
+				if(currentChar=='\n' || currentChar=='\r')
+				{
+					token.kind=ERROR;
+					token.image="\n or \r";
+					token.endLine = currentLineNumber;
+					token.endColumn = currentColumnNumber;
+					return token;
+				}
+				
+			} while (currentChar=='"');
+			
+			buffer.append(currentChar);
+			token.image = buffer.toString();
+			token.kind = STRING;
+			token.endLine = currentLineNumber;
+			token.endColumn = currentColumnNumber;
 
+			getNextChar();
+		}
 		// 处理单字符单词符号
 		{
 			switch (currentChar) {
