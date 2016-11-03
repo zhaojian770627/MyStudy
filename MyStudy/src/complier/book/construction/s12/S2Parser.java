@@ -135,9 +135,9 @@ public class S2Parser implements S1Constants {
 	private void printStatement() {
 		consume(PRINT);
 		consume(LEFTPAREN);
-		
+
 		printArg();
-		
+
 		consume(RIGHTPAREN);
 		consume(SEMICOLON);
 	}
@@ -187,7 +187,7 @@ public class S2Parser implements S1Constants {
 			String label = cg.getLabel();
 			cg.emitInstruction("pc", label);
 			cg.emitInstruction("sout");
-			cg.emitdw(label, t.image);
+			cg.emitdw("^" + label, t.image);
 			break;
 		default:
 			throw genEx("Expecting \"(\",\"+\",\"-\",\"<UNSIGNED>\",\"<ID>\"");

@@ -84,24 +84,23 @@ public class S1TokenMgr implements S1Constants {
 				token.kind = READINT;
 			else // 不是关键字，因此种类是ID
 				token.kind = ID;
-		} else if(currentChar=='"')	// 处理字符串
+		} else if (currentChar == '"') // 处理字符串
 		{
 			buffer.setLength(0); // clear buffer
 			do {
 				buffer.append(currentChar);
 				getNextChar();
-				
-				if(currentChar=='\n' || currentChar=='\r')
-				{
-					token.kind=ERROR;
-					token.image="\n or \r";
+
+				if (currentChar == '\n' || currentChar == '\r') {
+					token.kind = ERROR;
+					token.image = "\n or \r";
 					token.endLine = currentLineNumber;
 					token.endColumn = currentColumnNumber;
 					return token;
 				}
-				
-			} while (currentChar=='"');
-			
+
+			} while (currentChar != '"');
+
 			buffer.append(currentChar);
 			token.image = buffer.toString();
 			token.kind = STRING;
@@ -109,7 +108,7 @@ public class S1TokenMgr implements S1Constants {
 			token.endColumn = currentColumnNumber;
 
 			getNextChar();
-		}
+		} else
 		// 处理单字符单词符号
 		{
 			switch (currentChar) {
@@ -126,10 +125,10 @@ public class S1TokenMgr implements S1Constants {
 				token.kind = RIGHTPAREN;
 				break;
 			case '{':
-				token.kind=LEFTBRACE;
+				token.kind = LEFTBRACE;
 				break;
 			case '}':
-				token.kind= RIGHTBRACE;
+				token.kind = RIGHTBRACE;
 				break;
 			case '+':
 				token.kind = PLUS;
@@ -183,8 +182,8 @@ public class S1TokenMgr implements S1Constants {
 		}
 
 		currentChar = inputLine.charAt(currentColumnNumber++);
-		
-		if(currentChar=='/' && inputLine.charAt(currentColumnNumber)=='/')
-			currentChar='\n';
+
+		if (currentChar == '/' && inputLine.charAt(currentColumnNumber) == '/')
+			currentChar = '\n';
 	}
 }
