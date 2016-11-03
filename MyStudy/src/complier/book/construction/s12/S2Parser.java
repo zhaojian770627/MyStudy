@@ -135,8 +135,9 @@ public class S2Parser implements S1Constants {
 	private void printStatement() {
 		consume(PRINT);
 		consume(LEFTPAREN);
-		expr();
-		cg.emitInstruction("dout");
+		
+		printArg();
+		
 		consume(RIGHTPAREN);
 		consume(SEMICOLON);
 	}
@@ -144,12 +145,53 @@ public class S2Parser implements S1Constants {
 	private void printlnStatement() {
 		consume(PRINTLN);
 		consume(LEFTPAREN);
-		expr();
-		cg.emitInstruction("dout");
+
+		switch (currentToken.kind) // {"(","+","-",<UNSIGNED>,<ID>}
+		{
+		case LEFTPAREN:
+		case PLUS:
+		case MINUS:
+		case UNSIGNED:
+		case ID:
+		case STRING:
+			printArg();
+			break;
+		case RIGHTPAREN:
+			;
+			break;
+		default:
+			throw genEx("Expecting \"(\",\"+\",\"-\",\"<UNSIGNED>\",\"<ID>\"");
+		}
+
 		cg.emitInstruction("pc", "'\\n'");
 		cg.emitInstruction("aout");
+
 		consume(RIGHTPAREN);
 		consume(SEMICOLON);
+	}
+
+	private void printArg() {
+		switch (currentToken.kind) // {"(","+","-",<UNSIGNED>,<ID>}
+		{
+		case LEFTPAREN:
+		case PLUS:
+		case MINUS:
+		case UNSIGNED:
+		case ID:
+			expr();
+			cg.emitInstruction("dout");
+			break;
+		case STRING:
+			Token t = currentToken;
+			consume(STRING);
+			String label = cg.getLabel();
+			cg.emitInstruction("pc", label);
+			cg.emitInstruction("sout");
+			cg.emitdw(label, t.image);
+			break;
+		default:
+			throw genEx("Expecting \"(\",\"+\",\"-\",\"<UNSIGNED>\",\"<ID>\"");
+		}
 	}
 
 	private void assignmentStatement() {

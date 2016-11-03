@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 public class S1CodeGen {
 	private PrintWriter outFile;
 	private S1SymTab st;
+	int lindex = 0;
 
 	public S1CodeGen(PrintWriter outFile, S1SymTab st) {
 		this.outFile = outFile;
@@ -19,7 +20,7 @@ public class S1CodeGen {
 		outFile.printf("\t%-4s\t%s\n", op, opnd);
 	}
 
-	private void emitdw(String label, String value) {
+	public void emitdw(String label, String value) {
 		outFile.printf("%-9s dw\t%s%n", label + ":", value);
 	}
 
@@ -31,5 +32,9 @@ public class S1CodeGen {
 		// 发布dw为符号表中的每个符号
 		for (int i = 0; i < size; i++)
 			emitdw(st.getSymbol(i), "0");
+	}
+
+	public String getLabel() {
+		return "@L" + String.valueOf(lindex++);
 	}
 }
