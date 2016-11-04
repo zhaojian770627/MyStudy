@@ -1,5 +1,7 @@
 package complier.book.construction.s12;
 
+import java.rmi.server.SkeletonMismatchException;
+
 import complier.book.construction.s10.Token;
 
 public class S2Parser implements S1Constants {
@@ -160,7 +162,7 @@ public class S2Parser implements S1Constants {
 			;
 			break;
 		default:
-			throw genEx("Expecting \"(\",\"+\",\"-\",\"<UNSIGNED>\",\"<ID>\"");
+			throw genEx("Expecting \"(\",\"+\",\"-\",\"<UNSIGNED>\",\"<ID>\",\"<STRING>\"");
 		}
 
 		cg.emitInstruction("pc", "'\\n'");
@@ -202,9 +204,29 @@ public class S2Parser implements S1Constants {
 		st.enter(t.image);
 		cg.emitInstruction("pc", t.image);
 		consume(ASSIGN);
-		expr();
+
+		assignmentTail();
+
 		cg.emitInstruction("stav");
-		consume(SEMICOLON);
+	}
+
+	private void assignmentTail() {
+		Token t;
+		t=currentToken;
+		st.enter(t.image);
+		cg.emitInstruction("pc", t.image);
+		if (getToken(1).kind == ID && getToken(2).equals(ASSIGN)) {
+			consume(ID);
+			consume(ASSIGN);
+			assignmentTail();
+			cg.emitInstruction("dupe");
+			cg.emitInstruction("rot");
+			cg.emitInstruction("stav");
+		} else {
+			expr();
+			consume(SEMICOLON);
+		}
+
 	}
 
 	private void expr() {
