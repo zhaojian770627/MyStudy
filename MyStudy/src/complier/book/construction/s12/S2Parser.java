@@ -220,13 +220,13 @@ public class S2Parser implements S1Constants {
 			consume(ID);
 			consume(ASSIGN);
 			assignmentTail();
-			
+
 			cg.emitInstruction("dupe");
 			cg.emitInstruction("rot");
 			cg.emitInstruction("stav");
 		} else {
 			expr();
-			
+
 		}
 
 	}
@@ -305,9 +305,37 @@ public class S2Parser implements S1Constants {
 			break;
 		case MINUS:
 			consume(MINUS);
-			t = currentToken;
-			consume(UNSIGNED);
-			cg.emitInstruction("pwc", "-" + t.image);
+			switch (currentToken.kind) {
+			case UNSIGNED:
+				t = currentToken;
+				consume(UNSIGNED);
+				cg.emitInstruction("pwc", "-" + t.image);
+				break;
+			case ID:
+				t = currentToken;
+				consume(ID);
+				st.enter(t.image);
+				cg.emitInstruction("p", t.image);
+				cg.emitInstruction("neg");
+				break;
+			case LEFTPAREN:
+				consume(LEFTPAREN);
+				expr();
+				consume(RIGHTPAREN);
+				cg.emitInstruction("neg");
+				break;
+			case PLUS:
+				consume(PLUS);
+				factor();
+				cg.emitInstruction("neg");
+				break;
+			case MINUS:
+				consume(MINUS);
+				factor();
+				break;
+			default:
+				throw genEx("Expecting factor MINUS");
+			}
 			break;
 		case ID:
 			t = currentToken;

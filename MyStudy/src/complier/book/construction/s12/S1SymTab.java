@@ -14,7 +14,8 @@ public class S1SymTab {
 	}
 
 	public void enter(String s) {
-		symbol.put(s, "0");
+		if (!symbol.containsKey(s))
+			symbol.put(s, "0");
 	}
 
 	public void enter(String s, String value) {
