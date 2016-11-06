@@ -5,11 +5,20 @@ statementList	->			       					{<EOF>,"}"}
 statement		->	assignmentStatement				{<ID>}
 statement		->	printlnstatement				{"println"}
 statement		->	printstatement					{"print"}
+statement		->	readintStatement				{"readint"}
 statement		->	compoundStatement				{"{"}
 
-assignmentStatement	->	<ID> "" expr ";"				{<ID>}
-compoundStatement	->	"{"statementList"}"			{"{"}
-printlnStatement	->	"println" "(" expr ")" ";"	{"println"}
+assignmentStatement	->	<ID> "=" assignmentTail	";"				{<ID>}
+compoundStatement	->	"{"statementList"}"						{"{"}
+printlnStatement    ->  "println"  	"(" printArg|lambda ")" ";"	{"println" }
+printStatement      ->  "print"    	"(" printArg ")" ";"		{ "print"  }
+readintStatement	->	"readint"	"("	<ID> ")" ";"			{ "readint"}
+
+assignmentTail		->	<ID> "=" assignmentTail					{<ID>}
+assignmentTail		->	expr 									{"(","+","-",<UNSIGNED>,<ID>}
+
+printArg            ->  expr									{"(","+","-",<UNSIGNED>,<ID>}
+printArg            ->  <STRING>								{<STRING>}
 
 expr		->	term termList						{"(","+","-",<UNSIGNED>,<ID>}
 
@@ -20,10 +29,15 @@ termList	->										{")",";"}
 term		->	factor factorList					{"(","+","-",<UNSIGNED>,<ID>)
 
 factorList	->	"*" factor factorList 				{"*"}
+factorList	->	"/" factor factorList 				{"/"}
 factorList	->										{"}",";","+","-"}
 
 factor	->	<UNSIGNED>								{<UNSIGNED>}
-factor	->	"+" <UNSIGNED>							{"+"}
-factor	->	"-" <UNSIGNED>							{"-"}
 factor	->	<ID>									{<ID>}
-factor	->	"(" expr ")"							{"(")
+factor	->	"(" expr ")"							{"("}
+factor  ->  "+" factor
+factor	->  "-" <ID>
+factor	->	"-" <UNSIGNED>							{"-"}
+factor	->  "-" "(" expr ")"
+factor  ->	"-" "+" factor
+factor  ->	"-" "-" factor
