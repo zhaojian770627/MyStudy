@@ -1,6 +1,7 @@
 package complier.book.construction.s12;
 
 import java.io.PrintWriter;
+import java.util.Map.Entry;
 
 public class S1CodeGen {
 	private PrintWriter outFile;
@@ -28,10 +29,9 @@ public class S1CodeGen {
 		outFile.println();
 		emitInstruction("halt");
 
-		int size = st.getSize();
-		// 发布dw为符号表中的每个符号
-		for (int i = 0; i < size; i++)
-			emitdw(st.getSymbol(i), "0");
+		for (Entry<String, String> entry : st.getSymbol().entrySet()) {
+			emitdw(entry.getKey(), entry.getValue());
+		}
 	}
 
 	public String getLabel() {

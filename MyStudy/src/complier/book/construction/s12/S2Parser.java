@@ -1,7 +1,5 @@
 package complier.book.construction.s12;
 
-import java.rmi.server.SkeletonMismatchException;
-
 import complier.book.construction.s10.Token;
 
 public class S2Parser implements S1Constants {
@@ -201,30 +199,34 @@ public class S2Parser implements S1Constants {
 
 		t = currentToken;
 		consume(ID);
-		st.enter(t.image);
+		st.enter(t.image, "0");
 		cg.emitInstruction("pc", t.image);
 		consume(ASSIGN);
 
 		assignmentTail();
 
 		cg.emitInstruction("stav");
+		consume(SEMICOLON);
 	}
 
 	private void assignmentTail() {
-		Token t;
-		t=currentToken;
-		st.enter(t.image);
-		cg.emitInstruction("pc", t.image);
-		if (getToken(1).kind == ID && getToken(2).equals(ASSIGN)) {
+
+		if (getToken(1).kind == ID && getToken(2).kind == ASSIGN) {
+			Token t;
+			t = currentToken;
+			st.enter(t.image);
+			cg.emitInstruction("pc", t.image);
+
 			consume(ID);
 			consume(ASSIGN);
 			assignmentTail();
+			
 			cg.emitInstruction("dupe");
 			cg.emitInstruction("rot");
 			cg.emitInstruction("stav");
 		} else {
 			expr();
-			consume(SEMICOLON);
+			
 		}
 
 	}

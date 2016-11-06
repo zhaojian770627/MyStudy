@@ -32,21 +32,20 @@ public class S2 {
 		// 构造组成编译器的对象
 		S1SymTab st = new S1SymTab();
 		S1TokenMgr tm = new S1TokenMgr(inFile, outFile, debug);
-		S1CodeGen cg =new S1CodeGen(outFile, st);
+		S1CodeGen cg = new S1CodeGen(outFile, st);
 		S2Parser parser = new S2Parser(st, tm, cg);
-		
+
 		// 语法分析和翻译
-		try{
+		try {
 			parser.parse();
-		}
-		catch(RuntimeException e){
+		} catch (RuntimeException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 			outFile.println(e.getMessage());
 			outFile.close();
 			System.exit(1);
 		}
-		
+
 		outFile.close();
 	}
 

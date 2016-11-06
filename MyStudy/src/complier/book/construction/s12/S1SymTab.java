@@ -1,26 +1,28 @@
 package complier.book.construction.s12;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /*
  * ·ûºÅ±í
  */
 public class S1SymTab {
-	private ArrayList<String> symbol;
+	private HashMap<String, String> symbol;
 
 	public S1SymTab() {
-		symbol = new ArrayList<>();
+		symbol = new HashMap<>();
 	}
 
 	public void enter(String s) {
-		int index = symbol.indexOf(s);
-
-		if (index < 0)
-			symbol.add(s);
+		symbol.put(s, "0");
 	}
 
-	public String getSymbol(int index) {
-		return symbol.get(index);
+	public void enter(String s, String value) {
+		symbol.put(s, value);
+	}
+
+	public HashMap<String, String> getSymbol() {
+		return symbol;
 	}
 
 	public int getSize() {
