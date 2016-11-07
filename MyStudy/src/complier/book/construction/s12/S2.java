@@ -18,9 +18,12 @@ public class S2 {
 		// 要调试单词符号管理器，设置为true
 		boolean debug = false;
 
+		if (args[0].equalsIgnoreCase("-debug_token_manager"))
+			debug = true;
+
 		// 构造输入和输出文件名
-		String inFileName = args[0] + ".s";
-		String outFileName = args[0] + ".a";
+		String inFileName = args[args.length - 1] + ".s";
+		String outFileName = args[args.length - 1] + ".a";
 
 		// 构造文件对象
 		Scanner inFile = new Scanner(new File(inFileName));

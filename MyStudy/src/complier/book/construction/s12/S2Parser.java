@@ -1,5 +1,7 @@
 package complier.book.construction.s12;
 
+import javax.xml.crypto.dsig.SignedInfo;
+
 import complier.book.construction.s10.Token;
 
 public class S2Parser implements S1Constants {
@@ -86,6 +88,7 @@ public class S2Parser implements S1Constants {
 		case ID:
 		case PRINT:
 		case PRINTLN:
+		case READINT:
 		case SEMICOLON:
 		case LEFTBRACE:
 			statement();
@@ -111,6 +114,9 @@ public class S2Parser implements S1Constants {
 		case PRINTLN:
 			printlnStatement();
 			break;
+		case READINT:
+			readintStatement();
+			break;
 		case SEMICOLON:
 			nullStatement();
 			break;
@@ -120,6 +126,20 @@ public class S2Parser implements S1Constants {
 		default:
 			throw genEx("Expecting statement");
 		}
+	}
+
+	private void readintStatement() {
+		consume(READINT);
+		consume(LEFTPAREN);
+		Token t;
+		t = currentToken;
+		consume(ID);
+		st.enter(t.image);
+		cg.emitInstruction("pc", t.image);
+		cg.emitInstruction("din");
+		cg.emitInstruction("stav");
+		consume(RIGHTPAREN);
+		consume(SEMICOLON);
 	}
 
 	private void compoundStatement() {
