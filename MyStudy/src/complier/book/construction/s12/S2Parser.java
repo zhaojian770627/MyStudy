@@ -319,9 +319,7 @@ public class S2Parser implements S1Constants {
 			break;
 		case PLUS:
 			consume(PLUS);
-			t = currentToken;
-			consume(UNSIGNED);
-			cg.emitInstruction("pwc", t.image);
+			factor();
 			break;
 		case MINUS:
 			consume(MINUS);

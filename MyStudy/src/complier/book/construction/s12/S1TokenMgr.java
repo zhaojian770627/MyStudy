@@ -89,7 +89,7 @@ public class S1TokenMgr implements S1Constants {
 			buffer.setLength(0); // clear buffer
 			do {
 				buffer.append(currentChar);
-				getNextChar();
+				getNextCharInStr();
 
 				if (currentChar == '\n' || currentChar == '\r') {
 					token.kind = ERROR;
@@ -185,5 +185,26 @@ public class S1TokenMgr implements S1Constants {
 
 		if (currentChar == '/' && inputLine.charAt(currentColumnNumber) == '/')
 			currentChar = '\n';
+	}
+
+	private void getNextCharInStr() {
+		if (currentChar == EOF)
+			return;
+
+		if (currentChar == '\n') {
+			if (inFile.hasNextLine()) {
+				inputLine = inFile.nextLine(); // 获取下一行
+				// 输出原行作为注释
+				outFile.println("; " + inputLine);
+				inputLine = inputLine + "\n";
+				currentColumnNumber = 0;
+				currentLineNumber++;
+			} else {
+				currentChar = EOF;
+				return;
+			}
+		}
+
+		currentChar = inputLine.charAt(currentColumnNumber++);
 	}
 }
