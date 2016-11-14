@@ -2,6 +2,7 @@ package system.jpa;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -57,10 +58,10 @@ public class Employee {
 	private Address address;
 
 	@ElementCollection(targetClass = VacationEntry.class)
-	private Collection vacationBookings;
+	private Collection vacationBookings = new ArrayList();
 
 	@ElementCollection
-	private Set<String> nickNames;
+	private Set<String> nickNames = new HashSet<String>();
 
 	public Address getAddress() {
 		return address;

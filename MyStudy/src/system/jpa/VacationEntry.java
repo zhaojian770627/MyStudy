@@ -9,6 +9,16 @@ import javax.persistence.TemporalType;
 
 @Embeddable
 public class VacationEntry {
+	public VacationEntry() {
+
+	}
+
+	public VacationEntry(Calendar startDate, int daysTaken) {
+		super();
+		this.startDate = startDate;
+		this.daysTaken = daysTaken;
+	}
+
 	@Temporal(TemporalType.DATE)
 	private Calendar startDate;
 
