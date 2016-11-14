@@ -2,9 +2,11 @@ package system.jpa;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,6 +55,12 @@ public class Employee {
 
 	@Embedded
 	private Address address;
+
+	@ElementCollection(targetClass = VacationEntry.class)
+	private Collection vacationBookings;
+
+	@ElementCollection
+	private Set<String> nickNames;
 
 	public Address getAddress() {
 		return address;
@@ -134,4 +142,19 @@ public class Employee {
 		this.salary = salary;
 	}
 
+	public Collection getVacationBookings() {
+		return vacationBookings;
+	}
+
+	public void setVacationBookings(Collection vacationBookings) {
+		this.vacationBookings = vacationBookings;
+	}
+
+	public Set<String> getNickNames() {
+		return nickNames;
+	}
+
+	public void setNickNames(Set<String> nickNames) {
+		this.nickNames = nickNames;
+	}
 }

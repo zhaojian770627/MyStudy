@@ -8,6 +8,10 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Project {
+	public Project() {
+
+	}
+
 	@Id
 	private int id;
 
