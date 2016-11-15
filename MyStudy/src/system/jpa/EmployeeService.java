@@ -68,6 +68,8 @@ public class EmployeeService {
 
 		emp.getNickNames().add("a");
 		emp.getNickNames().add("b");
+
+		emp.getPhoneNumbers().put(PhoneType.Home, "123456");
 		em.persist(emp);
 		return emp;
 	}

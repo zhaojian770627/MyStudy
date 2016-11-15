@@ -2,14 +2,18 @@ package system.jpa;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +23,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -63,6 +69,13 @@ public class Employee {
 	@ElementCollection
 	private Set<String> nickNames = new HashSet<String>();
 
+	@ElementCollection
+	@MapKeyEnumerated(EnumType.STRING)
+	@CollectionTable(name="EMP_PHONE")
+	@MapKeyColumn(name="PHONE_TYPE")
+	@Column(name="PHONE_NUM")
+	private Map<PhoneType,String> phoneNumbers=new HashMap<PhoneType,String>();
+	
 	public Address getAddress() {
 		return address;
 	}
@@ -157,5 +170,13 @@ public class Employee {
 
 	public void setNickNames(Set<String> nickNames) {
 		this.nickNames = nickNames;
+	}
+
+	public Map<PhoneType, String> getPhoneNumbers() {
+		return phoneNumbers;
+	}
+
+	public void setPhoneNumbers(Map<PhoneType, String> phoneNumbers) {
+		this.phoneNumbers = phoneNumbers;
 	}
 }

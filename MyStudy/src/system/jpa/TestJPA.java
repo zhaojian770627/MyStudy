@@ -43,7 +43,7 @@ public class TestJPA {
 
 		// remove an employee
 		em.getTransaction().begin();
-		service.removeEmployee(pk);
+		//service.removeEmployee(pk);
 		em.getTransaction().commit();
 		System.out.println("Removed Employee " + pk);
 
