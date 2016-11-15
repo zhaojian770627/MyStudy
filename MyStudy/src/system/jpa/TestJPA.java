@@ -21,6 +21,8 @@ public class TestJPA {
 		ParkingSpace ps = service.createParkingSpace(1, "W");
 		Project pj = service.createProject(1, "project1");
 		Employee emp = service.createEmployee(158, "John Doe", 45000, depart, ps, pj);
+		Employee emp2 = service.createEmployee(159, "abc", 4500, depart, ps, pj);
+		service.updateDepartment(depart, emp);
 		em.getTransaction().commit();
 		System.out.println("Persisted " + emp);
 		int pk = emp.getId();
@@ -29,6 +31,10 @@ public class TestJPA {
 		// find a specitic employee
 		emp = service.findEmployee(pk);
 		System.out.println("Found " + emp);
+		
+		// find a depart
+		depart  = service.findDepartment(1);
+		System.out.println("Found " + depart);
 
 		// find all employees
 		List<Employee> emps = service.findAllEmployees();
@@ -43,7 +49,7 @@ public class TestJPA {
 
 		// remove an employee
 		em.getTransaction().begin();
-		//service.removeEmployee(pk);
+		service.removeEmployee(pk);
 		em.getTransaction().commit();
 		System.out.println("Removed Employee " + pk);
 

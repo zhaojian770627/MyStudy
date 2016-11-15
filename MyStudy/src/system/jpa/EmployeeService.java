@@ -37,6 +37,11 @@ public class EmployeeService {
 	public Employee findEmployee(int id) {
 		return em.find(Employee.class, id);
 	}
+	
+	public Department findDepartment(int id) {
+		return em.find(Department.class, id);
+	}
+
 
 	public List<Employee> findAllEmployees() {
 		TypedQuery<Employee> query = em.createQuery("select e from Employee e", Employee.class);
@@ -48,12 +53,18 @@ public class EmployeeService {
 		em.persist(depart);
 		return depart;
 	}
+	
+	public void updateDepartment(Department depart,Employee e) {
+		depart.getMemployees().put(1, e);
+		em.persist(depart);
+	}
 
 	public Employee createEmployee(int id, String name, long salary, Department depart, ParkingSpace ps, Project pj) {
 		Employee emp = new Employee(id);
 		emp.setName(name);
 		emp.setSalary(salary);
 		emp.setDepart(depart);
+		depart.getEmployees().add(emp);
 		emp.setParkingSpace(ps);
 		emp.getProjects().add(pj);
 		Address ad = new Address();
@@ -71,6 +82,7 @@ public class EmployeeService {
 
 		emp.getPhoneNumbers().put(PhoneType.Home, "123456");
 		em.persist(emp);
+		//em.persist(depart);
 		return emp;
 	}
 
