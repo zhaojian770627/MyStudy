@@ -33,8 +33,8 @@ public class TestJPA {
 		System.out.println("Found " + emp);
 		
 		// find a depart
-		depart  = service.findDepartment(1);
-		System.out.println("Found " + depart);
+		Department depart2  = service.findDepartment(1);
+		System.out.println("Found " + depart2);
 
 		// find all employees
 		List<Employee> emps = service.findAllEmployees();
@@ -49,7 +49,7 @@ public class TestJPA {
 
 		// remove an employee
 		em.getTransaction().begin();
-		service.removeEmployee(pk);
+		//service.removeEmployee(pk);
 		em.getTransaction().commit();
 		System.out.println("Removed Employee " + pk);
 
