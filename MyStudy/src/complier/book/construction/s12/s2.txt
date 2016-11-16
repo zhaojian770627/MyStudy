@@ -35,8 +35,8 @@ factorList	->										{"}",";","+","-"}
 factor	->	<UNSIGNED>								{<UNSIGNED>}
 factor	->	<ID>									{<ID>}
 factor	->	"(" expr ")"							{"("}
-factor  ->  "+" factor
-factor	->  "-" <ID>
+factor  ->  "+" factor								{"+"}
+factor	->  "-" <ID>								{   }
 factor	->	"-" <UNSIGNED>							{"-"}
 factor	->  "-" "(" expr ")"
 factor  ->	"-" "+" factor
