@@ -29,7 +29,7 @@ public class LockTest {
 	private IntBuffer indexBuffer = buffer.asIntBuffer();
 	private Random rand = new Random();
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws Exception {
 		boolean writer = false;
 		String filename;
 		if (args.length != 2) {
@@ -49,12 +49,48 @@ public class LockTest {
 	}
 
 	/**
+	 * Simulate a series of updates to the index area while holding an exclusive
+	 * lock
+	 * 
+	 * @param fc
+	 * @throws IOException
+	 */
+	private void doUpdates(FileChannel fc) throws Exception {
+		while (true) {
+			println("trying for exclusive lock...");
+			FileLock lock = fc.lock(INDEX_START, INDEX_SIZE, false);
+			updateIndex(fc);
+			lock.release();
+			println("<Sleeping>");
+			Thread.sleep(rand.nextInt(2000) + 500);
+		}
+	}
+
+	// Write new values to the index slots
+	private int idxval = 1;
+
+	private void updateIndex(FileChannel fc) throws Exception {
+		// "indexBuffer" is an int view of "buffer"
+		indexBuffer.clear();
+		for (int i = 0; i < INDEX_COUNT; i++) {
+			idxval++;
+			println("Updateing index " + i + "=" + idxval);
+			indexBuffer.put(idxval);
+			// Pretend that this is really hard work
+			Thread.sleep(500);
+		}
+		// leaves position and limit correct for whole buffer
+		buffer.clear();
+		fc.write(buffer, INDEX_START);
+	}
+
+	/**
 	 * Simulate a series of read-only queries while holding a shared lock on the
 	 * index area
 	 * 
 	 * @param fc
 	 * @throws IOException
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	private void doQueries(FileChannel fc) throws IOException, InterruptedException {
 		while (true) {
@@ -78,6 +114,7 @@ public class LockTest {
 
 	private int lastLineLen = 0;
 
+	// Specialized println that repaints the current line
 	private void println(String msg) {
 		System.out.print("\r");
 		System.out.print(msg);
