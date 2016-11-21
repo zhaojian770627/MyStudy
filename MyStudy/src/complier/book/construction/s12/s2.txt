@@ -7,12 +7,14 @@ statement		->	printlnstatement				{"println"}
 statement		->	printstatement					{"print"}
 statement		->	readintStatement				{"readint"}
 statement		->	compoundStatement				{"{"}
+statement		->  whileStatement					{ "while" }
 
 assignmentStatement	->	<ID> "=" assignmentTail	";"				{<ID>}
 compoundStatement	->	"{"statementList"}"						{"{"}
 printlnStatement    ->  "println"  	"(" printArg|lambda ")" ";"	{"println" }
 printStatement      ->  "print"    	"(" printArg ")" ";"		{ "print"  }
 readintStatement	->	"readint"	"("	<ID> ")" ";"			{ "readint"}
+whileStatement		->	"while" "(" expr ")" statement			{ "while" }
 
 assignmentTail		->	<ID> "=" assignmentTail					{<ID>}
 assignmentTail		->	expr 									{"(","+","-",<UNSIGNED>,<ID>}

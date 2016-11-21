@@ -117,6 +117,9 @@ public class S2Parser implements S1Constants {
 		case READINT:
 			readintStatement();
 			break;
+		case WHILE:
+			whileStatement();
+			break;
 		case SEMICOLON:
 			nullStatement();
 			break;
@@ -249,6 +252,25 @@ public class S2Parser implements S1Constants {
 
 		}
 
+	}
+
+	void whileStatement() {
+		String label1, label2;
+
+		consume(WHILE);
+
+		label1 = cg.getLabel();
+		cg.emitLabel(label1);
+
+		consume(LEFTPAREN);
+		expr();
+		consume(RIGHTPAREN);
+
+		label2 = cg.getLabel();
+		cg.emitInstruction("jz", label2);
+		statement();
+		cg.emitInstruction("ja", label1);
+		cg.emitLabel(label2);
 	}
 
 	private void expr() {

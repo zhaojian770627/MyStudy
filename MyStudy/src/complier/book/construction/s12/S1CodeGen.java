@@ -13,6 +13,10 @@ public class S1CodeGen {
 		this.st = st;
 	}
 
+	public void emitLabel(String label) {
+		outFile.printf("%-9s:", label);
+	}
+
 	public void emitInstruction(String op) {
 		outFile.printf("\t%-4s%n", op);
 	}

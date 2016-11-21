@@ -76,12 +76,8 @@ public class S1TokenMgr implements S1Constants {
 			token.image = buffer.toString();
 
 			// 检测是否关键字
-			if (token.image.equals("print"))
-				token.kind = PRINT;
-			else if (token.image.equals("println"))
-				token.kind = PRINTLN;
-			else if (token.image.endsWith("readint"))
-				token.kind = READINT;
+			if (KeyWord.getKeyWord(token.image) != null)
+				token.kind = KeyWord.getKeyWord(token.image).value;
 			else // 不是关键字，因此种类是ID
 				token.kind = ID;
 		} else if (currentChar == '"') // 处理字符串
