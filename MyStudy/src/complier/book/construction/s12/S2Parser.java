@@ -91,6 +91,8 @@ public class S2Parser implements S1Constants {
 		case READINT:
 		case SEMICOLON:
 		case LEFTBRACE:
+		case WHILE:
+		case IF:
 			statement();
 			statementList();
 			break;
@@ -120,6 +122,9 @@ public class S2Parser implements S1Constants {
 		case WHILE:
 			whileStatement();
 			break;
+		case IF:
+			ifStatement();
+			break;
 		case SEMICOLON:
 			nullStatement();
 			break;
@@ -128,6 +133,35 @@ public class S2Parser implements S1Constants {
 			break;
 		default:
 			throw genEx("Expecting statement");
+		}
+	}
+
+	private void ifStatement() {
+		String label1;
+		consume(IF);
+		consume(LEFTPAREN);
+		expr();
+		consume(RIGHTPAREN);
+		label1=cg.getLabel();
+		cg.emitInstruction("jz", label1);
+		statement();
+		elsePart(label1);
+	}
+
+	private void elsePart(String label1) {
+		String label2;
+		label2 = cg.getLabel();
+		switch (currentToken.kind) {
+		case ELSE:
+			consume(ELSE);
+			cg.emitInstruction("ja", label2);
+			cg.emitLabel(label1);
+			statement();
+			cg.emitLabel(label2);
+			break;
+		default:
+			cg.emitInstruction(label1);
+			break;
 		}
 	}
 
@@ -249,7 +283,6 @@ public class S2Parser implements S1Constants {
 			cg.emitInstruction("stav");
 		} else {
 			expr();
-
 		}
 
 	}

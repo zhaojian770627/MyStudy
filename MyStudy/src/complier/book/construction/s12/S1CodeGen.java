@@ -14,7 +14,7 @@ public class S1CodeGen {
 	}
 
 	public void emitLabel(String label) {
-		outFile.printf("%-9s:", label);
+		outFile.printf("%-9s:%n", label);
 	}
 
 	public void emitInstruction(String op) {

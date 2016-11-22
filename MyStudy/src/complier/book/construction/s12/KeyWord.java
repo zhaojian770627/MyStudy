@@ -8,10 +8,14 @@ public class KeyWord implements S1Constants {
 	Integer value;
 	static Map<String, Integer> keyWordMap = new HashMap<String, Integer>();
 
+	static
 	{
 		keyWordMap.put("print", PRINT);
 		keyWordMap.put("println", PRINTLN);
 		keyWordMap.put("readint", READINT);
+		keyWordMap.put("while", WHILE);
+		keyWordMap.put("if", IF);
+		keyWordMap.put("else", ELSE);
 	}
 
 	public KeyWord(String key, Integer value) {
