@@ -93,6 +93,7 @@ public class S2Parser implements S1Constants {
 		case LEFTBRACE:
 		case WHILE:
 		case IF:
+		case DO:
 			statement();
 			statementList();
 			break;
@@ -121,6 +122,9 @@ public class S2Parser implements S1Constants {
 			break;
 		case WHILE:
 			whileStatement();
+			break;
+		case DO:
+			doWhileStatement();
 			break;
 		case IF:
 			ifStatement();
@@ -284,7 +288,6 @@ public class S2Parser implements S1Constants {
 		} else {
 			expr();
 		}
-
 	}
 
 	void whileStatement() {
@@ -304,6 +307,18 @@ public class S2Parser implements S1Constants {
 		statement();
 		cg.emitInstruction("ja", label1);
 		cg.emitLabel(label2);
+	}
+	
+	private void doWhileStatement() {
+		consume(DO);
+		String label1=cg.getLabel();
+		cg.emitLabel(label1);
+		statement();
+		consume(WHILE);
+		consume(LEFTPAREN);
+		expr();
+		consume(RIGHTPAREN);
+		cg.emitInstruction("jnz", label1);
 	}
 
 	private void expr() {

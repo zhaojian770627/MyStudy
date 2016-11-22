@@ -7,22 +7,23 @@ public interface S1Constants {
 	int PRINTLN = 2;
 	int READINT = 3;
 	int WHILE = 4;
-	int IF = 5;
-	int ELSE = 6;
-	int UNSIGNED = 7;
-	int ID = 8;
-	int ASSIGN = 9;
-	int SEMICOLON = 10;
-	int LEFTPAREN = 11;
-	int RIGHTPAREN = 12;
-	int LEFTBRACE = 13;
-	int RIGHTBRACE = 14;
-	int PLUS = 15;
-	int MINUS = 16;
-	int TIMES = 17;
-	int DIVIDE = 18;
-	int STRING = 19;
-	int ERROR = 20;
+	int DO = 5;
+	int IF = 6;
+	int ELSE = 7;
+	int UNSIGNED = 8;
+	int ID = 9;
+	int ASSIGN = 10;
+	int SEMICOLON = 11;
+	int LEFTPAREN = 12;
+	int RIGHTPAREN = 13;
+	int LEFTBRACE = 14;
+	int RIGHTBRACE = 15;
+	int PLUS = 16;
+	int MINUS = 17;
+	int TIMES = 18;
+	int DIVIDE = 19;
+	int STRING = 20;
+	int ERROR = 21;
 
 	// tokenImage 为每个单词符号提供字符串
 	String[] tokenImage = { 
@@ -31,6 +32,7 @@ public interface S1Constants {
 			"\"println\"",
 			"\"readint\"",
 			"\"while\"",
+			"\"do\"",
 			"\"if\"",
 			"\"else\"",
 			"<UNSIGNED>",

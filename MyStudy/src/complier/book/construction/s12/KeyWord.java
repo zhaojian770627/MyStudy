@@ -16,6 +16,7 @@ public class KeyWord implements S1Constants {
 		keyWordMap.put("while", WHILE);
 		keyWordMap.put("if", IF);
 		keyWordMap.put("else", ELSE);
+		keyWordMap.put("do", DO);
 	}
 
 	public KeyWord(String key, Integer value) {
