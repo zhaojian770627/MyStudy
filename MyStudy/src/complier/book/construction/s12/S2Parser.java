@@ -1,7 +1,5 @@
 package complier.book.construction.s12;
 
-import javax.xml.crypto.dsig.SignedInfo;
-
 import complier.book.construction.s10.Token;
 
 public class S2Parser implements S1Constants {
@@ -146,7 +144,7 @@ public class S2Parser implements S1Constants {
 		consume(LEFTPAREN);
 		expr();
 		consume(RIGHTPAREN);
-		label1=cg.getLabel();
+		label1 = cg.getLabel();
 		cg.emitInstruction("jz", label1);
 		statement();
 		elsePart(label1);
@@ -308,10 +306,10 @@ public class S2Parser implements S1Constants {
 		cg.emitInstruction("ja", label1);
 		cg.emitLabel(label2);
 	}
-	
+
 	private void doWhileStatement() {
 		consume(DO);
-		String label1=cg.getLabel();
+		String label1 = cg.getLabel();
 		cg.emitLabel(label1);
 		statement();
 		consume(WHILE);
@@ -384,6 +382,11 @@ public class S2Parser implements S1Constants {
 		switch (currentToken.kind) {
 		case UNSIGNED:
 			t = currentToken;
+
+			// ·¶Î§¼ì²â
+			if (t.image.length() > 5 || Integer.parseInt(t.image) > 32767)
+				throw genEx("Excepting integer (-32768 to 32767)");
+
 			consume(UNSIGNED);
 			cg.emitInstruction("pwc", t.image);
 			break;
@@ -396,6 +399,11 @@ public class S2Parser implements S1Constants {
 			switch (currentToken.kind) {
 			case UNSIGNED:
 				t = currentToken;
+				
+				// ·¶Î§¼ì²â
+				if (t.image.length() > 5 || Integer.parseInt(t.image) > 32768)
+					throw genEx("Excepting integer (-32768");
+
 				consume(UNSIGNED);
 				cg.emitInstruction("pwc", "-" + t.image);
 				break;

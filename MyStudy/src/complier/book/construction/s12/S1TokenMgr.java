@@ -83,6 +83,7 @@ public class S1TokenMgr implements S1Constants {
 		} else if (currentChar == '"') // ´¦Àí×Ö·û´®
 		{
 			buffer.setLength(0); // clear buffer
+			int escChar = 0;
 			do {
 				buffer.append(currentChar);
 				getNextCharInStr();
@@ -95,7 +96,20 @@ public class S1TokenMgr implements S1Constants {
 					return token;
 				}
 
-			} while (currentChar != '"');
+				if (currentChar == '"' && escChar % 2 == 0)
+					break;
+
+				if (currentChar == '\\') {
+					escChar++;
+					continue;
+				} else if (currentChar != '"') {
+					escChar = 0;
+					continue;
+				} else if (currentChar == '"' && escChar % 2 != 0) {
+					escChar = 0;
+					continue;
+				}
+			} while (true);
 
 			buffer.append(currentChar);
 			token.image = buffer.toString();
