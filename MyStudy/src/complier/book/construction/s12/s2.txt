@@ -1,20 +1,27 @@
-Program 		-> 	statementList <EOF> 			{<ID>,"println","print","{",<EOF>}
-statementList	->	statement statementList 		{<ID>,"println"}
-statementList	->			       					{<EOF>,"}"}
+Program 		-> 	statementList <EOF> 			{<ID>,"println","print","{",<EOF> }
+statementList	->	statement statementList 		{<ID>,"println" }
+statementList	->			       					{<EOF>,"}" }
 
-statement		->	assignmentStatement				{<ID>}
-statement		->	printlnstatement				{"println"}
-statement		->	printstatement					{"print"}
-statement		->	readintStatement				{"readint"}
-statement		->	compoundStatement				{"{"}
+statement		->	assignmentStatement				{ <ID> }
+statement		->	printlnstatement				{ "println" }
+statement		->	printstatement					{ "print"}
+statement		->	readintStatement				{ "readint" }
+statement		->	compoundStatement				{ "{" }
 statement		->  whileStatement					{ "while" }
+statement		->	doWhileStatement				{ "do" }
+statement 		->  ifStatement						{ "if" }
 
-assignmentStatement	->	<ID> "=" assignmentTail	";"				{<ID>}
-compoundStatement	->	"{"statementList"}"						{"{"}
-printlnStatement    ->  "println"  	"(" printArg|lambda ")" ";"	{"println" }
+assignmentStatement	->	<ID> "=" assignmentTail	";"				{ <ID> }
+compoundStatement	->	"{" statementList "}"					{ "{" }
+printlnStatement    ->  "println"  	"(" printArg|lambda ")" ";"	{ "println" }
 printStatement      ->  "print"    	"(" printArg ")" ";"		{ "print"  }
-readintStatement	->	"readint"	"("	<ID> ")" ";"			{ "readint"}
+readintStatement	->	"readint"	"("	<ID> ")" ";"			{ "readint" }
 whileStatement		->	"while" "(" expr ")" statement			{ "while" }
+doWhileStatement	->  "do" statement "while" "(" expr ")"		{ "do" }
+ifStatement			->	"if" "(" expr ")" statement elsePart    { "if" }
+
+elsePart			->	"else" statement						{ "else" }
+elsePart			->								(^)			{ <ID>,"println","print",";","{","}","while","if","do"}      
 
 assignmentTail		->	<ID> "=" assignmentTail					{<ID>}
 assignmentTail		->	expr 									{"(","+","-",<UNSIGNED>,<ID>}
