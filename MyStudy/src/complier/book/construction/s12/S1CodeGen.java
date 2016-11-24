@@ -41,4 +41,8 @@ public class S1CodeGen {
 	public String getLabel() {
 		return "@L" + String.valueOf(lindex++);
 	}
+
+	public void emitString(String msg) {
+		outFile.printf(msg);
+	}
 }

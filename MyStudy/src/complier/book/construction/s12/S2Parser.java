@@ -25,7 +25,7 @@ public class S2Parser implements S1Constants {
 	 * @return
 	 */
 	private RuntimeException genEx(String errorMessage) {
-		return new RuntimeException("Encountered \"" + currentToken.image + "\" on line" + currentToken.beginLine
+		return new RuntimeException("Encountered \"" + currentToken.image + "\" on line " + currentToken.beginLine
 				+ " column " + currentToken.beginColumn + System.getProperty("line.separator") + errorMessage);
 	}
 
@@ -83,58 +83,58 @@ public class S2Parser implements S1Constants {
 
 	private void statementList() {
 		switch (currentToken.kind) {
-		case ID:
-		case PRINT:
-		case PRINTLN:
-		case READINT:
-		case SEMICOLON:
-		case LEFTBRACE:
-		case WHILE:
-		case IF:
-		case DO:
+		//case RIGHTBRACE:
+		case EOF:
+			return;
+		default:
 			statement();
 			statementList();
-			break;
-		case RIGHTBRACE:
-		case EOF:
-			;
-			break;
-		default:
-			throw genEx("Expecting statement or <EOF>");
 		}
 	}
 
 	private void statement() {
-		switch (currentToken.kind) {
-		case ID:
-			assignmentStatement();
-			break;
-		case PRINT:
-			printStatement();
-			break;
-		case PRINTLN:
-			printlnStatement();
-			break;
-		case READINT:
-			readintStatement();
-			break;
-		case WHILE:
-			whileStatement();
-			break;
-		case DO:
-			doWhileStatement();
-			break;
-		case IF:
-			ifStatement();
-			break;
-		case SEMICOLON:
-			nullStatement();
-			break;
-		case LEFTBRACE:
-			compoundStatement();
-			break;
-		default:
-			throw genEx("Expecting statement");
+		try {
+			switch (currentToken.kind) {
+			case ID:
+				assignmentStatement();
+				break;
+			case PRINT:
+				printStatement();
+				break;
+			case PRINTLN:
+				printlnStatement();
+				break;
+			case READINT:
+				readintStatement();
+				break;
+			case WHILE:
+				whileStatement();
+				break;
+			case DO:
+				doWhileStatement();
+				break;
+			case IF:
+				ifStatement();
+				break;
+			case SEMICOLON:
+				nullStatement();
+				break;
+			case LEFTBRACE:
+				compoundStatement();
+				break;
+			default:
+				throw genEx("Expecting statement");
+			}
+		} catch (RuntimeException e) {
+			System.err.println(e.getMessage());
+			cg.emitString(";" + e.getMessage());
+
+			// ´íÎóÐÞ¸´
+			while (currentToken.kind != SEMICOLON && currentToken.kind != EOF)
+				advance();
+
+			if (currentToken.kind != EOF)
+				advance();
 		}
 	}
 
@@ -181,9 +181,17 @@ public class S2Parser implements S1Constants {
 		consume(SEMICOLON);
 	}
 
+	private void compoundList() {
+		if (currentToken.kind == RIGHTBRACE)
+			return;
+		statement();
+		compoundList();
+	}
+
 	private void compoundStatement() {
 		consume(LEFTBRACE);
-		statementList();
+		// statementList();
+		compoundList();
 		consume(RIGHTBRACE);
 	}
 
@@ -399,7 +407,7 @@ public class S2Parser implements S1Constants {
 			switch (currentToken.kind) {
 			case UNSIGNED:
 				t = currentToken;
-				
+
 				// ·¶Î§¼ì²â
 				if (t.image.length() > 5 || Integer.parseInt(t.image) > 32768)
 					throw genEx("Excepting integer (-32768");
