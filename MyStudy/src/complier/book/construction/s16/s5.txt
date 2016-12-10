@@ -1,0 +1,62 @@
+Program 		->  programUnitList <EOF>						
+
+programUnitList	->	programUnit programUnitList		{}
+
+programUnit		->	externDeclaration				{ "extern" }
+programUnit		->	globalDeclaration				{ "int" }
+programUnit		->	functionDefinition				{ "void"}
+
+programUnitList	->									{ <EOF> } -----------------------
+
+
+statementList	->	statement statementList 		{<ID>,"println" }
+statementList	->			       					{<EOF>,"}" }
+
+statement		->	assignmentStatement				{ <ID> }
+statement		->	printlnstatement				{ "println" }
+statement		->	printstatement					{ "print"}
+statement		->	readintStatement				{ "readint" }
+statement		->	compoundStatement				{ "{" }
+statement		->  whileStatement					{ "while" }
+statement		->	doWhileStatement				{ "do" }
+statement 		->  ifStatement						{ "if" }
+
+assignmentStatement	->	<ID> "=" assignmentTail	";"				{ <ID> }
+compoundStatement	->	"{" statementList "}"					{ "{" }
+printlnStatement    ->  "println"  	"(" printArg|lambda ")" ";"	{ "println" }
+printStatement      ->  "print"    	"(" printArg ")" ";"		{ "print"  }
+readintStatement	->	"readint"	"("	<ID> ")" ";"			{ "readint" }
+whileStatement		->	"while" "(" expr ")" statement			{ "while" }
+doWhileStatement	->  "do" statement "while" "(" expr ")"		{ "do" }
+ifStatement			->	"if" "(" expr ")" statement elsePart    { "if" }
+
+elsePart			->	"else" statement						{ "else" }
+elsePart			->								(^)			{ <ID>,"println","print",";","{","}","while","if","do"}      
+
+assignmentTail		->	<ID> "=" assignmentTail					{<ID>}
+assignmentTail		->	expr 									{"(","+","-",<UNSIGNED>,<ID>}
+
+printArg            ->  expr									{"(","+","-",<UNSIGNED>,<ID>}
+printArg            ->  <STRING>								{<STRING>}
+
+expr		->	term termList						{"(","+","-",<UNSIGNED>,<ID>}
+
+termList	->	"+" term termList 					{"+"}
+termList	->  "-" term termList					{"-"}
+termList	->										{")",";"}
+
+term		->	factor factorList					{"(","+","-",<UNSIGNED>,<ID>)
+
+factorList	->	"*" factor factorList 				{"*"}
+factorList	->	"/" factor factorList 				{"/"}
+factorList	->										{"}",";","+","-"}
+
+factor	->	<UNSIGNED>								{<UNSIGNED>}
+factor	->	<ID>									{<ID>}
+factor	->	"(" expr ")"							{"("}
+factor  ->  "+" factor								{"+"}
+factor	->  "-" <ID>								{   }
+factor	->	"-" <UNSIGNED>							{"-"}
+factor	->  "-" "(" expr ")"
+factor  ->	"-" "+" factor
+factor  ->	"-" "-" factor
