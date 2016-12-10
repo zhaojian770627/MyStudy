@@ -1,7 +1,6 @@
 package complier.book.construction.s16;
 
 import java.io.PrintWriter;
-import java.util.Map.Entry;
 
 public class S5CodeGen {
 	private PrintWriter outFile;
@@ -29,12 +28,28 @@ public class S5CodeGen {
 		outFile.printf("%-9s dw\t%s%n", label + ":", value);
 	}
 
-	public void endCode() {
-		outFile.println();
-		emitInstruction("halt");
+	public void push(int p) {
+		if (st.getCategory(p) != st.GLOBALVARIABLE)
+			outFile.printf("\tp\t%s\n", st.getSymbol(p));// global
+		else
+			outFile.printf("\tpr\t%s\n", st.getRelAdd(p));// local
+	}
+	
+	public void pushAddress(int p) {
+		if (st.getCategory(p) != st.GLOBALVARIABLE)
+			outFile.printf("\tpc\t%s\n", st.getSymbol(p));// global
+		else
+			outFile.printf("\tcora\t%s\n", st.getRelAdd(p));// local
+	}
 
-		for (Entry<String, String> entry : st.getSymbol().entrySet()) {
-			emitdw(entry.getKey(), entry.getValue());
+	public void endCode() {
+		// outFile.println();
+		// emitInstruction("halt");
+
+		for (int i = 0; i < st.getSize(); i++) {
+			if (st.getCategory(i) == st.FUNCTIONCALL) {
+				outFile.printf("\textern int\t%s\n", st.getSymbol(i));
+			}
 		}
 	}
 

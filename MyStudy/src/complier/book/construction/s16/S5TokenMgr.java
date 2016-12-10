@@ -152,6 +152,9 @@ public class S5TokenMgr implements S5Constants {
 			case '/':
 				token.kind = DIVIDE;
 				break;
+			case ',':
+				token.kind = COMMA;
+				break;
 			default:
 				token.kind = ERROR;
 				break;

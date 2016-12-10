@@ -8,8 +8,7 @@ public class KeyWord implements S5Constants {
 	Integer value;
 	static Map<String, Integer> keyWordMap = new HashMap<String, Integer>();
 
-	static
-	{
+	static {
 		keyWordMap.put("print", PRINT);
 		keyWordMap.put("println", PRINTLN);
 		keyWordMap.put("readint", READINT);
@@ -17,6 +16,9 @@ public class KeyWord implements S5Constants {
 		keyWordMap.put("if", IF);
 		keyWordMap.put("else", ELSE);
 		keyWordMap.put("do", DO);
+		keyWordMap.put("extern", EXTERN);
+		keyWordMap.put("int", INT);
+		keyWordMap.put("void", VOID);
 	}
 
 	public KeyWord(String key, Integer value) {

@@ -75,10 +75,92 @@ public class S5Parser implements S5Constants {
 	}
 
 	private void program() {
-		statementList();
+		programUnitList();
 		cg.endCode();
 		if (currentToken.kind != EOF)
 			throw genEx("Expecting <EOF>"); // garbage at end?
+	}
+
+	private void programUnitList() {
+		switch (currentToken.kind) {
+		case EOF:
+			return;
+		default:
+			programUnit();
+			programUnitList();
+		}
+	}
+
+	private void programUnit() {
+		switch (currentToken.kind) {
+		case EXTERN:
+			externDeclaration();
+			break;
+		case INT:
+			globalDeclaration();
+		case VOID:
+			functionDefinition();
+		}
+	}
+
+	private void externDeclaration() {
+		Token t;
+		consume(EXTERN);
+		consume(INT);
+		t = currentToken;
+		consume(ID);
+
+		st.enter(t.image, 0, EXTERNVARIABLE);
+		cg.emitInstruction("extern", t.image);
+
+		while (currentToken.kind == COMMA) {
+			consume(COMMA);
+			t = currentToken;
+			consume(ID);
+			st.enter(t.image, 0, EXTERNVARIABLE);
+			cg.emitInstruction("extern", t.image);
+		}
+		consume(SEMICOLON);
+	}
+
+	private void globalDeclaration() {
+		consume(INT);
+		global();
+		while (currentToken.kind == COMMA) {
+			consume(COMMA);
+			global();
+		}
+		consume(SEMICOLON);
+	}
+
+	private void global() {
+		Token t1, t2;
+		String initVal;
+		t1 = currentToken;
+		consume(ID);
+		cg.emitInstruction("public", t1.image);
+		initVal = "0";
+		if (currentToken.kind == ASSIGN) {
+			consume(ASSIGN);
+			initVal = "";
+			if (currentToken.kind == PLUS)
+				consume(PLUS);
+			else if (currentToken.kind == MINUS) {
+				consume(MINUS);
+				initVal = "-";
+			}
+			t2 = currentToken;
+			consume(UNSIGNED);
+			initVal = initVal + t2.image;
+		}
+		st.enter(t1.image, 0, GLOBALVARIABLE);
+		cg.emitdw(t1.image, initVal);
+
+	}
+
+	private void functionDefinition() {
+		// TODO Auto-generated method stub
+
 	}
 
 	private void statementList() {
