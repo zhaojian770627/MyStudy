@@ -155,12 +155,96 @@ public class S5Parser implements S5Constants {
 		}
 		st.enter(t1.image, 0, GLOBALVARIABLE);
 		cg.emitdw(t1.image, initVal);
-
 	}
 
 	private void functionDefinition() {
-		// TODO Auto-generated method stub
+		Token t;
+		consume(VOID);
+		t = currentToken;
+		consume(ID);
+		cg.emitString(";=========start of function " + t.image);
+		st.enter(t.image, 0, FUNCTIONDEFINITION);
+		cg.emitInstruction("public", t.image);
+		cg.emitLabel(t.image);
+		consume(LEFTPAREN);
+		if (currentToken.kind == INT)
+			parameterList();
+		consume(RIGHTPAREN);
+		consume(LEFTBRACE);
+		cg.emitInstruction("esba");
+		localDeclarations();
+		statementList();
+		consume(RIGHTBRACE);
+		cg.emitInstruction("reba");
+		cg.emitInstruction("ret");
+		cg.emitString(";====================end of function " + t.image);
+		st.localRemove();
+	}
 
+	private void parameterList() {
+		Token t;
+		int p;
+		t = parameter();
+		p = parameterR();
+		st.enter(t.image, p, LOCAL);
+	}
+
+	private Token parameter() {
+		Token t;
+		consume(INT);
+		t = currentToken;
+		consume(ID);
+		return t;
+	}
+
+	private int parameterR() {
+		Token t;
+		int p;
+		if (currentToken.kind == COMMA) {
+			consume(COMMA);
+			t = parameter();
+			p = parameterR();
+			st.enter(t.image, p, LOCAL);
+			return p + 1;
+		}
+
+		return 2;
+	}
+
+	private void localDeclarations() {
+		int relativeAddress = -1;
+		while (currentToken.kind == INT) {
+			consume(INT);
+			local(relativeAddress--);
+
+			while (currentToken.kind == COMMA) {
+				consume(COMMA);
+				local(relativeAddress--);
+			}
+			consume(SEMICOLON);
+		}
+	}
+
+	private void local(int relativeAddress) {
+		Token t;
+		String sign;
+		t = currentToken;
+		consume(ID);
+		st.enter(t.image, relativeAddress, LOCAL);
+		if (currentToken.kind == ASSIGN) {
+			consume(ASSIGN);
+			sign = "";
+			if (currentToken.kind == PLUS)
+				consume(PLUS);
+			else if (currentToken.kind == MINUS) {
+				consume(MINUS);
+				sign = "-";
+			}
+			t = currentToken;
+			consume(UNSIGNED);
+			cg.emitInstruction("pwc", sign + t.image);
+		} else
+			cg.emitInstruction("asp", "-1");
 	}
 
 	private void statementList() {

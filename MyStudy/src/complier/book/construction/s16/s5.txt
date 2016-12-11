@@ -8,6 +8,15 @@ programUnit		->	functionDefinition				{ "void"}
 
 programUnitList	->									{ <EOF> } -----------------------
 
+functionDefinition 	-> "void" <ID> "(" parameterList£¿ ")" "{" localDeclarations statementList "}" 	{ void}
+
+parameterList	-> 	parameter parameterR				{ "int" }
+
+parameter		->	"int" <ID>							{ "int" }
+
+parameterR		->	"," parameter paramterR 			{ "," }
+
+localDeclarations	-> ("int" local ("," local)* ";")* 	{ "int" }
 
 statementList	->	statement statementList 		{<ID>,"println" }
 statementList	->			       					{<EOF>,"}" }

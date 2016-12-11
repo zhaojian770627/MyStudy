@@ -85,4 +85,18 @@ public class S5SymTab implements S5Constants {
 	public int getCategory(int i) {
 		return category.get(i);
 	}
+
+	/**
+	 * 删除所有的局部变量
+	 */
+	public void localRemove() {
+		for (int i = symbol.size(); i >= 0; i--) {
+			if (getCategory(i) == LOCAL) {
+				symbol.remove(i);
+				symbolValue.remove(i);
+				relAdd.remove(i);
+				category.remove(i);
+			}
+		}
+	}
 }
