@@ -48,7 +48,7 @@ public class S5CodeGen {
 
 		for (int i = 0; i < st.getSize(); i++) {
 			if (st.getCategory(i) == st.FUNCTIONCALL) {
-				outFile.printf("\textern int\t%s\n", st.getSymbol(i));
+				outFile.printf("\textern \t%s\n", st.getSymbol(i));
 			}
 		}
 	}

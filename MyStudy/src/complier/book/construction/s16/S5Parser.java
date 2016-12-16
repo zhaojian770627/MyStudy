@@ -319,7 +319,7 @@ public class S5Parser implements S5Constants {
 		if (currentToken.kind == LEFTPAREN || currentToken.kind == PLUS || currentToken.kind == MINUS
 				|| currentToken.kind == ID)
 			count = argumentList();
-
+		cg.emitInstruction("call", t.image);
 		if (count > 0)
 			cg.emitInstruction("asp", Integer.toString(count));
 
