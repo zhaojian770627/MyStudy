@@ -262,7 +262,10 @@ public class S5Parser implements S5Constants {
 		try {
 			switch (currentToken.kind) {
 			case ID:
-				assignmentStatement();
+				if (getToken(2).kind == ASSIGN)
+					assignmentStatement();
+				else
+					functionCall();
 				break;
 			case PRINT:
 				printStatement();
@@ -304,6 +307,38 @@ public class S5Parser implements S5Constants {
 		}
 	}
 
+	private void functionCall() {
+		Token t;
+		int count;
+
+		t = currentToken;
+		st.enter(t.image, 0, FUNCTIONCALL);
+		consume(LEFTPAREN);
+		count = 0;
+		// "(","+","-",<UNSIGNED>,<ID>
+		if (currentToken.kind == LEFTPAREN || currentToken.kind == PLUS || currentToken.kind == MINUS
+				|| currentToken.kind == ID)
+			count = argumentList();
+
+		if (count > 0)
+			cg.emitInstruction("asp", Integer.toString(count));
+
+		consume(RIGHTPAREN);
+		consume(SEMICOLON);
+	}
+
+	private int argumentList() {
+		int count;
+		expr();
+		count = 1;
+		while (currentToken.kind == COMMA) {
+			consume(COMMA);
+			expr();
+			count++;
+		}
+		return count;
+	}
+
 	private void ifStatement() {
 		String label1;
 		consume(IF);
@@ -334,15 +369,19 @@ public class S5Parser implements S5Constants {
 	}
 
 	private void readintStatement() {
+		Token t;
+		int index;
+
 		consume(READINT);
 		consume(LEFTPAREN);
-		Token t;
 		t = currentToken;
 		consume(ID);
-		st.enter(t.image);
-		cg.emitInstruction("pc", t.image);
+
+		index = st.find(t.image);
+		cg.pushAddress(index);
 		cg.emitInstruction("din");
 		cg.emitInstruction("stav");
+
 		consume(RIGHTPAREN);
 		consume(SEMICOLON);
 	}
@@ -429,11 +468,14 @@ public class S5Parser implements S5Constants {
 
 	private void assignmentStatement() {
 		Token t;
+		int index;
 
 		t = currentToken;
 		consume(ID);
-		st.enter(t.image, "0");
-		cg.emitInstruction("pc", t.image);
+
+		index = st.find(t.image);
+		cg.pushAddress(index);
+
 		consume(ASSIGN);
 
 		assignmentTail();
@@ -446,11 +488,13 @@ public class S5Parser implements S5Constants {
 
 		if (getToken(1).kind == ID && getToken(2).kind == ASSIGN) {
 			Token t;
+			int index;
 			t = currentToken;
-			st.enter(t.image);
-			cg.emitInstruction("pc", t.image);
-
 			consume(ID);
+
+			index = st.find(t.image);
+			cg.pushAddress(index);
+
 			consume(ASSIGN);
 			assignmentTail();
 
@@ -553,6 +597,7 @@ public class S5Parser implements S5Constants {
 
 	private void factor() {
 		Token t;
+		int index;
 		switch (currentToken.kind) {
 		case UNSIGNED:
 			t = currentToken;
@@ -584,8 +629,8 @@ public class S5Parser implements S5Constants {
 			case ID:
 				t = currentToken;
 				consume(ID);
-				st.enter(t.image);
-				cg.emitInstruction("p", t.image);
+				index = st.find(t.image);
+				cg.push(index);
 				cg.emitInstruction("neg");
 				break;
 			case LEFTPAREN:
@@ -610,8 +655,10 @@ public class S5Parser implements S5Constants {
 		case ID:
 			t = currentToken;
 			consume(ID);
-			st.enter(t.image);
-			cg.emitInstruction("p", t.image);
+
+			index = st.find(t.image);
+			cg.push(index);
+
 			break;
 		case LEFTPAREN:
 			consume(LEFTPAREN);
