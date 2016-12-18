@@ -23,13 +23,6 @@ public class S5SymTab implements S5Constants {
 		category = new ArrayList<Integer>();
 	}
 
-	public void enter(String s) {
-		if (!symbol.contains(s)) {
-			symbol.add(s);
-			symbolValue.add("0");
-		}
-	}
-
 	public void enter(String sym, int ra, int cat) {
 		int i = find(sym);
 		if (i == -1) {
@@ -61,11 +54,6 @@ public class S5SymTab implements S5Constants {
 		return -1;
 	}
 
-	public void enter(String s, String value) {
-		symbol.add(s);
-		symbolValue.add(value);
-	}
-
 	public int getSize() {
 		return symbol.size();
 	}
@@ -90,7 +78,7 @@ public class S5SymTab implements S5Constants {
 	 * 删除所有的局部变量
 	 */
 	public void localRemove() {
-		for (int i = symbol.size(); i >= 0; i--) {
+		for (int i = symbol.size() - 1; i >= 0; i--) {
 			if (getCategory(i) == LOCAL) {
 				symbol.remove(i);
 				symbolValue.remove(i);

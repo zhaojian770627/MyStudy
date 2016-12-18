@@ -2,7 +2,7 @@ package complier.book.construction.s16;
 
 import java.io.PrintWriter;
 
-public class S5CodeGen {
+public class S5CodeGen implements S5Constants {
 	private PrintWriter outFile;
 	private S5SymTab st;
 	int lindex = 0;
@@ -29,14 +29,14 @@ public class S5CodeGen {
 	}
 
 	public void push(int p) {
-		if (st.getCategory(p) != st.GLOBALVARIABLE)
+		if (st.getCategory(p) != LOCAL)
 			outFile.printf("\tp\t%s\n", st.getSymbol(p));// global
 		else
 			outFile.printf("\tpr\t%s\n", st.getRelAdd(p));// local
 	}
-	
+
 	public void pushAddress(int p) {
-		if (st.getCategory(p) != st.GLOBALVARIABLE)
+		if (st.getCategory(p) != LOCAL)
 			outFile.printf("\tpc\t%s\n", st.getSymbol(p));// global
 		else
 			outFile.printf("\tcora\t%s\n", st.getRelAdd(p));// local
@@ -58,6 +58,6 @@ public class S5CodeGen {
 	}
 
 	public void emitString(String msg) {
-		outFile.printf(msg);
+		outFile.printf("%s\n", msg);
 	}
 }

@@ -249,8 +249,7 @@ public class S5Parser implements S5Constants {
 
 	private void statementList() {
 		switch (currentToken.kind) {
-		// case RIGHTBRACE:
-		case EOF:
+		case RIGHTBRACE:
 			return;
 		default:
 			statement();
