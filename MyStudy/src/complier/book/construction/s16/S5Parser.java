@@ -98,6 +98,7 @@ public class S5Parser implements S5Constants {
 			break;
 		case INT:
 			globalDeclaration();
+			break;
 		case VOID:
 			functionDefinition();
 		}

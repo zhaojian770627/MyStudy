@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class S5 {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		System.out.println("S3 comiler written by zhaojianc");
+		System.out.println("S5 comiler written by zhaojianc");
 
 		if (args.length != 1) {
 			System.err.println("Wrong number cmd line args");
@@ -30,7 +30,7 @@ public class S5 {
 		PrintWriter outFile = new PrintWriter(outFileName);
 
 		// 标识编译器/作者到输出文件
-		outFile.println("; from S3 compiler written by zhaojianc");
+		outFile.println("; from S5 compiler written by zhaojianc");
 
 		// 构造组成编译器的对象
 		S5SymTab st = new S5SymTab();
