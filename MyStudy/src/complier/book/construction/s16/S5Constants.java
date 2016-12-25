@@ -17,6 +17,7 @@ public interface S5Constants {
 	int DO = 6;
 	int IF = 7;
 	int ELSE = 8;
+	int BREAK =9;
 	int UNSIGNED = 9;
 	int ID = 10;
 	int EXTERN =11;
@@ -46,6 +47,7 @@ public interface S5Constants {
 			"\"do\"",
 			"\"if\"",
 			"\"else\"",
+			"\"break\"",
 			"<UNSIGNED>",
 			"<ID>", 
 			"extern",

@@ -30,6 +30,7 @@ statement		->	compoundStatement				{ "{" }
 statement		->  whileStatement					{ "while" }
 statement		->	doWhileStatement				{ "do" }
 statement 		->  ifStatement						{ "if" }
+statement		->	breakStatement					{ "break" }
 
 assignmentStatement	->	<ID> "=" assignmentTail	";"				{ <ID> }
 functionCall		->  <ID> argumentList? ")" ";"
@@ -40,6 +41,7 @@ readintStatement	->	"readint"	"("	<ID> ")" ";"			{ "readint" }
 whileStatement		->	"while" "(" expr ")" statement			{ "while" }
 doWhileStatement	->  "do" statement "while" "(" expr ")"		{ "do" }
 ifStatement			->	"if" "(" expr ")" statement elsePart    { "if" }
+breakStatement		->	"break"									{ "break" }
 
 argumentList		->	expr() (",")*							{ "(","+","-",<UNSIGNED>,<ID> }
 

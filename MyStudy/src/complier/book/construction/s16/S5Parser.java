@@ -1,5 +1,7 @@
 package complier.book.construction.s16;
 
+import java.util.Stack;
+
 import complier.book.construction.s10.Token;
 
 public class S5Parser implements S5Constants {
@@ -8,6 +10,9 @@ public class S5Parser implements S5Constants {
 	private S5CodeGen cg;
 	private Token currentToken;
 	private Token previousToken;
+
+	// 用于支持break语句
+	private Stack<String> loopLable = new Stack<>();
 
 	public S5Parser(S5SymTab st, S5TokenMgr tm, S5CodeGen cg) {
 		this.st = st;
@@ -285,6 +290,9 @@ public class S5Parser implements S5Constants {
 			case IF:
 				ifStatement();
 				break;
+			case BREAK:
+				breakStatement();
+				break;
 			case SEMICOLON:
 				nullStatement();
 				break;
@@ -528,22 +536,42 @@ public class S5Parser implements S5Constants {
 		consume(RIGHTPAREN);
 
 		label2 = cg.getLabel();
-		cg.emitInstruction("jz", label2);
-		statement();
-		cg.emitInstruction("ja", label1);
-		cg.emitLabel(label2);
+		loopLable.push(label2);
+		try {
+			cg.emitInstruction("jz", label2);
+			statement();
+			cg.emitInstruction("ja", label1);
+			cg.emitLabel(label2);
+		} finally {
+			loopLable.pop();
+		}
 	}
 
 	private void doWhileStatement() {
 		consume(DO);
 		String label1 = cg.getLabel();
-		cg.emitLabel(label1);
-		statement();
-		consume(WHILE);
-		consume(LEFTPAREN);
-		expr();
-		consume(RIGHTPAREN);
-		cg.emitInstruction("jnz", label1);
+		String label2 = cg.getLabel();
+		loopLable.push(label2);
+		try {
+			cg.emitLabel(label1);
+			statement();
+			consume(WHILE);
+			consume(LEFTPAREN);
+			expr();
+			consume(RIGHTPAREN);
+			cg.emitInstruction("jnz", label1);
+			cg.emitLabel(label2);
+		} finally {
+			loopLable.pop();
+		}
+	}
+
+	private void breakStatement() {
+		consume(BREAK);
+		if (loopLable.isEmpty())
+			throw genEx("break error");
+		String label = loopLable.peek();
+		cg.emitInstruction("ja", label);
 	}
 
 	private void expr() {

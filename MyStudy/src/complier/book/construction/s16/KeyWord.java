@@ -16,6 +16,7 @@ public class KeyWord implements S5Constants {
 		keyWordMap.put("if", IF);
 		keyWordMap.put("else", ELSE);
 		keyWordMap.put("do", DO);
+		keyWordMap.put("break", BREAK);
 		keyWordMap.put("extern", EXTERN);
 		keyWordMap.put("int", INT);
 		keyWordMap.put("void", VOID);
