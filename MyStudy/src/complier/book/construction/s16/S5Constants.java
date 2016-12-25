@@ -38,6 +38,7 @@ public interface S5Constants {
 	// tokenImage 为每个单词符号提供字符串
 	String[] tokenImage = { 
 			"<EOF>",
+			"void",
 			"\"print\"",
 			"\"println\"",
 			"\"readint\"",
@@ -47,6 +48,8 @@ public interface S5Constants {
 			"\"else\"",
 			"<UNSIGNED>",
 			"<ID>", 
+			"extern",
+			"int",
 			"\"=\"",
 			"\";\"",
 			"\"(\"",

@@ -89,11 +89,16 @@ public class S5TokenMgr implements S5Constants {
 				getNextCharInStr();
 
 				if (currentChar == '\n' || currentChar == '\r') {
-					token.kind = ERROR;
-					token.image = "\n or \r";
-					token.endLine = currentLineNumber;
-					token.endColumn = currentColumnNumber;
-					return token;
+					if (escChar % 2 == 0) {
+						token.kind = ERROR;
+						token.image = "\n or \r";
+						token.endLine = currentLineNumber;
+						token.endColumn = currentColumnNumber;
+						return token;
+					} else {
+						escChar = 0;
+						continue;
+					}
 				}
 
 				if (currentChar == '"' && escChar % 2 == 0)
@@ -112,7 +117,7 @@ public class S5TokenMgr implements S5Constants {
 			} while (true);
 
 			buffer.append(currentChar);
-			token.image = buffer.toString();
+			token.image = buffer.toString().replace("\\\n", "").replace("\\\r", "");
 			token.kind = STRING;
 			token.endLine = currentLineNumber;
 			token.endColumn = currentColumnNumber;

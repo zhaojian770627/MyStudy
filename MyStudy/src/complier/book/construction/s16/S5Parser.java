@@ -313,11 +313,12 @@ public class S5Parser implements S5Constants {
 
 		t = currentToken;
 		st.enter(t.image, 0, FUNCTIONCALL);
+		consume(ID);
 		consume(LEFTPAREN);
 		count = 0;
 		// "(","+","-",<UNSIGNED>,<ID>
 		if (currentToken.kind == LEFTPAREN || currentToken.kind == PLUS || currentToken.kind == MINUS
-				|| currentToken.kind == ID)
+				|| currentToken.kind == ID || currentToken.kind == UNSIGNED)
 			count = argumentList();
 		cg.emitInstruction("call", t.image);
 		if (count > 0)
@@ -363,7 +364,7 @@ public class S5Parser implements S5Constants {
 			cg.emitLabel(label2);
 			break;
 		default:
-			cg.emitInstruction(label1);
+			cg.emitLabel(label1);
 			break;
 		}
 	}
@@ -378,6 +379,8 @@ public class S5Parser implements S5Constants {
 		consume(ID);
 
 		index = st.find(t.image);
+		if (index == -1)
+			throw genEx(t.image + " not find in systable!");
 		cg.pushAddress(index);
 		cg.emitInstruction("din");
 		cg.emitInstruction("stav");
@@ -474,6 +477,10 @@ public class S5Parser implements S5Constants {
 		consume(ID);
 
 		index = st.find(t.image);
+
+		if (index == -1)
+			throw genEx(t.image + " not find in systable!");
+
 		cg.pushAddress(index);
 
 		consume(ASSIGN);
@@ -493,6 +500,8 @@ public class S5Parser implements S5Constants {
 			consume(ID);
 
 			index = st.find(t.image);
+			if (index == -1)
+				throw genEx(t.image + " not find in systable!");
 			cg.pushAddress(index);
 
 			consume(ASSIGN);
@@ -563,10 +572,11 @@ public class S5Parser implements S5Constants {
 			break;
 		case RIGHTPAREN:
 		case SEMICOLON:
+		case COMMA:
 			;
 			break;
 		default:
-			throw genEx("Expecting \"+\",\")\", or \";\"");
+			throw genEx("Expecting \"+\",\")\",\",\" or \";\"");
 		}
 	}
 
@@ -588,6 +598,7 @@ public class S5Parser implements S5Constants {
 		case SEMICOLON:
 		case PLUS:
 		case MINUS:
+		case COMMA:
 			;
 			break;
 		default:
@@ -630,6 +641,8 @@ public class S5Parser implements S5Constants {
 				t = currentToken;
 				consume(ID);
 				index = st.find(t.image);
+				if (index == -1)
+					throw genEx(t.image + " not find in systable!");
 				cg.push(index);
 				cg.emitInstruction("neg");
 				break;
@@ -657,6 +670,8 @@ public class S5Parser implements S5Constants {
 			consume(ID);
 
 			index = st.find(t.image);
+			if (index == -1)
+				throw genEx(t.image + " not find in systable!");
 			cg.push(index);
 
 			break;

@@ -21,7 +21,8 @@ localDeclarations	-> ("int" local ("," local)* ";")* 	{ "int" }
 statementList	->	statement statementList 		{<ID>,"println" }
 statementList	->			       					{<EOF>,"}" }
 
-statement		->	assignmentStatement				{ <ID> }
+statement    	->  functionCall					{ <ID>}
+statement		->	assignmentStatement				{ <ID>= }
 statement		->	printlnstatement				{ "println" }
 statement		->	printstatement					{ "print"}
 statement		->	readintStatement				{ "readint" }
@@ -31,6 +32,7 @@ statement		->	doWhileStatement				{ "do" }
 statement 		->  ifStatement						{ "if" }
 
 assignmentStatement	->	<ID> "=" assignmentTail	";"				{ <ID> }
+functionCall		->  <ID> argumentList? ")" ";"
 compoundStatement	->	"{" statementList "}"					{ "{" }
 printlnStatement    ->  "println"  	"(" printArg|lambda ")" ";"	{ "println" }
 printStatement      ->  "print"    	"(" printArg ")" ";"		{ "print"  }
@@ -38,6 +40,8 @@ readintStatement	->	"readint"	"("	<ID> ")" ";"			{ "readint" }
 whileStatement		->	"while" "(" expr ")" statement			{ "while" }
 doWhileStatement	->  "do" statement "while" "(" expr ")"		{ "do" }
 ifStatement			->	"if" "(" expr ")" statement elsePart    { "if" }
+
+argumentList		->	expr() (",")*							{ "(","+","-",<UNSIGNED>,<ID> }
 
 elsePart			->	"else" statement						{ "else" }
 elsePart			->								(^)			{ <ID>,"println","print",";","{","}","while","if","do"}      
@@ -52,13 +56,13 @@ expr		->	term termList						{"(","+","-",<UNSIGNED>,<ID>}
 
 termList	->	"+" term termList 					{"+"}
 termList	->  "-" term termList					{"-"}
-termList	->										{")",";"}
+termList	->										{")",";",","}
 
 term		->	factor factorList					{"(","+","-",<UNSIGNED>,<ID>)
 
 factorList	->	"*" factor factorList 				{"*"}
 factorList	->	"/" factor factorList 				{"/"}
-factorList	->										{"}",";","+","-"}
+factorList	->										{")",";","+","-",","}
 
 factor	->	<UNSIGNED>								{<UNSIGNED>}
 factor	->	<ID>									{<ID>}
