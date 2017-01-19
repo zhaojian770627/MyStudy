@@ -1,0 +1,16 @@
+expr		->	term termList
+
+termList	->	"|"	term termList
+termList	->	
+
+term		->	factor	factorList
+
+factorList	->	factor	factorList
+factorList	->
+
+factor		->	<CHAR>	factorTail
+factor		->	<PERIOD>	factorTail
+factor		->	"(" expr ")"	factorTail
+
+factorTail	->	"*"	factorList
+factorTail	->
