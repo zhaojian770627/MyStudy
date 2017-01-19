@@ -1,9 +1,9 @@
-expr		->	term termList					{ <EORE> }
+expr		->	term termList <EORE>			{ <CHAR>,".","(" }
+
+term		->	factor	factorList				{ <CHAR>,".","(" }
 
 termList	->	"|"	term termList				{ "|"}
 termList	->									{ <EORE>,")"}
-
-term		->	factor	factorList				{ <CHAR>,".","(" }
 
 factorList	->	factor	factorList
 factorList	->									{ <EORE>,")"}

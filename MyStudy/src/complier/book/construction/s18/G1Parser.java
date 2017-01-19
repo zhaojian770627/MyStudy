@@ -71,7 +71,39 @@ public class G1Parser implements G1Constants {
 	}
 
 	private void expr() {
+		term();
+		termList();
+	}
+
+	private void term() {
+		factor();
+		factorList();
+	}
+
+	private void factorList() {
 		// TODO Auto-generated method stub
 
+	}
+
+	private void factor() {
+//		switch (currentToken.kind) {
+//		case 
+//		}
+	}
+
+	private void termList() {
+		switch (currentToken.kind) {
+		case OR:
+			consume(OR);
+			term();
+			termList();
+			break;
+		case RIGHTPAREN:
+		case EORE:
+			;
+			break;
+		default:
+			throw genEx("Expecting \"|\",\")\", or \"<EORE>\"");
+		}
 	}
 }
