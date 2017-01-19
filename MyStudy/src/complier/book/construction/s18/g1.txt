@@ -1,16 +1,16 @@
-expr		->	term termList
+expr		->	term termList					{ <EORE> }
 
-termList	->	"|"	term termList
-termList	->	
+termList	->	"|"	term termList				{ "|"}
+termList	->									{ <EORE>,")"}
 
-term		->	factor	factorList
+term		->	factor	factorList				{ <CHAR>,".","(" }
 
 factorList	->	factor	factorList
-factorList	->
+factorList	->									{ <EORE>,")"}
 
-factor		->	<CHAR>	factorTail
-factor		->	<PERIOD>	factorTail
-factor		->	"(" expr ")"	factorTail
+factor		->	<CHAR>	factorTail				{ <CHAR> }
+factor		->	<PERIOD>	factorTail			{ <PERIOD> }
+factor		->	"(" expr ")"	factorTail		{ "(" }
 
-factorTail	->	"*"	factorList
-factorTail	->
+factorTail	->	"*"	factorList					{ "*" }
+factorTail	->									{ <EORE>,")" }
