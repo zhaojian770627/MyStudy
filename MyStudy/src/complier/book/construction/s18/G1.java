@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 public class G1 {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		System.out.println("S5 comiler written by zhaojianc");
-
 		if (args.length != 1) {
 			System.err.println("Wrong number cmd line args");
 			System.exit(1);

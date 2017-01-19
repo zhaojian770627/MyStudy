@@ -73,6 +73,7 @@ public class G1Parser implements G1Constants {
 	private void expr() {
 		term();
 		termList();
+		consume(EORE);
 	}
 
 	private void term() {
@@ -81,14 +82,52 @@ public class G1Parser implements G1Constants {
 	}
 
 	private void factorList() {
-		// TODO Auto-generated method stub
-
+		switch (currentToken.kind) {
+		case EORE:
+		case RIGHTPAREN:
+			;
+			break;
+		default:
+			factor();
+			factorList();
+		}
 	}
 
 	private void factor() {
-//		switch (currentToken.kind) {
-//		case 
-//		}
+		switch (currentToken.kind) {
+		case CHAR:
+			consume(CHAR);
+			factorTail();
+			break;
+		case PERIOD:
+			consume(PERIOD);
+			factorTail();
+			break;
+		case LEFTPAREN:
+			consume(LEFTPAREN);
+			expr();
+			consume(RIGHTPAREN);
+			factorTail();
+			break;
+		default:
+			throw genEx("Expecting \")\", or \"<EORE>\"");
+		}
+	}
+
+	private void factorTail() {
+		switch (currentToken.kind) {
+		case STAR:
+			consume(STAR);
+			factorList();
+			break;
+		case EORE:
+		case RIGHTPAREN:
+		case CHAR:
+		case PERIOD:
+			;
+		default:
+			throw genEx("Expecting \")\", or \"<EORE>\"");
+		}
 	}
 
 	private void termList() {

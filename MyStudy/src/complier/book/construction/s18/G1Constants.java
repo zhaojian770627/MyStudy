@@ -8,7 +8,7 @@ public interface G1Constants {
     int LEFTPAREN=3;
     int RIGHTPAREN=4;
     int OR=5;
-    int START=6;
+    int STAR=6;
     int ERROR=7;
 
     int CONCAT=8;		// 没有对应的单词符号

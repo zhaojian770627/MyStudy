@@ -14,6 +14,7 @@ public class G1TokenMgr implements G1Constants {
 
 	public G1TokenMgr(String regex) {
 		inputLine = regex;
+		currentChar = 1;
 		inputLength = inputLine.length();
 		currentColumnNumber = 0;
 		currentLineNumber = 0;
@@ -21,7 +22,8 @@ public class G1TokenMgr implements G1Constants {
 	}
 
 	public Token getNextToken() {
-		getNextChar();
+		while (currentColumnNumber == 0)
+			getNextChar();
 
 		// 生成返回给语法分析器的单词符号
 		token = new Token();
@@ -75,7 +77,7 @@ public class G1TokenMgr implements G1Constants {
 				token.kind = OR;
 				break;
 			case '*':
-				token.kind = START;
+				token.kind = STAR;
 				break;
 			default:
 				token.kind = ERROR;
