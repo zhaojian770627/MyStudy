@@ -13,4 +13,4 @@ factor		->	<PERIOD>	factorTail			{ <PERIOD> }
 factor		->	"(" expr ")"	factorTail		{ "(" }
 
 factorTail	->	"*"	factorList					{ "*" }
-factorTail	->									{ <CHAR>,<PERIOD>,<EORE>,")" }
+factorTail	->									{ <CHAR>,<PERIOD>,<EORE>,")","|" }
