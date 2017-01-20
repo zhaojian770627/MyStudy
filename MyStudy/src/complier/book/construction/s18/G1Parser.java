@@ -125,6 +125,7 @@ public class G1Parser implements G1Constants {
 		case CHAR:
 		case PERIOD:
 			;
+			break;
 		default:
 			throw genEx("Expecting \")\", or \"<EORE>\"");
 		}
