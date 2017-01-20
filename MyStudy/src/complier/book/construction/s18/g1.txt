@@ -3,7 +3,7 @@ expr		->	term termList <EORE>			{ <CHAR>,".","(" }
 term		->	factor	factorList				{ <CHAR>,".","(" }
 
 termList	->	"|"	term termList				{ "|"}
-termList	->									{ <EORE>,")","("}
+termList	->									{ <EORE>,")","(" }
 
 factorList	->	factor	factorList				{ <CHAR>,<PERIOD>}
 factorList	->									{ <EORE>,")"}
