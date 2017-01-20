@@ -6,7 +6,7 @@ termList	->	"|"	term termList				{ "|"}
 termList	->									{ <EORE>,")","(" }
 
 factorList	->	factor	factorList				{ <CHAR>,<PERIOD>}
-factorList	->									{ <EORE>,")"}
+factorList	->									{ <EORE>,")", "|" }
 
 factor		->	<CHAR>	factorTail				{ <CHAR> }
 factor		->	<PERIOD>	factorTail			{ <PERIOD> }
