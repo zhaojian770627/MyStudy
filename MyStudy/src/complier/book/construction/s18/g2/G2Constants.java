@@ -1,6 +1,6 @@
-package complier.book.construction.s18;
+package complier.book.construction.s18.g2;
 
-public interface G1Constants {
+public interface G2Constants {
     // 标识单词符号类别的整数
     int EORE=0;	 	// 正则表达式结束
     int CHAR=1;

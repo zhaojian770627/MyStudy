@@ -1,24 +1,23 @@
-package complier.book.construction.s18;
+package complier.book.construction.s18.g2;
 
 import complier.book.construction.s10.Token;
 
-public class G1TokenMgr implements G1Constants {
+public class G2TokenMgr implements G2Constants {
 	private char currentChar;
 	private int currentColumnNumber;
 	private int currentLineNumber;
 	private String inputLine; // 存放一行輸入
 	private Token token; // 存放一单词符号
-	private StringBuffer buffer; // 构造单词符号映像
-
 	private int inputLength;
+	private boolean debug;
 
-	public G1TokenMgr(String regex) {
+	public G2TokenMgr(String regex, boolean debug) {
 		inputLine = regex;
 		currentChar = 1;
 		inputLength = inputLine.length();
 		currentColumnNumber = 0;
 		currentLineNumber = 0;
-		buffer = new StringBuffer();
+		this.debug = debug;
 	}
 
 	public Token getNextToken() {
@@ -90,6 +89,10 @@ public class G1TokenMgr implements G1Constants {
 
 			getNextChar();
 		}
+
+		if (debug)
+			System.out.printf(";kd=%3d bL=%3d bC=%3d eL=%3d eC=%3d im=%s%n", token.kind, token.beginLine,
+					token.beginColumn, token.endLine, token.endColumn, token.image);
 
 		return token;
 	}

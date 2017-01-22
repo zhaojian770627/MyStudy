@@ -1,13 +1,13 @@
-package complier.book.construction.s18;
+package complier.book.construction.s18.g2;
 
 import complier.book.construction.s10.Token;
 
-public class G1Parser implements G1Constants {
-	private G1TokenMgr tm;
+public class G2Parser implements G2Constants {
+	private G2TokenMgr tm;
 	private Token currentToken;
 	private Token previousToken;
 
-	public G1Parser(G1TokenMgr tm) {
+	public G2Parser(G2TokenMgr tm) {
 		this.tm = tm;
 
 		currentToken = tm.getNextToken();
@@ -68,12 +68,12 @@ public class G1Parser implements G1Constants {
 
 	public void parse() {
 		expr();
+		consume(EORE);
 	}
 
 	private void expr() {
 		term();
 		termList();
-		consume(EORE);
 	}
 
 	private void term() {
@@ -85,6 +85,7 @@ public class G1Parser implements G1Constants {
 		switch (currentToken.kind) {
 		case EORE:
 		case RIGHTPAREN:
+		case OR:
 			;
 			break;
 		default:
@@ -110,7 +111,7 @@ public class G1Parser implements G1Constants {
 			factorTail();
 			break;
 		default:
-			throw genEx("Expecting \")\", or \"<EORE>\"");
+			throw genEx("Expecting \"<CHAR>\", \".\",or \"(\"");
 		}
 	}
 
@@ -124,6 +125,7 @@ public class G1Parser implements G1Constants {
 		case RIGHTPAREN:
 		case CHAR:
 		case PERIOD:
+		case OR:
 			;
 			break;
 		default:
