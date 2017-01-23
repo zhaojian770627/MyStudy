@@ -3,14 +3,14 @@ expr		->	term termList <EORE>			{ <CHAR>,".","(" }
 term		->	factor	factorList				{ <CHAR>,".","(" }
 
 termList	->	"|"	term termList				{ "|"}
-termList	->									{ <EORE>,")","(" }
+termList	->									{ <EORE>,")" }
 
 factorList	->	factor	factorList				{ <CHAR>,<PERIOD>}
-factorList	->									{ <EORE>,")", "|" }
+factorList	->									{ <EORE>,")", "|" } 
 
 factor		->	<CHAR>	factorTail				{ <CHAR> }
 factor		->	<PERIOD>	factorTail			{ <PERIOD> }
 factor		->	"(" expr ")"	factorTail		{ "(" }
 
-factorTail	->	"*"	factorList					{ "*" }
+factorTail	->	"*"	factorTail					{ "*" }
 factorTail	->									{ <CHAR>,<PERIOD>,<EORE>,")","|" }

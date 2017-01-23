@@ -4,11 +4,14 @@ import complier.book.construction.s10.Token;
 
 public class G2Parser implements G2Constants {
 	private G2TokenMgr tm;
+	private G2CodeGen cg;
+
 	private Token currentToken;
 	private Token previousToken;
 
-	public G2Parser(G2TokenMgr tm) {
+	public G2Parser(G2TokenMgr tm, G2CodeGen cg) {
 		this.tm = tm;
+		this.cg = cg;
 
 		currentToken = tm.getNextToken();
 		previousToken = null;
@@ -67,21 +70,29 @@ public class G2Parser implements G2Constants {
 	}
 
 	public void parse() {
-		expr();
+		NFAState p;
+		p = expr();
 		consume(EORE);
+		NFAState.displayNFA(p);
 	}
 
-	private void expr() {
-		term();
-		termList();
+	private NFAState expr() {
+		NFAState p;
+
+		p = term();
+		p = termList(p);
+		return p;
 	}
 
-	private void term() {
-		factor();
-		factorList();
+	private NFAState term() {
+		NFAState p;
+
+		p = factor();
+		p = factorList(p);
+		return p;
 	}
 
-	private void factorList() {
+	private NFAState factorList(NFAState p) {
 		switch (currentToken.kind) {
 		case EORE:
 		case RIGHTPAREN:
@@ -89,37 +100,49 @@ public class G2Parser implements G2Constants {
 			;
 			break;
 		default:
-			factor();
-			factorList();
+			NFAState q;
+			q = factor();
+			p = cg.make(CONCAT, p, q);
+			p = factorList(p);
 		}
+		return p;
 	}
 
-	private void factor() {
+	private NFAState factor() {
+		Token t;
+		NFAState p;
+
 		switch (currentToken.kind) {
 		case CHAR:
+			t = currentToken;
 			consume(CHAR);
-			factorTail();
+			p = cg.make(CHAR, t);
+			p = factorTail(p);
 			break;
 		case PERIOD:
+			t = currentToken;
 			consume(PERIOD);
-			factorTail();
+			p = cg.make(CHAR, t);
+			p = factorTail(p);
 			break;
 		case LEFTPAREN:
 			consume(LEFTPAREN);
-			expr();
+			p = expr();
 			consume(RIGHTPAREN);
-			factorTail();
+			p = factorTail(p);
 			break;
 		default:
 			throw genEx("Expecting \"<CHAR>\", \".\",or \"(\"");
 		}
+		return p;
 	}
 
-	private void factorTail() {
+	private NFAState factorTail(NFAState p) {
 		switch (currentToken.kind) {
 		case STAR:
 			consume(STAR);
-			factorList();
+			p = cg.make(STAR, p);
+			p = factorTail(p);
 			break;
 		case EORE:
 		case RIGHTPAREN:
@@ -131,14 +154,17 @@ public class G2Parser implements G2Constants {
 		default:
 			throw genEx("Expecting \")\", or \"<EORE>\"");
 		}
+		return p;
 	}
 
-	private void termList() {
+	private NFAState termList(NFAState p) {
+		NFAState q;
 		switch (currentToken.kind) {
 		case OR:
 			consume(OR);
-			term();
-			termList();
+			q = term();
+			p = cg.make(OR, p, q);
+			p = termList(p);
 			break;
 		case RIGHTPAREN:
 		case EORE:
@@ -147,5 +173,6 @@ public class G2Parser implements G2Constants {
 		default:
 			throw genEx("Expecting \"|\",\")\", or \"<EORE>\"");
 		}
+		return p;
 	}
 }

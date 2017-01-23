@@ -119,7 +119,7 @@ public class G1Parser implements G1Constants {
 		switch (currentToken.kind) {
 		case STAR:
 			consume(STAR);
-			factorList();
+			factorTail();
 			break;
 		case EORE:
 		case RIGHTPAREN:

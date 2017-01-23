@@ -10,13 +10,14 @@ public class G2 {
 			System.exit(1);
 		}
 
-		boolean debug = true;
+		boolean debug = false;
 
 		// 构造组成编译器的对象
 		// G1TokenMgr tm = new G1TokenMgr(args[0]);
-		String regx = "b|c*";
+		String regx = "bc";
 		G2TokenMgr tm = new G2TokenMgr(regx, debug);
-		G2Parser parser = new G2Parser(tm);
+		G2CodeGen cg = new G2CodeGen();
+		G2Parser parser = new G2Parser(tm,cg);
 
 		// 语法分析和翻译
 		try {
