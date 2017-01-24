@@ -14,14 +14,15 @@ public class G2 {
 
 		// 构造组成编译器的对象
 		// G1TokenMgr tm = new G1TokenMgr(args[0]);
-		String regx = "bc";
+		String regx = "b|c";
 		G2TokenMgr tm = new G2TokenMgr(regx, debug);
 		G2CodeGen cg = new G2CodeGen();
-		G2Parser parser = new G2Parser(tm,cg);
+		G2Parser parser = new G2Parser(tm, cg);
 
 		// 语法分析和翻译
 		try {
-			parser.parse();
+			NFAState p = parser.parse();
+			NFAState.displayNFA(p);
 			System.out.println("OK");
 		} catch (RuntimeException e) {
 			e.printStackTrace();

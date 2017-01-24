@@ -35,12 +35,12 @@ public class G2CodeGen implements G2Constants {
 			s = new NFAState();
 			a = new NFAState();
 			s.arrow1 = p;
-			s.label1 = '0';
+			s.label1 = 0;
 			s.arrow2 = a;
-			s.label1 = '0';
+			s.label1 = 0;
 
 			p.acceptState.arrow1 = s;
-			p.acceptState.label1 = '0';
+			p.acceptState.label1 = 0;
 
 			s.acceptState = a;
 			return p;
@@ -58,10 +58,10 @@ public class G2CodeGen implements G2Constants {
 			a = new NFAState();
 
 			s.arrow1 = p;
-			s.label1 = '0';
+			s.label1 = 0;
 
 			s.arrow2 = q;
-			s.label1 = '0';
+			s.label1 = 0;
 
 			p.acceptState.arrow1 = a;
 			q.acceptState.arrow1 = a;

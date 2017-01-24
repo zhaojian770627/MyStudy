@@ -69,11 +69,11 @@ public class G2Parser implements G2Constants {
 			throw genEx("Expecting " + tokenImage[expected]);
 	}
 
-	public void parse() {
+	public NFAState parse() {
 		NFAState p;
 		p = expr();
 		consume(EORE);
-		NFAState.displayNFA(p);
+		return p;
 	}
 
 	private NFAState expr() {
