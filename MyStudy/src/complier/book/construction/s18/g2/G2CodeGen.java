@@ -43,7 +43,7 @@ public class G2CodeGen implements G2Constants {
 			p.acceptState.label1 = 0;
 
 			s.acceptState = a;
-			return p;
+			return s;
 		default:
 			throw new RuntimeException("Bad call of make");
 		}
