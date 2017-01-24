@@ -71,6 +71,7 @@ public class G2CodeGen implements G2Constants {
 			return s;
 		case CONCAT:
 			p.acceptState.arrow1 = q;
+			p.acceptState = q.acceptState;
 			return p;
 		default:
 			throw new RuntimeException("Bad call of make");
