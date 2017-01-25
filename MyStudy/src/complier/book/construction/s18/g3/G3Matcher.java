@@ -22,18 +22,20 @@ public class G3Matcher {
 		boolean gotAccept = false;
 		HashSet<NFAState> curStatesMap = new HashSet<NFAState>();
 		curStatesMap.addAll(currentStates);
-		for (NFAState s : currentStates) {
+		// for (NFAState s : currentStates) {
+		for (int i = 0; i < currentStates.size(); i++) {
+			NFAState s = currentStates.get(i);
 			if (startState.acceptState.equals(s)) {
 				gotAccept = true;
 				break;
 			}
 
-			if (s.arrow1 != null && s.label1 == 0 && !curStatesMap.contains(s)) {
+			if (s.arrow1 != null && s.label1 == 0 && !curStatesMap.contains(s.arrow1)) {
 				currentStates.add(s.arrow1);
 				curStatesMap.add(s.arrow1);
 			}
 
-			if (s.arrow2 != null && !curStatesMap.contains(s)) {
+			if (s.arrow2 != null && !curStatesMap.contains(s.arrow2)) {
 				currentStates.add(s.arrow2);
 				curStatesMap.add(s.arrow2);
 			}
@@ -45,7 +47,7 @@ public class G3Matcher {
 		nextStates.clear();
 		HashSet<NFAState> nextStatesMap = new HashSet<NFAState>();
 		for (NFAState s : currentStates) {
-			if (s.arrow1 != null && !nextStatesMap.contains(s) && (s.label1 == '.' || s.label1 == c)) {
+			if (s.arrow1 != null && !nextStatesMap.contains(s.arrow1) && (s.label1 == '.' || s.label1 == c)) {
 				nextStatesMap.add(s.arrow1);
 				nextStates.add(s.arrow1);
 			}
