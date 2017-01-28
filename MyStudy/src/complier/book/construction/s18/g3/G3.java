@@ -1,25 +1,26 @@
 package complier.book.construction.s18.g3;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class G3 {
 
 	public static void main(String[] args) throws FileNotFoundException {
-//		if (args.length != 1) {
-//			System.err.println("Wrong number cmd line args");
-//			System.exit(1);
-//		}
+		// if (args.length != 1) {
+		// System.err.println("Wrong number cmd line args");
+		// System.exit(1);
+		// }
 
 		boolean debug = false;
 
 		// 构造组成编译器的对象
 		// G1TokenMgr tm = new G1TokenMgr(args[0]);
-		String regx = "abc";
-		String inFileName = "D:\\zj\\bookcode\\myprog\\a.txt";
+		String regx = "(b*)d";
+		String inFileName = ".\\a.txt";
 
-		Scanner inFile = new Scanner(new File(inFileName));
+		InputStream in = G3.class.getResourceAsStream("a.txt");
+		Scanner inFile = new Scanner(in);
 		G3TokenMgr tm = new G3TokenMgr(regx, debug);
 		G3CodeGen cg = new G3CodeGen();
 		G3Parser parser = new G3Parser(tm, cg);
