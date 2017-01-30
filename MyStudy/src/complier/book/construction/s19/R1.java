@@ -33,7 +33,7 @@ public class R1 {
 		R1SymTab st = new R1SymTab();
 		R1TokenMgr tm = new R1TokenMgr(inFile, outFile, debug);
 		R1CodeGen cg =new R1CodeGen(outFile, st);
-		S1Parser parser = new S1Parser(st, tm, cg);
+		R1Parser parser = new R1Parser(st, tm, cg);
 		
 		// Óï·¨·ÖÎöºÍ·­Òë
 		try{

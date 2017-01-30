@@ -2,14 +2,14 @@ package complier.book.construction.s19;
 
 import complier.book.construction.s10.Token;
 
-public class S1Parser implements R1Constants {
+public class R1Parser implements R1Constants {
 	private R1SymTab st;
 	private R1TokenMgr tm;
 	private R1CodeGen cg;
 	private Token currentToken;
 	private Token previousToken;
 
-	public S1Parser(R1SymTab st, R1TokenMgr tm, R1CodeGen cg) {
+	public R1Parser(R1SymTab st, R1TokenMgr tm, R1CodeGen cg) {
 		this.st = st;
 		this.tm = tm;
 		this.cg = cg;
@@ -110,104 +110,116 @@ public class S1Parser implements R1Constants {
 	}
 
 	private void printlnStatement() {
+		int expVal;
+
 		consume(PRINTLN);
 		consume(LEFTPAREN);
-		expr();
-		cg.emitInstruction("dout");
-		cg.emitInstruction("pc", "'\\n'");
-		cg.emitInstruction("aout");
+
+		expVal = expr();
+		cg.println(expVal);
+
 		consume(RIGHTPAREN);
 		consume(SEMICOLON);
 	}
 
 	private void assignmentStatement() {
 		Token t;
+		int left, expVal;
 
 		t = currentToken;
 		consume(ID);
-		st.enter(t.image);
-		cg.emitInstruction("pc", t.image);
+		left = st.enter(t.image, "0", true);
 		consume(ASSIGN);
-		expr();
-		cg.emitInstruction("stav");
+		expVal = expr();
+		cg.assign(left, expVal);
 		consume(SEMICOLON);
 	}
 
-	private void expr() {
-		term();
-		termList();
+	private int expr() {
+		int left, expVal;
+
+		left = term();
+		expVal = termList(left);
+		return expVal;
 	}
 
-	private void term() {
-		factor();
-		factorList();
+	private int term() {
+		int left, termVal;
+
+		left = factor();
+		termVal = factorList(left);
+		return termVal;
 	}
 
-	private void termList() {
+	private int termList(int left) {
+		int right, temp, expVal;
 		switch (currentToken.kind) {
 		case PLUS:
 			consume(PLUS);
-			term();
-			cg.emitInstruction("add");
-			termList();
-			break;
+			right = term();
+			temp = cg.add(left, right);
+			expVal = termList(temp);
+			return expVal;
 		case RIGHTPAREN:
 		case SEMICOLON:
 			;
-			break;
+			return left;
 		default:
 			throw genEx("Expecting \"+\",\")\", or \";\"");
 		}
 	}
 
-	private void factorList() {
+	private int factorList(int left) {
+		int right, temp, termVal;
 		switch (currentToken.kind) {
 		case TIMES:
 			consume(TIMES);
-			factor();
-			cg.emitInstruction("mult");
-			factorList();
+			right = factor();
+			temp = cg.mult(left, right);
+			termVal = factorList(temp);
+			return termVal;
 		case RIGHTPAREN:
 		case SEMICOLON:
 		case PLUS:
 			;
-			break;
+			return left;
 		default:
 			throw genEx("Expecting op ,\")\", or \";\"");
 		}
 	}
 
-	private void factor() {
+	private int factor() {
 		Token t;
+		int index;
+
 		switch (currentToken.kind) {
 		case UNSIGNED:
 			t = currentToken;
 			consume(UNSIGNED);
-			cg.emitInstruction("pwc", t.image);
-			break;
+			index = st.enter("@", t.image, true);
+			return index;
 		case PLUS:
 			consume(PLUS);
 			t = currentToken;
 			consume(UNSIGNED);
-			cg.emitInstruction("pwc", t.image);
-			break;
+			index = st.enter("@", t.image, true);
+			return index;
 		case MINUS:
 			consume(MINUS);
 			t = currentToken;
 			consume(UNSIGNED);
-			cg.emitInstruction("pwc", "-" + t.image);
-			break;
+			index = st.enter("@_", t.image, true);
+			return index;
 		case ID:
 			t = currentToken;
 			consume(ID);
-			st.enter(t.image);
-			cg.emitInstruction("p", t.image);
-			break;
+			index = st.enter(t.image, "0", true);
+			return index;
 		case LEFTPAREN:
 			consume(LEFTPAREN);
-			expr();
+			index = expr();
 			consume(RIGHTPAREN);
-			break;
+			return index;
 		default:
 			throw genEx("Expecting factor");
 		}
