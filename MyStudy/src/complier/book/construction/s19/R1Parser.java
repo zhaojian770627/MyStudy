@@ -196,19 +196,19 @@ public class R1Parser implements R1Constants {
 		case UNSIGNED:
 			t = currentToken;
 			consume(UNSIGNED);
-			index = st.enter("@", t.image, true);
+			index = st.enter("@" + t.image, t.image, true);
 			return index;
 		case PLUS:
 			consume(PLUS);
 			t = currentToken;
 			consume(UNSIGNED);
-			index = st.enter("@", t.image, true);
+			index = st.enter("@" + t.image, t.image, true);
 			return index;
 		case MINUS:
 			consume(MINUS);
 			t = currentToken;
 			consume(UNSIGNED);
-			index = st.enter("@_", t.image, true);
+			index = st.enter("@_" + t.image, "-" + t.image, true);
 			return index;
 		case ID:
 			t = currentToken;

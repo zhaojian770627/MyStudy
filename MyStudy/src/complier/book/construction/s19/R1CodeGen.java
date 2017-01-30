@@ -47,10 +47,8 @@ public class R1CodeGen {
 	}
 
 	public void assign(int left, int expVal) {
-		String leftSym = st.getSymbol(left);
-		String rightValue = st.getSymbol(expVal);
-		emitInstruction("ld", leftSym);
-		emitInstruction("st", rightValue);
+		emitInstruction("ld", expVal);
+		emitInstruction("st", left);
 	}
 
 	public void println(int expVal) {
@@ -83,6 +81,6 @@ public class R1CodeGen {
 	}
 
 	private void emitInstruction(String op, int opndIndex) {
-		emitInstruction("ld", st.getSymbol(opndIndex));
+		emitInstruction(op, st.getSymbol(opndIndex));
 	}
 }
