@@ -28,25 +28,25 @@ public class R1 {
 
 		// 标识编译器/作者到输出文件
 		outFile.println("; from S1 compiler written by ...");
+		outFile.println("!register");
 
 		// 构造组成编译器的对象
 		R1SymTab st = new R1SymTab();
 		R1TokenMgr tm = new R1TokenMgr(inFile, outFile, debug);
-		R1CodeGen cg =new R1CodeGen(outFile, st);
+		R1CodeGen cg = new R1CodeGen(outFile, st);
 		R1Parser parser = new R1Parser(st, tm, cg);
-		
+
 		// 语法分析和翻译
-		try{
+		try {
 			parser.parse();
-		}
-		catch(RuntimeException e){
+		} catch (RuntimeException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 			outFile.println(e.getMessage());
 			outFile.close();
 			System.exit(1);
 		}
-		
+
 		outFile.close();
 	}
 
