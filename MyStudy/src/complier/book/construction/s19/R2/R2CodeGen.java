@@ -36,7 +36,7 @@ public class R2CodeGen {
 		for (int i = 0; i < st.getSize(); i++) {
 			if (st.getNeedsdw(i)) {
 				key = st.getSymbol(i);
-				value = st.getSymbolValue(i);
+				value = st.getdwValue(i);
 				emitdw(key, value);
 			}
 		}
@@ -47,23 +47,29 @@ public class R2CodeGen {
 	}
 
 	public void assign(int left, int expVal) {
-		emitInstruction("ld", expVal);
+		emitLoad(expVal);
 		emitInstruction("st", left);
 	}
 
+	private void emitLoad(int opndIndex) {
+		if (st.isldcConstant(opndIndex))
+			emitInstruction("ldc", st.getdwValue(opndIndex));
+		else
+			emitInstruction("ld", opndIndex);
+	}
+
 	public void println(int expVal) {
-		String sym = st.getSymbol(expVal);
-		emitInstruction("ld", sym);
+		emitLoad(expVal);
 		emitInstruction("dout");
 		emitInstruction("ldc", "'\\n'");
 		emitInstruction("aout");
 	}
 
 	public int add(int left, int right) {
-		emitInstruction("ld", st.getSymbol(left));
-		emitInstruction("add", st.getSymbol(right));
+		emitLoad(left);
+		emitInstruction("add", right);
 		int temp = getTemp();
-		emitInstruction("st", st.getSymbol(temp));
+		emitInstruction("st", temp);
 		return temp;
 	}
 
@@ -73,10 +79,10 @@ public class R2CodeGen {
 	}
 
 	public int mult(int left, int right) {
-		emitInstruction("ld", left);
+		emitLoad(left);
 		emitInstruction("mult", right);
 		int temp = getTemp();
-		emitInstruction("st", st.getSymbol(temp));
+		emitInstruction("st", temp);
 		return temp;
 	}
 
