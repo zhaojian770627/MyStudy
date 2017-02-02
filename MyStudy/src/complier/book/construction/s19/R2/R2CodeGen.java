@@ -2,12 +2,12 @@ package complier.book.construction.s19.R2;
 
 import java.io.PrintWriter;
 
-public class R1CodeGen {
+public class R2CodeGen {
 	private PrintWriter outFile;
-	private R1SymTab st;
+	private R2SymTab st;
 	int tempIndex = 0;
 
-	public R1CodeGen(PrintWriter outFile, R1SymTab st) {
+	public R2CodeGen(PrintWriter outFile, R2SymTab st) {
 		this.outFile = outFile;
 		this.st = st;
 	}

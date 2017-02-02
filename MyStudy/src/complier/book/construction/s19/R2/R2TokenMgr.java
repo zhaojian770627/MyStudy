@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import complier.book.construction.s10.Token;
 
-public class R1TokenMgr implements R1Constants {
+public class R2TokenMgr implements R2Constants {
 	private Scanner inFile;
 	private PrintWriter outFile;
 	private boolean debug;
@@ -16,7 +16,7 @@ public class R1TokenMgr implements R1Constants {
 	private Token token; // 存放一单词符号
 	private StringBuffer buffer; // 构造单词符号映像
 
-	public R1TokenMgr(Scanner inFile, PrintWriter outFile, boolean debug) {
+	public R2TokenMgr(Scanner inFile, PrintWriter outFile, boolean debug) {
 		this.inFile = inFile;
 		this.outFile = outFile;
 		this.debug = debug;

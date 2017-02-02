@@ -2,14 +2,14 @@ package complier.book.construction.s19.R2;
 
 import complier.book.construction.s10.Token;
 
-public class R1Parser implements R1Constants {
-	private R1SymTab st;
-	private R1TokenMgr tm;
-	private R1CodeGen cg;
+public class R2Parser implements R2Constants {
+	private R2SymTab st;
+	private R2TokenMgr tm;
+	private R2CodeGen cg;
 	private Token currentToken;
 	private Token previousToken;
 
-	public R1Parser(R1SymTab st, R1TokenMgr tm, R1CodeGen cg) {
+	public R2Parser(R2SymTab st, R2TokenMgr tm, R2CodeGen cg) {
 		this.st = st;
 		this.tm = tm;
 		this.cg = cg;

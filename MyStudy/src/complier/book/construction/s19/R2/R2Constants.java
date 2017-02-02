@@ -1,6 +1,6 @@
 package complier.book.construction.s19.R2;
 
-public interface R1Constants {
+public interface R2Constants {
 	// 标识单词符号类别的整数
 	int EOF = 0;
 	int PRINT = 1;

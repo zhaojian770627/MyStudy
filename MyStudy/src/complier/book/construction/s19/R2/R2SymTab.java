@@ -6,13 +6,13 @@ import java.util.List;
 /*
  * 符号表
  */
-public class R1SymTab {
+public class R2SymTab {
 	// 全局变量
 	private List<String> symbol;
 	private List<String> dwValue;
 	private List<Boolean> needsdw;
 
-	public R1SymTab() {
+	public R2SymTab() {
 		symbol = new ArrayList<String>();
 		dwValue = new ArrayList<String>();
 		needsdw = new ArrayList<Boolean>();

@@ -3,7 +3,7 @@ package complier.book.construction.s19.R2;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KeyWord implements R1Constants {
+public class KeyWord implements R2Constants {
 	String key;
 	Integer value;
 	static Map<String, Integer> keyWordMap = new HashMap<String, Integer>();
