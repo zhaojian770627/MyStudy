@@ -1,4 +1,4 @@
-package complier.book.construction.s19;
+package complier.book.construction.s19.R1;
 
 import complier.book.construction.s10.Token;
 
