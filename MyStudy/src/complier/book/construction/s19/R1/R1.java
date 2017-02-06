@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class R1 {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		System.out.println("S1 comiler written by zhaojian770627@163.com");
+		System.out.println("R1 comiler written by zhaojian770627@163.com");
 
 		if (args.length != 1) {
 			System.err.println("Wrong number cmd line args");
@@ -27,7 +27,7 @@ public class R1 {
 		PrintWriter outFile = new PrintWriter(outFileName);
 
 		// 标识编译器/作者到输出文件
-		outFile.println("; from S1 compiler written by zhaojian770627@163.com");
+		outFile.println("; from R1 compiler written by zhaojian770627@163.com");
 		outFile.println("!register");
 
 		// 构造组成编译器的对象
