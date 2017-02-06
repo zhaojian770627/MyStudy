@@ -48,6 +48,7 @@ public class R2CodeGen {
 
 	public void assign(int left, int expVal) {
 		emitLoad(expVal);
+		freeTemp(expVal);
 		emitInstruction("st", left);
 	}
 
@@ -68,6 +69,8 @@ public class R2CodeGen {
 	public int add(int left, int right) {
 		emitLoad(left);
 		emitInstruction("add", right);
+		freeTemp(left);
+		freeTemp(right);
 		int temp = getTemp();
 		emitInstruction("st", temp);
 		return temp;
@@ -88,5 +91,10 @@ public class R2CodeGen {
 
 	private void emitInstruction(String op, int opndIndex) {
 		emitInstruction(op, st.getSymbol(opndIndex));
+	}
+
+	public void freeTemp(int opndIndex) {
+		if (st.isTemp(opndIndex))
+			tempIndex--;
 	}
 }

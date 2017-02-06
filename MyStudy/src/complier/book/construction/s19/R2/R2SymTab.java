@@ -99,4 +99,11 @@ public class R2SymTab {
 		}
 		return false;
 	}
+
+	public boolean isTemp(int opndIndex) {
+		String symbol = symbolList.get(opndIndex);
+		if (symbol.length() > 2 && symbol.startsWith("@t"))
+			return true;
+		return false;
+	}
 }
