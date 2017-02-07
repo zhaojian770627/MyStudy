@@ -1,9 +1,9 @@
-package complier.book.construction.s19.R1b;
+package complier.book.construction.s19.R1c;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class KeyWord implements R1bConstants {
+public class KeyWord implements R1cConstants {
 	String key;
 	Integer value;
 	static Map<String, Integer> keyWordMap = new HashMap<String, Integer>();

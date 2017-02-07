@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class R2 {
+public class R1b {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("R2 comiler written by zhaojian770627@163.com");
@@ -31,10 +31,10 @@ public class R2 {
 		outFile.println("!register");
 
 		// 构造组成编译器的对象
-		R2SymTab st = new R2SymTab();
-		R2TokenMgr tm = new R2TokenMgr(inFile, outFile, debug);
-		R2CodeGen cg = new R2CodeGen(outFile, st);
-		R2Parser parser = new R2Parser(st, tm, cg);
+		R1bSymTab st = new R1bSymTab();
+		R1bTokenMgr tm = new R1bTokenMgr(inFile, outFile, debug);
+		R1bCodeGen cg = new R1bCodeGen(outFile, st);
+		R1bParser parser = new R1bParser(st, tm, cg);
 
 		// 语法分析和翻译
 		try {
