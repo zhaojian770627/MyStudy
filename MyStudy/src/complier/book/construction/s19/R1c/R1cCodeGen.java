@@ -24,6 +24,12 @@ public class R1cCodeGen {
 		outFile.printf("\t%-4s\t%s\n", op, opnd);
 	}
 
+	private void emitInstruction(String op, int opndIndex) {
+		if (st.isConstant(opndIndex))
+			st.setNeedsdw(opndIndex);
+		emitInstruction(op, st.getSymbol(opndIndex));
+	}
+
 	public void emitdw(String label, String value) {
 		outFile.printf("%-9s dw\t%s%n", label + ":", value);
 	}
@@ -87,10 +93,6 @@ public class R1cCodeGen {
 		int temp = getTemp();
 		emitInstruction("st", temp);
 		return temp;
-	}
-
-	private void emitInstruction(String op, int opndIndex) {
-		emitInstruction(op, st.getSymbol(opndIndex));
 	}
 
 	public void freeTemp(int opndIndex) {

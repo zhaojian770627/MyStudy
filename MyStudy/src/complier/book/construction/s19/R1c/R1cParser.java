@@ -184,7 +184,16 @@ public class R1cParser implements R1cConstants {
 		case TIMES:
 			consume(TIMES);
 			right = factor();
-			temp = cg.mult(left, right);
+			if (st.isConstant(left) && st.isConstant(right)) {
+				int leftvalue = Integer.parseInt(st.getdwValue(left));
+				int rightvalue = Integer.parseInt(st.getdwValue(right));
+				int result = leftvalue * rightvalue;
+				if (result >= 0)
+					temp = st.enter("@" + result, "" + result, false);
+				else
+					temp = st.enter("@_" + -result, "" + result, false);
+			} else
+				temp = cg.mult(left, right);
 			termVal = factorList(temp);
 			return termVal;
 		case RIGHTPAREN:
@@ -205,19 +214,19 @@ public class R1cParser implements R1cConstants {
 		case UNSIGNED:
 			t = currentToken;
 			consume(UNSIGNED);
-			index = st.enter("@" + t.image, t.image, true);
+			index = st.enter("@" + t.image, t.image, false);
 			return index;
 		case PLUS:
 			consume(PLUS);
 			t = currentToken;
 			consume(UNSIGNED);
-			index = st.enter("@" + t.image, t.image, true);
+			index = st.enter("@" + t.image, t.image, false);
 			return index;
 		case MINUS:
 			consume(MINUS);
 			t = currentToken;
 			consume(UNSIGNED);
-			index = st.enter("@_" + t.image, "-" + t.image, true);
+			index = st.enter("@_" + t.image, "-" + t.image, false);
 			return index;
 		case ID:
 			t = currentToken;
