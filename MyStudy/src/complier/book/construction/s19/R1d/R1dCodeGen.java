@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 public class R1dCodeGen {
 	private PrintWriter outFile;
 	private R1dSymTab st;
+	int ac = -1;
 	int tempIndex = 0;
 
 	public R1dCodeGen(PrintWriter outFile, R1dSymTab st) {
@@ -53,9 +54,11 @@ public class R1dCodeGen {
 	}
 
 	public void assign(int left, int expVal) {
-		emitLoad(expVal);
+		if (ac != expVal)
+			emitLoad(expVal);
 		freeTemp(expVal);
 		emitInstruction("st", left);
+		ac = left;
 	}
 
 	private void emitLoad(int opndIndex) {
@@ -73,25 +76,48 @@ public class R1dCodeGen {
 	}
 
 	public int add(int left, int right) {
-		emitLoad(left);
-		emitInstruction("add", right);
+		if (ac == left)
+			emitInstruction("add", right);
+		else if (ac == right)
+			emitInstruction("add", left);
+		else {
+			if (st.isTemp(ac)) {
+				emitInstruction("st", ac);
+				st.setNeedsdw(ac);
+			}
+			emitLoad(left);
+			emitInstruction("add", right);
+		}
 		freeTemp(left);
 		freeTemp(right);
 		int temp = getTemp();
-		emitInstruction("st", temp);
+		// emitInstruction("st", temp); // ?
+		ac = temp;
 		return temp;
 	}
 
 	private int getTemp() {
 		String temp = "@t" + tempIndex++;
-		return st.enter(temp, "0", true);
+		return st.enter(temp, "0", false);
 	}
 
 	public int mult(int left, int right) {
-		emitLoad(left);
-		emitInstruction("mult", right);
+		if (ac == left)
+			emitInstruction("mult", right);
+		else if (ac == right)
+			emitInstruction("mult", left);
+		else {
+			if (st.isTemp(ac)) {
+				emitInstruction("st", ac);
+				st.setNeedsdw(ac);
+			}
+			emitLoad(left);
+			emitInstruction("mult", right);
+		}
+		freeTemp(left);
+		freeTemp(right);
 		int temp = getTemp();
-		emitInstruction("st", temp);
+		// emitInstruction("st", temp); //?
 		return temp;
 	}
 
