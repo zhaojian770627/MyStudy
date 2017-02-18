@@ -7,16 +7,14 @@ import complier.book.construction.s10.Token;
 public class I1Parser implements I1Constants {
 	private I1SymTab st;
 	private I1TokenMgr tm;
-	private I1CodeGen cg;
 	private Token currentToken;
 	private Token previousToken;
 
 	private Stack<Integer> s;
 
-	public I1Parser(I1SymTab st, I1TokenMgr tm, I1CodeGen cg) {
+	public I1Parser(I1SymTab st, I1TokenMgr tm) {
 		this.st = st;
 		this.tm = tm;
-		this.cg = cg;
 
 		s = new Stack<Integer>();
 
@@ -82,7 +80,6 @@ public class I1Parser implements I1Constants {
 
 	private void program() {
 		statementList();
-		cg.endCode();
 		if (currentToken.kind != EOF)
 			throw genEx("Expecting <EOF>"); // garbage at end?
 	}
@@ -119,23 +116,20 @@ public class I1Parser implements I1Constants {
 		consume(PRINTLN);
 		consume(LEFTPAREN);
 		expr();
-		cg.emitInstruction("dout");
-		cg.emitInstruction("pc", "'\\n'");
-		cg.emitInstruction("aout");
+		System.out.println(s.pop());
 		consume(RIGHTPAREN);
 		consume(SEMICOLON);
 	}
 
 	private void assignmentStatement() {
 		Token t;
-
+		int left, expVal;
 		t = currentToken;
 		consume(ID);
-		st.enter(t.image);
-		cg.emitInstruction("pc", t.image);
+		left = st.enter(t.image);
 		consume(ASSIGN);
 		expr();
-		cg.emitInstruction("stav");
+		st.setSymbolValue(left, s.pop());
 		consume(SEMICOLON);
 	}
 
@@ -150,11 +144,13 @@ public class I1Parser implements I1Constants {
 	}
 
 	private void termList() {
+		int right;
 		switch (currentToken.kind) {
 		case PLUS:
 			consume(PLUS);
 			term();
-			cg.emitInstruction("add");
+			right = s.pop();
+			s.push(s.pop() + right);
 			termList();
 			break;
 		case RIGHTPAREN:
@@ -167,12 +163,15 @@ public class I1Parser implements I1Constants {
 	}
 
 	private void factorList() {
+		int right;
 		switch (currentToken.kind) {
 		case TIMES:
 			consume(TIMES);
 			factor();
-			cg.emitInstruction("mult");
+			right = s.pop();
+			s.push(s.pop() * right);
 			factorList();
+			break;
 		case RIGHTPAREN:
 		case SEMICOLON:
 		case PLUS:
@@ -189,25 +188,25 @@ public class I1Parser implements I1Constants {
 		case UNSIGNED:
 			t = currentToken;
 			consume(UNSIGNED);
-			cg.emitInstruction("pwc", t.image);
+			s.push(Integer.parseInt(t.image));
 			break;
 		case PLUS:
 			consume(PLUS);
 			t = currentToken;
 			consume(UNSIGNED);
-			cg.emitInstruction("pwc", t.image);
+			s.push(Integer.parseInt(t.image));
 			break;
 		case MINUS:
 			consume(MINUS);
 			t = currentToken;
 			consume(UNSIGNED);
-			cg.emitInstruction("pwc", "-" + t.image);
+			s.push(Integer.parseInt("-" + t.image));
 			break;
 		case ID:
 			t = currentToken;
 			consume(ID);
-			st.enter(t.image);
-			cg.emitInstruction("p", t.image);
+			int index = st.enter(t.image);
+			s.push(st.getSymbolValue(index));
 			break;
 		case LEFTPAREN:
 			consume(LEFTPAREN);

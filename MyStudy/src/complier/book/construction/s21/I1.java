@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class I1 {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		System.out.println("S1 comiler written by ...");
+		System.out.println("I1 comiler written by zhaojian770627@163.com");
 
 		if (args.length != 1) {
 			System.err.println("Wrong number cmd line args");
@@ -27,13 +27,12 @@ public class I1 {
 		PrintWriter outFile = new PrintWriter(outFileName);
 
 		// 标识编译器/作者到输出文件
-		outFile.println("; from S1 compiler written by ...");
+		outFile.println("; from S1 compiler written by zhaojian770627@163.com");
 
 		// 构造组成编译器的对象
 		I1SymTab st = new I1SymTab();
 		I1TokenMgr tm = new I1TokenMgr(inFile, outFile, debug);
-		I1CodeGen cg =new I1CodeGen(outFile, st);
-		I1Parser parser = new I1Parser(st, tm, cg);
+		I1Parser parser = new I1Parser(st, tm);
 		
 		// 语法分析和翻译
 		try{

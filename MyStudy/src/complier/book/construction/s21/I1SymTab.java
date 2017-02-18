@@ -15,12 +15,15 @@ public class I1SymTab {
 		symbolValue = new ArrayList<>();
 	}
 
-	public void enter(String sym) {
+	public int enter(String sym) {
 		int i = find(sym);
 		if (i == -1) {
 			symbol.add(sym);
 			symbolValue.add(0);
+			i = symbol.size() - 1;
 		}
+		return i;
+
 	}
 
 	public int find(String sym) {
