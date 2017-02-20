@@ -1,4 +1,4 @@
-package complier.book.construction.s21;
+package complier.book.construction.s21.CI1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 /*
  * ·ûºÅ±í
  */
-public class I1SymTab {
+public class CI1SymTab {
 	private List<String> symbol;
 	private List<Integer> symbolValue;
 
-	public I1SymTab() {
+	public CI1SymTab() {
 		symbol = new ArrayList<>();
 		symbolValue = new ArrayList<>();
 	}

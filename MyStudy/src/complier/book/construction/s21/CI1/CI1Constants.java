@@ -1,6 +1,6 @@
-package complier.book.construction.s21;
+package complier.book.construction.s21.CI1;
 
-public interface I1Constants {
+public interface CI1Constants {
 	// 标识单词符号类别的整数
 	int EOF = 0;
 	int PRINT = 1;
@@ -24,6 +24,10 @@ public interface I1Constants {
 	int DIVIDE = 19;
 	int STRING = 20;
 	int ERROR = 21;
+	
+	int PUSHCONSTANT = 22;
+	int PUSH = 23;
+	int HALT = 24;
 
 	// tokenImage 为每个单词符号提供字符串
 	String[] tokenImage = { 

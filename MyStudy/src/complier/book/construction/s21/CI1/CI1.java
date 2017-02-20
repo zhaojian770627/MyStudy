@@ -1,11 +1,11 @@
-package complier.book.construction.s21;
+package complier.book.construction.s21.CI1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class I1 {
+public class CI1 {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		System.out.println("I1 comiler written by zhaojian770627@163.com");
@@ -26,26 +26,23 @@ public class I1 {
 		Scanner inFile = new Scanner(new File(inFileName));
 		PrintWriter outFile = new PrintWriter(outFileName);
 
-		// 标识编译器/作者到输出文件
-		outFile.println("; from S1 compiler written by zhaojian770627@163.com");
-
 		// 构造组成编译器的对象
-		I1SymTab st = new I1SymTab();
-		I1TokenMgr tm = new I1TokenMgr(inFile, outFile, debug);
-		I1Parser parser = new I1Parser(st, tm);
-		
+		CI1SymTab st = new CI1SymTab();
+		CI1TokenMgr tm = new CI1TokenMgr(inFile, outFile, debug);
+		CI1CodeGen cg = new CI1CodeGen();
+		CI1Parser parser = new CI1Parser(st, tm, cg);
+
 		// 语法分析和翻译
-		try{
+		try {
 			parser.parse();
-		}
-		catch(RuntimeException e){
+		} catch (RuntimeException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 			outFile.println(e.getMessage());
 			outFile.close();
 			System.exit(1);
 		}
-		
+
 		outFile.close();
 	}
 

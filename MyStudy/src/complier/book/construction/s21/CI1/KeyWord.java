@@ -1,9 +1,9 @@
-package complier.book.construction.s21;
+package complier.book.construction.s21.CI1;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class KeyWord implements I1Constants {
+public class KeyWord implements CI1Constants {
 	String key;
 	Integer value;
 	static Map<String, Integer> keyWordMap = new HashMap<String, Integer>();
