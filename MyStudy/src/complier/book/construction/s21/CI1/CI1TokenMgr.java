@@ -7,7 +7,6 @@ import complier.book.construction.s10.Token;
 
 public class CI1TokenMgr implements CI1Constants {
 	private Scanner inFile;
-	private PrintWriter outFile;
 	private boolean debug;
 	private char currentChar;
 	private int currentColumnNumber;
@@ -16,9 +15,8 @@ public class CI1TokenMgr implements CI1Constants {
 	private Token token; // 存放一单词符号
 	private StringBuffer buffer; // 构造单词符号映像
 
-	public CI1TokenMgr(Scanner inFile, PrintWriter outFile, boolean debug) {
+	public CI1TokenMgr(Scanner inFile, boolean debug) {
 		this.inFile = inFile;
-		this.outFile = outFile;
 		this.debug = debug;
 		currentChar = '\n';
 		currentColumnNumber = 0;
@@ -167,7 +165,7 @@ public class CI1TokenMgr implements CI1Constants {
 
 		// 单词符号的踪迹作为注释出现在输出文件
 		if (debug)
-			outFile.printf(";kd=%3d bL=%3d bC=%3d eL=%3d eC=%3d im=%s%n", token.kind, token.beginLine,
+			System.out.printf(";kd=%3d bL=%3d bC=%3d eL=%3d eC=%3d im=%s%n", token.kind, token.beginLine,
 					token.beginColumn, token.endLine, token.endColumn, token.image);
 
 		return token;
@@ -180,8 +178,6 @@ public class CI1TokenMgr implements CI1Constants {
 		if (currentChar == '\n') {
 			if (inFile.hasNextLine()) {
 				inputLine = inFile.nextLine(); // 获取下一行
-				// 输出原行作为注释
-				outFile.println("; " + inputLine);
 				inputLine = inputLine + "\n";
 				currentColumnNumber = 0;
 				currentLineNumber++;
@@ -205,7 +201,6 @@ public class CI1TokenMgr implements CI1Constants {
 			if (inFile.hasNextLine()) {
 				inputLine = inFile.nextLine(); // 获取下一行
 				// 输出原行作为注释
-				outFile.println("; " + inputLine);
 				inputLine = inputLine + "\n";
 				currentColumnNumber = 0;
 				currentLineNumber++;
