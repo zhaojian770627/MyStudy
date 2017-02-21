@@ -77,6 +77,7 @@ public class CI1Parser implements CI1Constants {
 	private void program() {
 		statementList();
 		cg.makevtab(st.getSize());
+		cg.emit(HALT);
 		cg.interpret();
 		if (currentToken.kind != EOF)
 			throw genEx("Expecting <EOF>"); // garbage at end?
