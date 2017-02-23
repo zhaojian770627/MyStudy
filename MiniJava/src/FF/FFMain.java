@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * 求First和Flow集合
+ * 
+ * @author zhaojianc
+ *
+ */
 public class FFMain {
 	List<Production> pds = new ArrayList<Production>();
 

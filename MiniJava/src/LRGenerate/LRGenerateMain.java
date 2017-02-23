@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * 生成状态转换表
+ * 
+ * @author zhaojianc
+ *
+ */
 public class LRGenerateMain {
 	// 非终结符
 	Symbol SS = new Symbol(1, "SS", 5);
