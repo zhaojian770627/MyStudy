@@ -5,22 +5,10 @@
 <title>JS OBJECT</title>
 </head>
 <body>
+	<canvas height="600" width="800" id="canvas"></canvas>
 	<script src="js/object/extend.js"></script>
 	<script type="text/javascript">
-		var parent = {
-			numbers : [ 1, 2, 3 ],
-			letters : [ 'a', 'b', 'c' ],
-			obj : {
-				prop : 1
-			},
-			bool : true
-		};
-		var mydeep = deepCopy(parent);
-		var myshallow = extendCopy(parent);
 
-		myshallow.numbers.push(10);
-		console.log('myshallow:' + myshallow.numbers);
-		console.log('parent:' + parent.numbers)
 	</script>
 </body>
 </html>
