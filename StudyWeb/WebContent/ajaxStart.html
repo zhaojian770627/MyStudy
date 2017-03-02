@@ -1,0 +1,29 @@
+<html>
+<head>
+<script src="js/jquery-1.11.1.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).ajaxStart(function() {
+			$("#loading_animation").html("<img src='images/logo.gif' />");
+		});
+		$(document).ajaxStop(function() {
+			$("#loading_animation").html("<img src='images/logo.gif' />");
+		});
+		$("button").click(function() {
+			$("#status").load("ajaxcontent.html");
+		});
+	});
+</script>
+</head>
+
+<body>
+
+	<div id="txt">
+		<h2>通过 AJAX 改变文本</h2>
+	</div>
+	<button>改变内容</button>
+	<div id="status">Content</div>
+	<div id="loading_animation">
+	</div>
+</body>
+</html>
