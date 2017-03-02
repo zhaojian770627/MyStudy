@@ -87,3 +87,24 @@ function Triangle(a, bc) {
 				* (s - this.lines[1].length) * (s - this.lines[2].length));
 	};
 }
+
+function Rectangle(p, side_a, side_b) {
+	this.points = [ p, new Point(p.x + side_a, p.y),// top right
+	new Point(p.x + side_a, p.y + side_b), // bottom right
+	new Point(p.x, p.y + side_b) // bottom left
+	];
+	this.getArea = function() {
+		return side_a * side_b;
+	};
+}
+
+function Square(p, side) {
+	Rectangle.call(this, p, side, side);
+}
+
+(function() {
+	var s = new Shape();
+	Triangle.prototype = s;
+	Rectangle.prototype = s;
+	Square.prototype = s;
+})();
