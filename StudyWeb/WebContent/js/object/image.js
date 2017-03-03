@@ -78,7 +78,7 @@ Shape.prototype = {
 	}
 }
 
-function Triangle(a, bc) {
+function Triangle(a, b, c) {
 	this.points = [ a, b, c ];
 	this.getArea = function() {
 		var p = this.getPerimeter();
