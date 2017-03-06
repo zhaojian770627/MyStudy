@@ -7,8 +7,39 @@
 <body>
 	<canvas height="600" width="800" id="canvas"></canvas>
 	<script src="js/object/image.js"></script>
+	<script src="js/object/model.js"></script>
 	<script type="text/javascript">
+		var blogger = {
+			writeBlogPost : function() {
+				var content = 'Today is ' + new Date();
+				this.publish(content);
+			}
+		};
 
+		var la_times = {
+			newIssue : function() {
+				var content = 'Martians have landed on Earth! ' + new Date();
+				this.publish(content);
+			}
+		};
+
+		observer.make(blogger);
+		observer.make(la_times);
+
+		var jack = {
+			read : function(what) {
+				console.log('I just read that ' + what);
+			}
+		};
+
+		var jill = {
+			gossip : function(what) {
+				console.log('You didn\'t hear it from me,but ' + what);
+			}
+		};
+
+		blogger.addSubscriber(jack.read);
+		blogger.addSubscriber(jill.gossip);
 	</script>
 </body>
 </html>
