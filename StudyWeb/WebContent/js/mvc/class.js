@@ -9,13 +9,25 @@ var Class = function(parent) {
 		};
 		subclass.prototype = parent.prototype;
 		klass.prototype = new subclass;
-	};
+	}
+	;
 
 	klass.prototype.init = function() {
 	};
 
 	// 定义 prototype 的别名
 	klass.fn = klass.prototype;
+
+	// 添加一个proxy函数
+	klass.proxy = function(func) {
+		var self = this;
+		return (function() {
+			return func.apply(self, arguments);
+		});
+	};
+
+	// 在实例中也添加这个函数
+	klass.fn.proxy=class.proxy;
 
 	// 定义类的别名
 	klass.fn.parent = klass;
