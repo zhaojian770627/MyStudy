@@ -10,8 +10,8 @@
 	<script src="../js/mvc/assert.js"></script>
 	<script src="../js/mvc/class.js"></script>
 	<script type="text/javascript">
-		var clickme=function(){
-			alert(this.toString());
+		var clickme = function() {
+			alert(this.element.attr("id"));
 		};
 		var Button = new Class;
 		Button.include({
@@ -24,8 +24,6 @@
 			}
 		});
 		var b = new Button('#clickme');
-		alert(b.id);
-		
 	</script>
 </body>
 </html>
