@@ -10,17 +10,21 @@
 	<script src="../js/mvc/assert.js"></script>
 	<script src="../js/mvc/class.js"></script>
 	<script type="text/javascript">
+		var clickme=function(){
+			alert(this.toString());
+		};
 		var Button = new Class;
 		Button.include({
 			init : function(element) {
 				this.element = jQuery(element);
-				this.element.click(this.proxy(this.click));
+				this.element.click(this.proxy(clickme));
 			},
 			click : function() {
 				console.log('clicked');
 			}
 		});
 		var b = new Button('#clickme');
+		alert(b.id);
 		
 	</script>
 </body>
