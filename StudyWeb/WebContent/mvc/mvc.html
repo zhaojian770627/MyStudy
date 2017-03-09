@@ -5,10 +5,22 @@
 <title>MVC Test</title>
 </head>
 <body>
+	<p id='clickme'>Click</p>
 	<script src="../frameworkjs/lib/jquery-1.11.1.js"></script>
 	<script src="../js/mvc/assert.js"></script>
 	<script src="../js/mvc/class.js"></script>
 	<script type="text/javascript">
+		var Button = new Class;
+		Button.include({
+			init : function(element) {
+				this.element = jQuery(element);
+				this.element.click(this.proxy(this.click));
+			},
+			click : function() {
+				console.log('clicked');
+			}
+		});
+		var b = new Button('#clickme');
 		
 	</script>
 </body>
