@@ -27,7 +27,7 @@ var Class = function(parent) {
 	};
 
 	// 在实例中也添加这个函数
-	klass.fn.proxy=class.proxy;
+	klass.fn.proxy=klass.proxy;
 
 	// 定义类的别名
 	klass.fn.parent = klass;
