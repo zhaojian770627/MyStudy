@@ -14,14 +14,11 @@
 <script src="../js/mvc/class.js"></script>
 <script src="../js/mvc/model.js"></script>
 <script type="text/javascript">
-	var clickme = function() {
-		alert(this.element.attr("id"));
-	};
 	var Button = new Class;
 	Button.include({
 		init : function(element) {
 			this.element = jQuery(element);
-			this.element.click(this.proxy(clickme));
+			this.element.click(this.click);
 		},
 		click : function() {
 			console.log('clicked');
@@ -36,6 +33,35 @@
 			alert(this.appName);
 		}, false);
 	})();
+
+	var Asset = Model.create();
+
+	Asset.extend({
+		find : function(id) {
+			var record = this.records[id];
+			if (!record)
+				throw ('Unknow record');
+
+			return record.dup();
+		}
+	});
+
+	Asset.include({
+		create : function() {
+			if (!this.id)
+				this.id = Math.guid();
+			this.newRecord = false;
+			this.parent.records[this.id] = this.dup();
+		},
+
+		update : function() {
+			this.parent.records[this.id] = this.dup();
+		},
+
+		dup : function() {
+			return jQuery.extend(true, {}, this);
+		}
+	});
 </script>
 
 </html>
