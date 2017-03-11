@@ -5,22 +5,18 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>MyWeb</display-name>
 	<context-param>
-		<param-name>configUrl</param-name>
-		<param-value>/WEB-INF/MyWeb.xml</param-value>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		</param-value>
 	</context-param>
-	<!-- 
-	<servlet>
-		<servlet-name>config</servlet-name>
-		<servlet-class>ticket.web.context.ContextLoaderServlet</servlet-class>
-		<init-param>
-			<param-name>contextClass</param-name>
-			<param-value>
-				ticket.web.context.support.XmlWebApplicationContext
-			</param-value>
-		</init-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	 <servlet>
+		<servlet-name>myweb</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	 -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>mypack.DispatcherServlet</servlet-class>
@@ -51,6 +47,10 @@
 	<servlet-mapping>
 		<servlet-name>jsonservlet</servlet-name>
 		<url-pattern>/json</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>myweb</servlet-name>
+		<url-pattern>/myweb/*</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
