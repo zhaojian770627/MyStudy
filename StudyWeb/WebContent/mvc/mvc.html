@@ -12,6 +12,7 @@
 <script src="../frameworkjs/lib/jquery-1.11.1.js"></script>
 <script src="../js/mvc/assert.js"></script>
 <script src="../js/mvc/class.js"></script>
+<script src="../js/mvc/model.js"></script>
 <script type="text/javascript">
 	var clickme = function() {
 		alert(this.element.attr("id"));
@@ -31,7 +32,6 @@
 
 	(function() {
 		this.appName = 'wem';
-		alert('ok');
 		document.body.addEventListener("click", function(e) {
 			alert(this.appName);
 		}, false);
