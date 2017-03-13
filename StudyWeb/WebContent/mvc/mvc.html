@@ -30,7 +30,7 @@
 	(function() {
 		this.appName = 'wem';
 		document.body.addEventListener("click", function(e) {
-			alert(this.appName);
+			//alert(this.appName);
 		}, false);
 	})();
 
@@ -47,6 +47,9 @@
 	});
 
 	Asset.include({
+		init:function(arguments){
+			return jQuery.extend(true, this, arguments);
+		},
 		create : function() {
 			if (!this.id)
 				this.id = Math.guid();
