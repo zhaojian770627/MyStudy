@@ -9,6 +9,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<mvc:resources mapping="/mvc/*.html" location="/mvc/" />
+	<mvc:resources mapping="/js/frameworkjs/lib/*.js" location="/js/frameworkjs/lib/" />
+	<mvc:resources mapping="/js/mvc/*.js" location="/js/mvc/" />
 	<bean
 		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
