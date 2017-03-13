@@ -47,7 +47,7 @@
 	});
 
 	Asset.include({
-		init:function(arguments){
+		init : function(arguments) {
 			return jQuery.extend(true, this, arguments);
 		},
 		create : function() {
@@ -67,6 +67,26 @@
 	});
 
 	Asset.attributes = [ "name", "ext" ];
+
+	// 预加载数据
+	var asset;
+	$.get('http://localhost:8080/StudyWeb/myweb/getData', function(result) {
+		asset = JSON.parse(result);
+		Asset.populate(asset.asset);
+	});
+
+	// 创建数据测试
+	var a1 = Asset.init({
+		id : 3,
+		name : 'c',
+		ext : '.c'
+	});
+	a1.createRemote('http://localhost:8080/StudyWeb/myweb/saveData', function(
+			result) {
+		var r = JSON.parse(result);
+		if (r.result == true)
+			console.log('更新成功');
+	});
 </script>
 
 </html>

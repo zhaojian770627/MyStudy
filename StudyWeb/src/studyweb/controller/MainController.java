@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,21 @@ public class MainController {
 	@RequestMapping(value = "/getData", method = GET)
 	public void getData(HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
 		JSONObject retObject = new JSONObject();
-		retObject.put("name", "main");
+		JSONArray retAry = new JSONArray();
+
+		JSONObject ret1 = new JSONObject();
+		ret1.put("id", 1);
+		ret1.put("name", "word");
+		ret1.put("ext", ".doc");
+		retAry.put(ret1);
+
+		JSONObject ret2 = new JSONObject();
+		ret2.put("id", 2);
+		ret2.put("name", "word");
+		ret2.put("ext", ".doc");
+		retAry.put(ret2);
+
+		retObject.put("asset", retAry);
 		writeJsonToResponse(request, response, retObject.toString());
 	}
 
@@ -28,7 +43,10 @@ public class MainController {
 	public void saveData(HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
 		Map reqMap = request.getParameterMap();
 		String[] aryNames = (String[]) reqMap.get("name");
-		System.out.println(aryNames[0]);
+
+		JSONObject retObject = new JSONObject();
+		retObject.put("result", true);
+		writeJsonToResponse(request, response, retObject.toString());
 	}
 
 	private void writeJsonToResponse(HttpServletRequest request, HttpServletResponse response, String result)
