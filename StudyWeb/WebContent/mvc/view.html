@@ -49,38 +49,29 @@
 		new ToggleView('#view');
 	});
 
-	$(function($) {
+	jQuery(function($) {
 		exports.SearchView = Controller.create({
-			// 选择器到局部变量名的映射
 			elements : {
 				"input[type=search]" : "searchInput",
 				"form" : "searchForm"
 			},
 
-			// 实例化调用
-			init : function(element) {
-				this.el = $(element);
-				this.refreshElements();
-				this.searchForm.submit(this.proxy(this.search));
+			events : {
+				"submit form" : "search"
+			},
+
+			init : function() { /* ... */
 			},
 
 			search : function() {
-				console.log("Searching:", this.searchInput.val());
+				alert("Searching: " + this.searchInput.val());
+				return false;
 			},
-
-			// 私有
-			$ : function(selector) {
-				return $(selector, this.el);
-			},
-
-			refreshElements : function() {
-				for ( var key in this.elements) {
-					this[this.elements[key]] = this.$(key);
-				}
-			}
 		});
 
-		new SearchView('#users');
+		new SearchView({
+			el : $("#users")
+		});
 	});
 </script>
 </html>
