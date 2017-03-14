@@ -7,7 +7,7 @@
 #view {
 	margin: 20px;
 	padding: 20px;
-	width: 100px;
+	width: 200px;
 	border: 5px dashed blue;
 }
 
@@ -18,10 +18,20 @@
 </head>
 <body>
 	<div id="view">Mouse over me</div>
+	<div id="users">
+		<form>
+			<input type="search" value="" placeholder="Enter a query">
+			<button>Search</button>
+		</form>
+	</div>
 </body>
 <script src="../js/mvc/jquery-1.11.1.js"></script>
 <script src="../js/mvc/ctrols.js"></script>
 <script type="text/javascript">
+	//使用全局对象作为上下文，而不是window对象
+	//用来创建全局对象
+	var exports = this;
+
 	$(function($) {
 		var ToggleView = Controller.create({
 			init : function(view) {
@@ -37,6 +47,40 @@
 
 		// 实例化控制器,调用init()
 		new ToggleView('#view');
+	});
+
+	$(function($) {
+		exports.SearchView = Controller.create({
+			// 选择器到局部变量名的映射
+			elements : {
+				"input[type=search]" : "searchInput",
+				"form" : "searchForm"
+			},
+
+			// 实例化调用
+			init : function(element) {
+				this.el = $(element);
+				this.refreshElements();
+				this.searchForm.submit(this.proxy(this.search));
+			},
+
+			search : function() {
+				console.log("Searching:", this.searchInput.val());
+			},
+
+			// 私有
+			$ : function(selector) {
+				return $(selector, this.el);
+			},
+
+			refreshElements : function() {
+				for ( var key in this.elements) {
+					this[this.elements[key]] = this.$(key);
+				}
+			}
+		});
+
+		new SearchView('#users');
 	});
 </script>
 </html>

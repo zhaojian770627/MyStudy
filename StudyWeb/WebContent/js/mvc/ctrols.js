@@ -1,8 +1,4 @@
-// 使用全局对象作为上下文，而不是window对象
-// 用来创建全局对象
-var exports = this;
-
-(function($) {
+(function($, exports) {
 	var mod = {};
 
 	mod.create = function(includes) {
@@ -34,4 +30,4 @@ var exports = this;
 	};
 
 	exports.Controller = mod;
-})(jQuery);
+})(jQuery, window);
