@@ -20,9 +20,20 @@
 	<div id="view">Mouse over me</div>
 </body>
 <script src="../js/mvc/jquery-1.11.1.js"></script>
-<script src="../js/mvc/model.js"></script>
 <script src="../js/mvc/ctrols.js"></script>
 <script type="text/javascript">
-	
+	(function($, Controller) {
+		var mod = new Controller;
+
+		mod.toggleClass = function(e) {
+			this.view.toggleClass("over", e.data);
+		};
+
+		mod.load(function() {
+			this.view = $("#view");
+			this.view.mouseover(this.proxy(this.toggleClass));
+			this.view.mouseout(this.proxy(this.toggleClass));
+		});
+	})(jQuery, Controller);
 </script>
 </html>
