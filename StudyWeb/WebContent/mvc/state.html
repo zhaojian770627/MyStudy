@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MVC State Test</title>
+</head>
+<body>
+</body>
+<script src="../js/mvc/jquery-1.11.1.js"></script>
+<script src="../js/mvc/state.js"></script>
+<script type="text/javascript">
+	var con1 = {
+		activate : function() {
+			console.log("controller 1 activated");
+		},
+		deactivate : function() {
+			console.log("controller 1 deactivated");
+		}
+	};
+
+	var con2 = {
+		activate : function() {
+			console.log("controller 2 activated");
+		},
+		deactivate : function() {
+			console.log("controller 2 deactivated");
+		}
+	};
+
+	var sm = new StateMachine;
+	sm.add(con1);
+	sm.add(con2);
+
+	con1.active();
+</script>
+</html>
