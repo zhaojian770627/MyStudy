@@ -14,6 +14,7 @@ var Events = {
 
 var StateMachine = function() {
 };
+
 StateMachine.fn = StateMachine.prototype;
 $.extend(StateMachine.fn, Events);
 
