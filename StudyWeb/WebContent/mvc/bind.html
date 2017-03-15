@@ -4,14 +4,20 @@
 <meta charset=utf-8>
 <script src="../js/mvc/jquery-1.11.1.js"></script>
 <script src="../js/mvc/jquery.tmpl.js"></script>
+
 </head>
 <body>
-	<ul id="users"></ul>
 </body>
 <script type="text/javascript" charset="utf-8">
-	
-</script>
-<script type="text/x-jquery-teml">
-	<li>${name}</li>
+	var object = {
+		url : "http://example.com",
+		getName : function() {
+			return "Trevor";
+		}
+	};
+
+	var template = '<li><a href="{url}">${getName()}</a>';
+	var element = jQuery.tmpl(template, object);
+	$("body").append(element);
 </script>
 </html>
