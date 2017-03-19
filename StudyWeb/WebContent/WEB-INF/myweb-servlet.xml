@@ -10,6 +10,8 @@
 
 	<mvc:resources mapping="/mvc/*.html" location="/mvc/" />
 	<mvc:resources mapping="/js/mvc/*.js" location="/js/mvc/" />
+	<mvc:resources mapping="/js/mvc/part/*.js" location="/js/mvc/part/" />
+	
 	<bean
 		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
