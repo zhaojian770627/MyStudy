@@ -13,7 +13,8 @@ import junit.framework.Assert;
 public class TestShiro {
 	@Test
 	public void testIni() {
-		Factory<org.apache.shiro.mgt.SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro.ini");
+		String filepath="E:\\GitWorkspace\\MyStudy\\MyStudy\\target\\classes\\openframework\\shiro\\shiro.ini";
+		Factory<org.apache.shiro.mgt.SecurityManager> factory = new IniSecurityManagerFactory(filepath);
 		org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();
 		SecurityUtils.setSecurityManager(securityManager);
 		Subject subject = SecurityUtils.getSubject();
