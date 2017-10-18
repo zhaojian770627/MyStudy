@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 public class SelectSockets {
 
-	public static int PORT_NUMBER = 13;
+	public static int PORT_NUMBER = 1234;
 
 	public static void main(String[] argv) throws IOException {
 		new SelectSockets().go(argv);
@@ -65,7 +65,7 @@ public class SelectSockets {
 
 	private ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
 
-	private void readDataFromSocket(SelectionKey key) throws IOException {
+	protected void readDataFromSocket(SelectionKey key) throws IOException {
 		SocketChannel socketChannel = (SocketChannel) key.channel();
 		int count;
 
