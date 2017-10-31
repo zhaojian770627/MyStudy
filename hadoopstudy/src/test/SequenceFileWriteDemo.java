@@ -1,6 +1,5 @@
 package test;
 
-import java.io.IOException;
 import java.net.URI;
 
 import org.apache.hadoop.conf.Configuration;
